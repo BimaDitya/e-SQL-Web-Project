@@ -1,0 +1,157 @@
+@media only screen and (max-width: 1024px) {
+  .max-width {
+    display: none;
+  }
+}
+@media only screen and (max-height: 512px) {
+  .max-height {
+    display: none;
+  }
+}
+
+@tailwind base;
+
+:root {
+  background-color: transparent;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+.content-none {
+  display: none
+}
+
+/* Code Blocks */
+pre[class*="language-"] {
+  padding: 1em;
+  margin: 0 0 1rem 0;
+  overflow: auto;
+  border-radius: 0 0 0.25em 0.25em;
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+@tailwind components;
+@tailwind utilities;
+
+@import "./syntax-highlighting.css";
+
+@layer base {
+
+  /* Head Font */
+  @font-face {
+    font-family: "Ysabeau";
+    src: url("/fonts/Ysabeau.ttf");
+  }
+
+  /* Body Font */
+  @font-face {
+    font-family: "Assistant";
+    src: url("/fonts/Assistant.ttf");
+  }
+
+  /* Editor Font */
+  @font-face {
+    font-family: "Source Code Pro";
+    src: url("/fonts/SourceCodePro.ttf");
+  }
+
+  @layer components {
+
+    .unordered-list {
+      @apply list-disc ml-5
+    }
+
+    .ordered-list {
+      @apply list-decimal ml-5
+    }
+
+    :not(pre) > code {
+      @apply font-code text-sm font-semibold text-secondary-400 bg-slate-200 px-1 py-0.5 rounded-sm
+    }
+
+    .CodeMirror * {
+      @apply font-code rounded text-sm
+    }
+
+    input[type='file'] {
+      color: rgba(0, 0, 0, 0)
+    }
+
+    /* Navbar Login Button
+     */
+    .login-default-state {
+      @apply px-6 py-2.5 bg-primary-50/50 text-primary-400 rounded transition ease-in-out duration-300 hover:shadow-lg hover:text-white hover:bg-primary-400
+    }
+
+    .login-active-state {
+      @apply px-6 py-2.5 text-white bg-primary-400 rounded transition ease-in-out duration-300 hover:shadow-lg hover:bg-primary-100
+    }
+
+    /* Navbar Menus */
+    .menu-default-state {
+      @apply px-5 py-3 text-gray-400 transition ease-in-out duration-500 hover:text-secondary-400
+    }
+
+    .menu-active-state {
+      @apply px-5 py-2 font-semibold text-primary-400 border-b-2 border-primary-400 transition ease-in-out duration-500 hover:border-secondary-200 hover:text-secondary-200
+    }
+
+    /* Dropdown Navbar */
+    .dropdown-default {
+      @apply text-secondary-400 bg-secondary-50/50 px-6 py-2.5 rounded transition ease-in-out hover:shadow-lg hover:bg-secondary-200 hover:text-white hover:cursor-pointer duration-300
+    }
+
+    .dropdown-actives {
+      @apply text-white bg-secondary-400 px-6 py-2.5 rounded transition ease-in-out hover:shadow-lg hover:bg-secondary-200 hover:cursor-pointer duration-300
+    }
+
+    .dropdown-default-null {
+      @apply text-red-600 bg-red-100 px-6 py-2.5 rounded transition ease-in-out hover:shadow-lg hover:bg-red-400 hover:text-white hover:cursor-pointer duration-300
+    }
+
+    .dropdown-active-null {
+      @apply text-white bg-red-600/75 px-6 py-2.5 rounded transition ease-in-out hover:shadow-lg hover:bg-red-400 hover:cursor-pointer duration-300
+    }
+
+    /* Sidemenu Admin Panel */
+    .sidemenu-default-state {
+      @apply w-full h-full py-2 px-2 rounded bg-gray-100 text-gray-400 hover:bg-secondary-200 hover:text-white hover:cursor-pointer duration-300 ease-in-out
+    }
+
+    .sidemenu-active-state {
+      @apply w-full h-full py-2 px-2 rounded bg-primary-400 text-white hover:bg-primary-200 hover:text-white hover:cursor-pointer duration-300 ease-in-out
+    }
+
+    /* Untuk IE, Edge & Firefox */
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+    }
+
+    /* Progress Bar */
+    .progressbar-container {
+      @apply bg-gray-200 rounded
+    }
+
+    .progressbar-label {
+      @apply px-2 pb-1 font-head text-white
+    }
+
+    /* Button */
+    .button_default {
+      @apply px-4 py-2 rounded bg-primary-400 text-white font-head hover:bg-primary-200 hover:shadow-md ease-in-out hover:cursor-pointer duration-300
+    }
+
+    .button_secondary {
+      @apply px-4 py-2 rounded bg-gray-200 text-gray-400 font-head hover:bg-secondary-200 hover:text-white hover:shadow-md ease-in-out hover:cursor-pointer duration-300
+    }
+
+    .button_danger {
+      @apply px-4 py-2 rounded bg-red-400 text-white font-head hover:bg-red-300 hover:text-white hover:shadow-md ease-in-out hover:cursor-pointer duration-300
+    }
+  }
+}

@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+enum Roles {
+  ADMIN
+  USER
+}
+
+enum Status {
+  TRUE
+  FALSE
+}
+
+model Account {
+  Id        Int        @id @default(autoincrement())
+  Email     String     @unique(map: "Email") @db.VarChar(255)
+  Password  String     @db.Char(255)
+  CreatedAt DateTime   @default(now()) @db.Timestamp(0)
+  Role      Roles      @default(USER)
+  Score     Score[]
+  Profile   Profile?
+  Progress  Progress[]
+}
+
+// Account 1-1 Profile
+model Profile {
+  Id         Int     @id @default(autoincrement())
+  FirstName  String  @db.VarChar(255)
+  LastName   String  @db.VarChar(255)
+  School     String  @db.VarChar(255)
+  Account    Account @relation(fields: [FK_Account], references: [Id], onDelete: Cascade)
+  FK_Account Int     @unique // -> FK To Account
+}
+
+// Account 1-Many Progress
+// Material 1-Many Progress
+model Progress {
+  Id          Int      @id @default(autoincrement())
+  Slug        String   @unique
+  Complete    Status   @default(FALSE)
+  Account     Account  @relation(fields: [FK_Account], references: [Id], onDelete: Cascade)
+  FK_Account  Int // -> FK To Account
+  Material    Material @relation(fields: [FK_Material], references: [Id], onDelete: Cascade)
+  FK_Material Int // -> FK To Material
+
+  @@index([FK_Account])
+  @@index([FK_Material])
+}
+
+model Material {
+  Id       Int        @id @default(autoincrement())
+  Title    String     @db.VarChar(255)
+  Desc     String     @db.LongText
+  Slug     String     @unique
+  Content  Content[]
+  Progress Progress[]
+  Exercise Exercise[]
+}
+
+// Material 1-Many Content
+model Content {
+  Id          Int      @id @default(autoincrement())
+  Title       String   @db.VarChar(255)
+  Slug        String   @unique
+  Content     String   @db.Text
+  Material    Material @relation(fields: [FK_Material], references: [Id], onDelete: Cascade)
+  FK_Material Int // -> FK To Material
+
+  @@index([FK_Material])
+}
+
+// Material 1-Many Exercise
+model Exercise {
+  Id          Int      @id @default(autoincrement())
+  Slug        String   @unique @db.VarChar(255)
+  Title       String   @db.VarChar(255)
+  Question    String   @db.LongText
+  Answer      String   @db.LongText
+  Score       Float    @db.Float
+  Material    Material @relation(fields: [FK_Material], references: [Id], onDelete: Cascade)
+  FK_Material Int // <- FK To Material
+
+  @@index([FK_Material])
+}
+
+// Account 1-Many Score
+model Score {
+  Id         Int     @id @default(autoincrement())
+  Score      Float   @db.Float @default(0) // <- Skor Dari Score Latihan
+  Exercise   String  @db.VarChar(255) // <- Judul Soal Latihan
+  Account    Account @relation(fields: [FK_Account], references: [Id], onDelete: Cascade)
+  FK_Account Int // <- FK To Account
+
+  @@index([FK_Account])
+}
