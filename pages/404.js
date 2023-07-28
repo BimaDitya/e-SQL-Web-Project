@@ -9,22 +9,22 @@ export default function NotFound() {
         <title>Halaman Tidak Ditemukan</title>
         <link rel="icon" href="icons/favicon.ico"></link>
       </Head>
-      <div className="flex flex-col justify-center items-center h-adaptive bg-transparent backdrop-blur-sm rounded mt-8 mx-16 border-2 border-gray-200 shadow-lg">
-        <div className="flex flex-col justify-center items-center">
+      <div className="mx-16 mt-8 flex h-adaptive flex-col items-center justify-center rounded border-2 border-gray-200 bg-transparent shadow-lg backdrop-blur-sm">
+        <div className="flex flex-col items-center justify-center">
           <Image
-            className="transition ease-in-out hover:scale-110 duration-300"
+            className="transition duration-300 ease-in-out hover:scale-110"
             src="/illustrations/404.svg"
             width={360}
             height={360}
             alt="Page Not Found"
           />
-          <p className="text-2xl font-bold font-head tracking-wider text-red-400 pb-8">
+          <p className="pb-8 font-head text-2xl font-bold tracking-wider text-red-400">
             Halaman Tidak Ditemukan
           </p>
         </div>
         <Link
           href="/"
-          className="transition ease-in-out font-body text-lg font-semibold text-secondary-200 hover:text-primary-400 duration-300"
+          className="font-body text-lg font-semibold text-secondary-200 transition duration-300 ease-in-out hover:text-primary-400"
         >
           Kembali Ke Beranda
         </Link>
