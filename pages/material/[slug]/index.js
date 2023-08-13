@@ -127,7 +127,7 @@ export default function SubMaterial({
               <ul className="flex flex-wrap items-center">
                 <li className="transition duration-300 ease-in-out">
                   <button
-                    onClick={() => setTabs(1)}
+                    onClick={() => switchTab(1)}
                     className={`menu-${
                       tabs === 1 ? "active" : "default"
                     }-state`}
@@ -137,7 +137,7 @@ export default function SubMaterial({
                 </li>
                 <li className="transition duration-300 ease-in-out">
                   <button
-                    onClick={() => setTabs(2)}
+                    onClick={() => switchTab(2)}
                     className={`menu-${
                       tabs === 2 ? "active" : "default"
                     }-state`}
@@ -156,8 +156,8 @@ export default function SubMaterial({
             >
               {Object.values(records).map((record, index) => (
                 <Card
-                  index={record.Id}
-                  key={index}
+                  index={index}
+                  key={record.Id}
                   content={record}
                   material={material}
                 />

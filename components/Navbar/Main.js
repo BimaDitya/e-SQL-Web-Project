@@ -9,7 +9,7 @@ export default function Navbar({ isLoading, cookies, data }) {
 	if (isLoading)
 		return (
 			<div className="sticky -mb-6 h-[80px] top-0 left-0 right-0 z-50">
-				<nav className="bg-transparent h-full backdrop-blur flex justify-center items-center shadow-md">
+				<nav className="bg-white/50 h-full backdrop-blur flex justify-center items-center shadow-md">
 					<p className="font-head font-semibold text-xl text-secondary-200">
 						Sedang Memuat Navbar ⏳
 					</p>
@@ -19,7 +19,7 @@ export default function Navbar({ isLoading, cookies, data }) {
 	return (
 		<>
 			<div className="sticky h-14 top-0 left-0 right-0 z-50">
-				<nav className="bg-transparent backdrop-blur-sm px-16 py-4 shadow-md">
+				<nav className="bg-white/50 backdrop-blur-sm px-16 py-4 shadow-md">
 					<div className="flex items-center justify-between font-head">
 						<div>
 							<Image

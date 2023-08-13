@@ -7,7 +7,7 @@ export default function SubMaterialCard({ material, content, index }) {
 			<LazyMotion features={domAnimation}>
 				<div>
 					<m.div
-						key={index}
+						key={content.Id}
 						transition={{
 							duration: 1,
 							type: "spring",
