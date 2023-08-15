@@ -150,55 +150,60 @@ export default function User({ users, token, accounts }) {
                       </tr>
                     </thead>
                     <tbody className="bg-gray-50 font-body text-gray-500">
-                      {Object.values(records).map((Rows, index) => (
-                        <m.tr
-                          key={index}
-                          transition={{
-                            duration: 1,
-                            type: "spring",
-                            stiffness: 50,
-                            delay: index * 0.25,
-                          }}
-                          initial={{ opacity: 0, x: 100 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          className="border-b-2 border-secondary-100"
-                        >
-                          <td className="w-max px-2 py-2 text-center">
-                            {index + 1}
-                          </td>
-                          <td className="w-max px-2 py-2">{Rows.Email}</td>
-                          <td className="w-max px-2 py-2 text-center">{`${Rows._count.Progress} Materi`}</td>
-                          <td className="w-max px-2 py-2 text-center">
-                            <button
-                              disabled={Rows.Role === "ADMIN"}
-                              className="button-primary w-16 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
-                              onClick={() => {
-                                setShowScore(true);
-                                setScore(Rows);
-                              }}
-                            >
-                              {(Rows?.Score).reduce(
-                                (accumulator, scoreElement) =>
-                                  accumulator + scoreElement.Score,
-                                0,
-                              )}
-                            </button>
-                          </td>
-                          <td className="w-max px-2 py-2">{Rows.Role}</td>
-                          <td className="w-max space-x-2 px-2 py-2 text-center">
-                            <button
-                              disabled={Rows.Role === "ADMIN"}
-                              className="button-primary disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
-                              onClick={() => {
-                                setshowDetail(true);
-                                setUser(Rows);
-                              }}
-                            >
-                              Detail
-                            </button>
-                          </td>
-                        </m.tr>
-                      ))}
+                      {Object.values(records).map((Rows, index) => {
+                        const totalScore = (Rows?.Score).reduce(
+                          (accumulator, scoreElement) =>
+                            accumulator + scoreElement.Score,
+                          0,
+                        );
+                        return (
+                          <m.tr
+                            key={index}
+                            transition={{
+                              duration: 1,
+                              type: "spring",
+                              stiffness: 50,
+                              delay: index * 0.25,
+                            }}
+                            initial={{ opacity: 0, x: 100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="border-b-2 border-secondary-100"
+                          >
+                            <td className="w-max px-2 py-2 text-center">
+                              {index + 1}
+                            </td>
+                            <td className="w-max px-2 py-2">{Rows.Email}</td>
+                            <td className="w-max px-2 py-2 text-center">{`${Rows._count.Progress} Materi`}</td>
+                            <td className="w-max px-2 py-2 text-center">
+                              <button
+                                disabled={
+                                  Rows.Role === "ADMIN" || totalScore === 0
+                                }
+                                className="button-primary w-16 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
+                                onClick={() => {
+                                  setShowScore(true);
+                                  setScore(Rows);
+                                }}
+                              >
+                                {totalScore}
+                              </button>
+                            </td>
+                            <td className="w-max px-2 py-2">{Rows.Role}</td>
+                            <td className="w-max space-x-2 px-2 py-2 text-center">
+                              <button
+                                disabled={Rows.Role === "ADMIN"}
+                                className="button-primary disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
+                                onClick={() => {
+                                  setshowDetail(true);
+                                  setUser(Rows);
+                                }}
+                              >
+                                Detail
+                              </button>
+                            </td>
+                          </m.tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>

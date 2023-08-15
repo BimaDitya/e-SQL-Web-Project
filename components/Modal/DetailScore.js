@@ -70,46 +70,45 @@ export default function DetailScore({ score, setShowScore }) {
                   <table className="w-full table-auto border-2 border-secondary-100">
                     <thead className="bg-secondary-100 text-left font-head uppercase text-white">
                       <tr>
-                        <th scope="col" className="w-max px-2 py-2 text-center">
+                        <th
+                          scope="col"
+                          className="w-max py-2 pl-2 pr-8 text-center"
+                        >
                           #
                         </th>
                         <th scope="col" className="w-max px-2 py-2">
-                          Latihan
+                          Judul Latihan
                         </th>
                         <th scope="col" className="w-max px-2 py-2 text-center">
-                          Score
+                          Score Latihan
                         </th>
                       </tr>
                     </thead>
                     <tbody className="bg-gray-50 font-body text-gray-500">
-                      {Object.values(records).map((Rows, index) => (
-                        <m.tr
-                          key={index}
-                          transition={{
-                            duration: 1,
-                            type: "spring",
-                            stiffness: 50,
-                            delay: index * 0.25,
-                          }}
-                          initial={{ opacity: 0, x: 100 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          className="border-b-2 border-secondary-100"
-                        >
-                          <td className="w-max px-2 py-2 text-center">
-                            {index + 1}
-                          </td>
-                          <td className="w-max px-2 py-2">
-                            {Rows?.Score[0]?.Exercise !== undefined
-                              ? Rows?.Score[0]?.Exercise
-                              : "Belum Mengerjakan Latihan"}
-                          </td>
-                          <td className="w-max px-2 py-2 text-center">
-                            {Rows?.Score[0]?.Score !== undefined
-                              ? Rows?.Score[0]?.Score
-                              : 0}
-                          </td>
-                        </m.tr>
-                      ))}
+                      {Object.values(records).map((Rows) =>
+                        Object.values(Rows.Score).map((Row, index) => (
+                          <m.tr
+                            key={index}
+                            transition={{
+                              duration: 1,
+                              type: "spring",
+                              stiffness: 50,
+                              delay: index * 0.25,
+                            }}
+                            initial={{ opacity: 0, x: 100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="border-b-2 border-secondary-100"
+                          >
+                            <td className="w-max py-2 pl-2 pr-8 text-center">
+                              {index + 1}
+                            </td>
+                            <td className="w-max px-2 py-2">{Row?.Exercise}</td>
+                            <td className="w-max px-2 py-2 text-center">
+                              {Row?.Score}
+                            </td>
+                          </m.tr>
+                        )),
+                      )}
                     </tbody>
                   </table>
                   <Pagination
