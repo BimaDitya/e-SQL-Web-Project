@@ -6,6 +6,7 @@ import SideMenu from "@/components/Admin/SideMenu";
 import DetailUser from "@/components/Modal/DetailUser";
 import MainLayout from "@/components/Layout/MainLayout";
 import { LazyMotion, domAnimation, m } from "framer-motion";
+import DetailScore from "@/components/Modal/DetailScore";
 
 export async function getServerSideProps(context) {
   const getCookies = context.req.headers.cookie;
@@ -46,7 +47,9 @@ export async function getServerSideProps(context) {
 }
 export default function User({ users, token, accounts }) {
   const [user, setUser] = useState();
-  const [showEdit, setShowEdit] = useState(false);
+  const [score, setScore] = useState();
+  const [showScore, setShowScore] = useState(false);
+  const [showDetail, setshowDetail] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const contentPerPage = 4;
 
@@ -76,9 +79,17 @@ export default function User({ users, token, accounts }) {
         <link rel="icon" href="../icons/favicon.ico"></link>
       </Head>
       <LazyMotion features={domAnimation}>
-        {/* Edit Material Modal */}
-        {showEdit ? (
-          <DetailUser token={token} setShowEdit={setShowEdit} user={user} />
+        {/* Detail User Modal */}
+        {showDetail ? (
+          <DetailUser token={token} setshowDetail={setshowDetail} user={user} />
+        ) : null}
+        {/* Detail Skor Modal */}
+        {showScore ? (
+          <DetailScore
+            token={token}
+            score={score}
+            setShowScore={setShowScore}
+          />
         ) : null}
         <div className="flex flex-row space-x-4 px-8 py-12">
           {/* Kolom Kiri */}
@@ -158,19 +169,28 @@ export default function User({ users, token, accounts }) {
                           <td className="w-max px-2 py-2">{Rows.Email}</td>
                           <td className="w-max px-2 py-2 text-center">{`${Rows._count.Progress} Materi`}</td>
                           <td className="w-max px-2 py-2 text-center">
-                            {(Rows?.Score).reduce(
-                              (accumulator, scoreElemet) =>
-                                accumulator + scoreElemet.Score,
-                              0,
-                            )}
+                            <button
+                              disabled={Rows.Role === "ADMIN"}
+                              className="button-primary w-16 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
+                              onClick={() => {
+                                setShowScore(true);
+                                setScore(Rows);
+                              }}
+                            >
+                              {(Rows?.Score).reduce(
+                                (accumulator, scoreElement) =>
+                                  accumulator + scoreElement.Score,
+                                0,
+                              )}
+                            </button>
                           </td>
                           <td className="w-max px-2 py-2">{Rows.Role}</td>
                           <td className="w-max space-x-2 px-2 py-2 text-center">
                             <button
                               disabled={Rows.Role === "ADMIN"}
-                              className="button_default disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
+                              className="button-primary disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
                               onClick={() => {
-                                setShowEdit(true);
+                                setshowDetail(true);
                                 setUser(Rows);
                               }}
                             >

@@ -132,7 +132,7 @@ export default function Content({ accounts, materials, exercises }) {
                 Daftar Latihan
               </p>
               <button
-                className="button_default flex flex-row pl-2 pr-4"
+                className="button-primary flex flex-row pl-2 pr-4"
                 onClick={() => setShowAdd(true)}
               >
                 <svg
@@ -201,7 +201,7 @@ export default function Content({ accounts, materials, exercises }) {
                         </td>
                         <td className="w-max space-x-2 px-2 py-2 text-center">
                           <button
-                            className="button_default"
+                            className="button-primary"
                             onClick={() => {
                               setShowEdit(true);
                               setExercise(Rows);
@@ -210,7 +210,7 @@ export default function Content({ accounts, materials, exercises }) {
                             Edit
                           </button>
                           <button
-                            className="button_danger"
+                            className="button-danger"
                             onClick={() => {
                               setShowDelete(true);
                               setExercise(Rows);

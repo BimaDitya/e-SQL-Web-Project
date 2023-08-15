@@ -121,7 +121,7 @@ export default function Material({ accounts, materials }) {
                   Daftar Materi
                 </p>
                 <button
-                  className="button_default flex flex-row pl-2 pr-4"
+                  className="button-primary flex flex-row pl-2 pr-4"
                   onClick={() => setShowAdd(true)}
                 >
                   <svg
@@ -183,7 +183,7 @@ export default function Material({ accounts, materials }) {
                           </td>
                           <td className="w-max space-x-2 px-2 py-2 text-center">
                             <button
-                              className="button_default"
+                              className="button-primary"
                               onClick={() => {
                                 setShowEdit(true);
                                 setMaterial(Rows);
@@ -192,7 +192,7 @@ export default function Material({ accounts, materials }) {
                               Edit
                             </button>
                             <button
-                              className="button_danger"
+                              className="button-danger"
                               onClick={() => {
                                 setShowDelete(true);
                                 setMaterial(Rows);

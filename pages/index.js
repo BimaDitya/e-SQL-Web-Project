@@ -7,6 +7,12 @@ import MainLayout from "@/components/Layout/MainLayout";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
 export default function Home() {
+  async function handleDownload() {
+    const link = document.createElement("a");
+    link.href = "/files/ContohFile.PDF";
+    link.download = "Panduan-Pengguna" + ".PDF";
+    link.click();
+  }
   return (
     <>
       <Head>
@@ -40,8 +46,13 @@ export default function Home() {
               <p className="pr-2 text-justify font-body text-gray-500">
                 {Public[0].index_desc}
               </p>
-              <div className="button_default mt-2 w-max py-3">
-                <Link href="/material">Belajar Sekarang</Link>
+              <div className="flex flex-row space-x-2.5">
+                <div className="button-primary mt-2 w-max py-3">
+                  <Link href="/material">Belajar Sekarang</Link>
+                </div>
+                <div className="button-secondary mt-2 w-max py-3">
+                  <button onClick={handleDownload}>Unduh Panduan</button>
+                </div>
               </div>
             </m.div>
           </div>

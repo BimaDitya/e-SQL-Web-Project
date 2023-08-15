@@ -75,8 +75,8 @@ export default function Abouts() {
                 <li className="transition duration-300 ease-in-out">
                   <button
                     onClick={() => switchTab(1)}
-                    className={`button_${
-                      tabs === 1 ? "default" : "secondary"
+                    className={`${
+                      tabs === 1 ? "button-primary" : "button-default"
                     } w-full text-left text-lg`}
                   >
                     Kompetensi Dasar
@@ -85,8 +85,8 @@ export default function Abouts() {
                 <li className="transition duration-300 ease-in-out">
                   <button
                     onClick={() => switchTab(2)}
-                    className={`button_${
-                      tabs === 2 ? "default" : "secondary"
+                    className={`${
+                      tabs === 2 ? "button-primary" : "button-default"
                     } w-full text-left text-lg`}
                   >
                     Indikator Pencapaian
@@ -95,8 +95,8 @@ export default function Abouts() {
                 <li className="transition duration-300 ease-in-out">
                   <button
                     onClick={() => switchTab(3)}
-                    className={`button_${
-                      tabs === 3 ? "default" : "secondary"
+                    className={`${
+                      tabs === 3 ? "button-primary" : "button-default"
                     } w-full text-left text-lg`}
                   >
                     Tujuan Pembelajaran
