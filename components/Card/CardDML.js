@@ -39,7 +39,7 @@ export default function MainMaterialCard({ material, status }) {
               </h6>
               <div className="font-head text-secondary-400">
                 <p>
-                  Progress: {progress?.Progress} / {material?.Content?.length}{" "}
+                  Progress: {!progress?.Progress ? 0 : progress?.Progress} / {material?.Content?.length}{" "}
                   Materi
                 </p>
               </div>

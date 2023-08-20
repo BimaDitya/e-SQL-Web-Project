@@ -11,7 +11,6 @@ import DetailScore from "@/components/Modal/DetailScore";
 export async function getServerSideProps(context) {
   const getCookies = context.req.headers.cookie;
   const token = context.req.cookies.token;
-  if (!getCookies) {
     if (!getCookies)
       return {
         redirect: {
@@ -20,7 +19,6 @@ export async function getServerSideProps(context) {
           permanent: true,
         },
       };
-  }
   const account = await axios.get(
     process.env.BASE_URL + "/api/user/view-account",
     {
@@ -49,7 +47,7 @@ export default function User({ users, token, accounts }) {
   const [user, setUser] = useState();
   const [score, setScore] = useState();
   const [showScore, setShowScore] = useState(false);
-  const [showDetail, setshowDetail] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const contentPerPage = 4;
 
@@ -81,7 +79,7 @@ export default function User({ users, token, accounts }) {
       <LazyMotion features={domAnimation}>
         {/* Detail User Modal */}
         {showDetail ? (
-          <DetailUser token={token} setshowDetail={setshowDetail} user={user} />
+          <DetailUser token={token} setShowDetail={setShowDetail} user={user} />
         ) : null}
         {/* Detail Skor Modal */}
         {showScore ? (
@@ -158,7 +156,7 @@ export default function User({ users, token, accounts }) {
                         );
                         return (
                           <m.tr
-                            key={index}
+                            key={Rows.id}
                             transition={{
                               duration: 1,
                               type: "spring",
@@ -194,7 +192,7 @@ export default function User({ users, token, accounts }) {
                                 disabled={Rows.Role === "ADMIN"}
                                 className="button-primary disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
                                 onClick={() => {
-                                  setshowDetail(true);
+                                  setShowDetail(true);
                                   setUser(Rows);
                                 }}
                               >

@@ -15,7 +15,7 @@
   background-color: transparent;
 }
 
-/* Chrome, Edge, and Safari */
+/* Chrome, Edge, & Safari */
 *::-webkit-scrollbar {
   display: none;
 }

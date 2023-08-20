@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
-export default function DetailUser({ user, setshowDetail }) {
+export default function DetailUser({ user, setShowDetail }) {
   const { setValue, register } = useForm();
 
   // Menampilkan Data Ke Input Field
@@ -40,7 +40,7 @@ export default function DetailUser({ user, setshowDetail }) {
                   Detail Pengguna
                 </p>
                 <button
-                  onClick={() => setshowDetail(false)}
+                  onClick={() => setShowDetail(false)}
                   className="rounded-lg bg-gray-200 p-2 font-head text-gray-400 duration-300 ease-in-out hover:cursor-pointer hover:bg-red-400 hover:text-white hover:shadow-md"
                 >
                   <svg
