@@ -11,14 +11,14 @@ import DetailScore from "@/components/Modal/DetailScore";
 export async function getServerSideProps(context) {
   const getCookies = context.req.headers.cookie;
   const token = context.req.cookies.token;
-    if (!getCookies)
-      return {
-        redirect: {
-          source: "/admin/user",
-          destination: "/login",
-          permanent: true,
-        },
-      };
+  if (!getCookies)
+    return {
+      redirect: {
+        source: "/admin/user",
+        destination: "/login",
+        permanent: true,
+      },
+    };
   const account = await axios.get(
     process.env.BASE_URL + "/api/user/view-account",
     {
@@ -49,7 +49,7 @@ export default function User({ users, token, accounts }) {
   const [showScore, setShowScore] = useState(false);
   const [showDetail, setShowDetail] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const contentPerPage = 4;
+  const contentPerPage = 5;
 
   // Tampilkan Pengguna
   const lastUser = currentPage * contentPerPage;
@@ -125,7 +125,7 @@ export default function User({ users, token, accounts }) {
               <div className="py-2">
                 <div className="overflow-auto">
                   <table className="w-full table-auto border-2 border-secondary-100">
-                    <thead className="bg-secondary-100 text-left font-head uppercase text-white">
+                    <thead className="bg-secondary-100 text-left font-head text-sm uppercase text-white">
                       <tr>
                         <th scope="col" className="w-max px-2 py-2 text-center">
                           #
@@ -138,6 +138,9 @@ export default function User({ users, token, accounts }) {
                         </th>
                         <th scope="col" className="w-max px-2 py-2 text-center">
                           Skor Kumulatif
+                        </th>
+                        <th scope="col" className="w-max px-2 py-2 text-center">
+                          Pengerjaan Terbaru
                         </th>
                         <th scope="col" className="w-max px-2 py-2">
                           Role
@@ -185,6 +188,15 @@ export default function User({ users, token, accounts }) {
                               >
                                 {totalScore}
                               </button>
+                            </td>
+                            <td className="w-max px-2 py-2 text-center">
+                              {!Rows?.Score[Rows?.Score.length - 1]?.SubmittedAt
+                                ? `-`
+                                : new Date(
+                                    Rows?.Score[
+                                      Rows.Score.length - 1
+                                    ]?.SubmittedAt,
+                                  ).toLocaleString()}
                             </td>
                             <td className="w-max px-2 py-2">{Rows.Role}</td>
                             <td className="w-max space-x-2 px-2 py-2 text-center">

@@ -1,6 +1,7 @@
 import axios from "axios";
 import Head from "next/head";
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Card from "@/components/Card/SubMaterial";
 import Pagination from "@/components/Pagination";
 import ExerciseCard from "@/components/Card/Exercise";
@@ -103,6 +104,7 @@ export default function SubMaterial({
     }
   }
   const material = materials.viewMaterial;
+  const router = useRouter();
   return (
     <div className="max-width max-height">
       <Head>
@@ -123,7 +125,7 @@ export default function SubMaterial({
             animate={{ opacity: 1, x: 0 }}
             className="z-30 h-max w-3/5 rounded-md border-2 border-gray-200 bg-transparent p-2.5 backdrop-blur-sm"
           >
-            <div className="pb-1.5 text-center font-head text-gray-400">
+            <div className="flex justify-between pb-1.5 text-center font-head text-gray-400">
               <ul className="flex flex-wrap items-center">
                 <li className="transition duration-300 ease-in-out">
                   <button
@@ -146,6 +148,28 @@ export default function SubMaterial({
                   </button>
                 </li>
               </ul>
+              <button
+                type="submit"
+                onClick={() => {
+                  router.push(router.asPath);
+                }}
+                className="button-primary mx-5 px-3 py-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="h-6 w-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                  />
+                </svg>
+              </button>
             </div>
 
             {/* Tab Materi */}
@@ -157,7 +181,7 @@ export default function SubMaterial({
               {Object.values(records).map((record, index) => (
                 <Card
                   index={index}
-                  key={record.Id}
+                  key={index}
                   content={record}
                   material={material}
                 />

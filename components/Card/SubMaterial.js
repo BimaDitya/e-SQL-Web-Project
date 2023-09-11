@@ -20,7 +20,7 @@ export default function SubMaterialCard({ material, content, index }) {
           >
             <div className="flex flex-row items-center justify-between">
               <h6 className="font-head text-lg font-medium text-secondary-400">
-                {content.Id}. {content.Title}
+                {index + 1}. {content.Title}
               </h6>
               <div className="button-primary">
                 <Link href={`${material.Slug}` + `/content/${content.Slug}`}>

@@ -56,7 +56,7 @@ export default function Content({ accounts, materials, exercises }) {
   const [showEdit, setShowEdit] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [showDelete, setShowDelete] = useState(false);
-  const contentPerPage = 4;
+  const contentPerPage = 5;
 
   // Tampilkan Latihan
   const lastExercise = currentPage * contentPerPage;
@@ -167,7 +167,7 @@ export default function Content({ accounts, materials, exercises }) {
                       <th scope="col" className="w-max px-2 py-2">
                         Sub-Materi
                       </th>
-                      <th scope="col" className="w-max px-2 py-2">
+                      <th scope="col" className="w-max px-2 py-2 text-center">
                         Skor
                       </th>
                       <th scope="col" className="w-max px-2 py-2 text-center">
@@ -196,7 +196,7 @@ export default function Content({ accounts, materials, exercises }) {
                         <td className="max-w-xs px-2 py-2 text-justify">
                           {Rows?.Material.Title}
                         </td>
-                        <td className="max-w-xs px-2 py-2 text-justify">
+                        <td className="max-w-xs px-2 py-2 text-center">
                           {Rows?.Score}
                         </td>
                         <td className="w-max space-x-2 px-2 py-2 text-center">

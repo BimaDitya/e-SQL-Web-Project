@@ -83,6 +83,26 @@ pre[class*="language-"] {
       color: rgba(0, 0, 0, 0);
     }
 
+    .table {
+      @apply w-full table-auto border-2 border-secondary-100 text-sm;
+    }
+
+    .table-head {
+      @apply bg-secondary-100 text-left font-head text-xs uppercase text-white;
+    }
+
+    .table-head-columns {
+      @apply w-max px-2 py-0.5;
+    }
+
+    .table-rows {
+      @apply border-b-2 border-secondary-100;
+    }
+
+    .table-data {
+      @apply max-w-xs px-2 py-0.5 text-justify;
+    }
+
     /* Navbar Login Button
      */
     .login-default-state {

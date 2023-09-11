@@ -7,7 +7,7 @@ export default function AchievementIndicator() {
         <p className="font-head text-xl font-bold text-secondary-400">
           Indikator Pencapaian 3.4.1 - 3.4.11 & 4.4.1
         </p>
-        <ul className="mx-5 list-disc text-justify font-body text-gray-600">
+        <ul className="mx-5 list-disc text-justify font-body text-gray-500">
           <li>
             Mengidentifikasi kelompok perintah Data Definition Language, Data
             Manipulation Language, dan Data Control Language di Basis Data.
@@ -28,7 +28,7 @@ export default function AchievementIndicator() {
         <p className="font-head text-xl font-bold text-secondary-400">
           Indikator Pencapaian 3.9.1 - 3.9.6 & 4.9.1 - 4.9.5
         </p>
-        <ul className="mx-5 list-disc text-justify font-body text-gray-600">
+        <ul className="mx-5 list-disc text-justify font-body text-gray-500">
           <li>
             Dapat Menjelaskan perintah dengan Fungsi Agregasi yang ada di dalam
             Basis Data menggunakan Structured Query Language.
@@ -50,7 +50,7 @@ export default function AchievementIndicator() {
         <p className="font-head text-xl font-bold text-secondary-400">
           Indikator Pencapaian 3.14.1 - 3.4.3 & 4.14.1 - 4.14.3
         </p>
-        <ul className="mx-5 list-disc text-justify font-body text-gray-600">
+        <ul className="mx-5 list-disc text-justify font-body text-gray-500">
           <li>
             Dapat menjelaskan perintah INNER JOIN, RIGHT JOIN, LEFT JOIN di
             dalam Basis Data dengan benar.

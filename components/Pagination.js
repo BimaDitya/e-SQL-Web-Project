@@ -28,7 +28,7 @@ export default function Pagination({
           </svg>
         </button>
         <p className="font-body text-lg font-medium text-secondary-400">
-          {currentPage} / {totalPages}
+          {!totalPages ? "0" : currentPage} / {totalPages}
         </p>
         <button title="Next" className="button-default px-2" onClick={next}>
           <svg

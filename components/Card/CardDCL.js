@@ -3,8 +3,7 @@ import Image from "next/image";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
-// Card Data Definition Language
-export default function CardDDL({ material, status }) {
+export default function CardDCL({ material, status }) {
   const progress = status?._count;
   return (
     <>
@@ -46,14 +45,14 @@ export default function CardDDL({ material, status }) {
               </div>
               <ProgressBar
                 completed={`${progress?.Progress}`}
-                maxCompleted={material?.Content.length}
+                maxCompleted={material?.Content?.length}
                 animateOnRender
                 className="py-2"
                 bgColor="rgb(255 158 26)"
                 labelClassName="progressbar-label"
                 barContainerClassName="progressbar-container"
               />
-              <div key={material?.Id} className="button-primary w-max">
+              <div key={material?.id} className="button-primary w-max">
                 <Link href={`material/${material?.Slug}`}>Lihat Materi</Link>
               </div>
             </div>

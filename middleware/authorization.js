@@ -10,9 +10,8 @@ export default function authorization(req, res) {
       return res.status(401).end("Tipe Autentikasi Invalid");
 
     jwt.verify(authToken, process.env.SECRET_KEY, function (error, decoded) {
-			if (error) return res.status(401).end("Token Invalid");
-			return resolve(decoded);
-		});
-
+      if (error) return res.status(401).end("Token Invalid");
+      return resolve(decoded);
+    });
   });
 }

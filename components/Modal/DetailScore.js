@@ -6,6 +6,7 @@ export default function DetailScore({ score, setShowScore }) {
   const scores = [score];
   const contentPerPage = 4;
   const [currentPage, setCurrentPage] = useState(1);
+  console.log(score);
 
   // Tampilkan Pengguna
   const lastExercise = currentPage * contentPerPage;
@@ -82,6 +83,12 @@ export default function DetailScore({ score, setShowScore }) {
                         <th scope="col" className="w-max px-2 py-2 text-center">
                           Score Latihan
                         </th>
+                        <th scope="col" className="w-max px-2 py-2 text-center">
+                          Jam Submit
+                        </th>
+                        <th scope="col" className="w-max px-2 py-2 text-center">
+                          Tanggal Submit
+                        </th>
                       </tr>
                     </thead>
                     <tbody className="bg-gray-50 font-body text-gray-500">
@@ -105,6 +112,12 @@ export default function DetailScore({ score, setShowScore }) {
                             <td className="w-max px-2 py-2">{Row?.Exercise}</td>
                             <td className="w-max px-2 py-2 text-center">
                               {Row?.Score}
+                            </td>
+                            <td className="w-max px-2 py-2 text-center">
+                              {new Date(Row?.SubmittedAt).toLocaleTimeString()}
+                            </td>
+                            <td className="w-max px-2 py-2 text-center">
+                              {new Date(Row?.SubmittedAt).toLocaleDateString()}
                             </td>
                           </m.tr>
                         )),

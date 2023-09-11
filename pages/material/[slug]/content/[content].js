@@ -1,6 +1,5 @@
 import axios from "axios";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { compile, run } from "@mdx-js/mdx";
 import rehypePrism from "rehype-prism-plus";
 import * as runtime from "react/jsx-runtime";
@@ -84,7 +83,6 @@ export default function ContentMaterial({
   queryContent,
   viewMaterial,
 }) {
-  const router = useRouter();
   const [mdxModule, setMdxModule] = useState();
   const materialId = viewMaterial?.viewMaterial?.Id;
   const MDXContent = mdxModule ? mdxModule.default : Fragment;

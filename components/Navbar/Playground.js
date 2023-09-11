@@ -1,9 +1,16 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 
-export default function NavbarPlayground({ exercise, sumScore, material }) {
+export default function NavbarPlayground({
+  exercise,
+  sumScore,
+  material,
+  roles,
+}) {
   const totalScore = !sumScore?._sum?.Score
     ? "Total Skor: 0"
     : `Total Skor: ${sumScore?._sum?.Score}`;
+  const router = useRouter();
   return (
     <div className="sticky left-0 right-0 top-0 z-50 h-14">
       <nav className="bg-white/50 px-16 py-4 shadow-md backdrop-blur-sm">
@@ -32,6 +39,17 @@ export default function NavbarPlayground({ exercise, sumScore, material }) {
             <p className="flex flex-row items-center py-2.5 font-head text-xl font-semibold text-secondary-400 transition duration-300 ease-in-out hover:text-secondary-200">
               {totalScore}
             </p>
+            {roles === "ADMIN" && (
+              <button
+                type="submit"
+                onClick={() => {
+                  router.push(router.asPath);
+                }}
+                className="button-primary"
+              >
+                Refresh
+              </button>
+            )}
           </div>
         </div>
       </nav>
