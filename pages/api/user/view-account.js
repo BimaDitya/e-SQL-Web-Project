@@ -11,6 +11,7 @@ export default async function ViewAccount(req, res) {
     },
     include: {
       Profile: true,
+      Score: true,
     },
   });
   res.status(200);

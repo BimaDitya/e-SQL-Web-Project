@@ -31,7 +31,7 @@ export default function DetailUserGuide({ setShowDetail }) {
               </div>
               <div className="flex w-1/5 flex-row items-center justify-end">
                 <div className="px-4">
-                  Page: <CurrentPageLabel /> / <NumberOfPages />
+                  Page: <CurrentPageLabel />/<NumberOfPages />
                 </div>
                 <div className="px-4">
                   <Download />
@@ -49,7 +49,7 @@ export default function DetailUserGuide({ setShowDetail }) {
   });
   return (
     <LazyMotion features={domAnimation}>
-      <div className="flex w-full items-center justify-center">
+      <div className="flex items-center justify-center">
         <m.div
           transition={{
             duration: 0.5,
@@ -85,7 +85,7 @@ export default function DetailUserGuide({ setShowDetail }) {
                 </svg>
               </button>
             </div>
-            <div className="h-[28rem] w-full">
+            <div className="h-adaptive w-full pb-28">
               <Worker workerUrl="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js">
                 <Viewer
                   defaultScale={SpecialZoomLevel.ActualSize}

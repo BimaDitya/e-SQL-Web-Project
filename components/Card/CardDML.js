@@ -3,7 +3,7 @@ import Image from "next/image";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
-export default function MainMaterialCard({ material, status }) {
+export default function CardDML({ material, status }) {
   const progress = status?._count;
   return (
     <>
@@ -39,8 +39,8 @@ export default function MainMaterialCard({ material, status }) {
               </h6>
               <div className="font-head text-secondary-400">
                 <p>
-                  Progress: {!progress?.Progress ? 0 : progress?.Progress} / {material?.Content?.length}{" "}
-                  Materi
+                  Progress: {!progress?.Progress ? 0 : progress?.Progress} /{" "}
+                  {material?.Content?.length} Materi
                 </p>
               </div>
               <ProgressBar

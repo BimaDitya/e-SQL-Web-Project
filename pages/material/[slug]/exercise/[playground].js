@@ -51,6 +51,7 @@ export async function getServerSideProps(context) {
       },
     },
   );
+  const submittedAt = viewScore?.data;
   const score = viewScore?.data?.submitScore;
   const sumScore = viewScore?.data?.sumScore;
   const account = viewAccount.data?.data;
@@ -70,6 +71,7 @@ export async function getServerSideProps(context) {
       account,
       exercise,
       sumScore,
+      submittedAt,
       queryExercise,
       queryMaterial,
       sources: compileMarkdown,
@@ -78,6 +80,7 @@ export async function getServerSideProps(context) {
 }
 export default function Playground({
   queryMaterial,
+  submittedAt,
   sumScore,
   exercise,
   sources,
@@ -108,47 +111,50 @@ export default function Playground({
         <link rel="icon" href="/icons/favicon.ico"></link>
       </Head>
       <NavbarPlayground
+        roles={accountRole}
         exercise={exercise}
         sumScore={sumScore}
         material={queryMaterial}
       />
       <LazyMotion features={domAnimation}>
-        <div className="h- flex flex-row px-8 py-12">
-          {/* Kiri/Soal Latihan*/}
-          <div className="flex w-full items-start justify-center">
-            <m.div
-              transition={{
-                duration: 1,
-                type: "spring",
-                stiffness: 50,
-              }}
-              initial={{ opacity: 0, x: -100 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="h-full w-[45%] rounded-md border-2 border-gray-200 bg-white/10 px-6 py-4 backdrop-blur-sm"
-            >
-              <div
-                className={`space-y-2 ${
-                  currentStatus === "TRUE" ||
-                  submitted === exercise?.Exercise[0]?.Title
-                    ? "opacity-50 transition duration-500 ease-in-out"
-                    : null
-                }`}
+        <div className="flex h-adaptive flex-row px-10 pt-16">
+          <div className="flex h-[90%] w-full items-start justify-center">
+            {/* Kiri/Soal Latihan*/}
+            <div className="h-full w-[45%] rounded-md border-2 border-gray-200 bg-white/10 px-4 py-2.5 backdrop-blur-sm">
+              <m.div
+                transition={{
+                  duration: 1,
+                  type: "spring",
+                  stiffness: 50,
+                }}
+                initial={{ opacity: 0, x: -100 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="h-full overflow-scroll"
               >
-                <div className="flex flex-row items-center justify-between">
-                  <p className="font-head text-lg font-semibold text-gray-500">
-                    Soal Latihan:
-                    <span className="text-secondary-400">{` ${exercise?.Exercise[0]?.Title} `}</span>
-                  </p>
-                  <p className="font-head text-lg font-semibold text-gray-500">
-                    Skor Soal:
-                    <span className="text-secondary-400">{` ${exercise?.Exercise[0]?.Score} `}</span>
-                  </p>
+                <div
+                  className={`space-y-2 ${
+                    currentStatus === "TRUE" ||
+                    submitted === exercise?.Exercise[0]?.Title
+                      ? "opacity-50 transition duration-500 ease-in-out"
+                      : null
+                  }`}
+                >
+                  <div className="flex flex-row items-center justify-between">
+                    <p className="font-head text-lg font-semibold text-gray-500">
+                      Soal Latihan:
+                      <span className="text-secondary-400">{` ${exercise?.Exercise[0]?.Title} `}</span>
+                    </p>
+                    <p className="font-head text-lg font-semibold text-gray-500">
+                      Skor:
+                      <span className="text-secondary-400">{` ${exercise?.Exercise[0]?.Score} `}</span>
+                    </p>
+                  </div>
+                  <div className="prose prose-code:inline-code prose-ul:unordered-list prose-thead:table-head prose-th:table-head-columns prose-td:table-data prose-tr:table-rows h-max w-full max-w-none overflow-y-scroll text-justify font-body text-gray-500 prose-strong:font-bold prose-table:table">
+                    <MDXContent />
+                  </div>
                 </div>
-                <div className="prose prose-code:inline-code prose-ul:unordered-list h-max w-full max-w-none text-justify font-body text-gray-500 prose-strong:font-bold">
-                  <MDXContent />
-                </div>
-              </div>
-            </m.div>
+              </m.div>
+            </div>
             {/* Kanan/Editor */}
             <m.div
               transition={{
@@ -160,15 +166,18 @@ export default function Playground({
               animate={{ opacity: 1, x: 0 }}
               className="ml-2 h-full w-[55%] rounded-md border-2 border-gray-200 bg-white/10 p-4 backdrop-blur-sm"
             >
-              <CodeEditor
-                token={token}
-                answer={answer}
-                roles={accountRole}
-                submitted={submitted}
-                currentStatus={checkCurrentStatus}
-                score={exercise?.Exercise[0]?.Score}
-                exercise={exercise?.Exercise[0]?.Title}
-              />
+              <div className="h-full w-full overflow-scroll">
+                <CodeEditor
+                  token={token}
+                  answer={answer}
+                  roles={accountRole}
+                  submitted={submitted}
+                  currentStatus={checkCurrentStatus}
+                  score={exercise?.Exercise[0]?.Score}
+                  exercise={exercise?.Exercise[0]?.Title}
+                  submittedAt={submittedAt?.submitScore[0]?.SubmittedAt}
+                />
+              </div>
             </m.div>
           </div>
         </div>

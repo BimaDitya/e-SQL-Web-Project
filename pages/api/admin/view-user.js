@@ -25,6 +25,7 @@ export default async function ViewUser(req, res) {
         select: {
           Exercise: true,
           Score: true,
+          SubmittedAt: true
         },
       },
     },

@@ -21,6 +21,7 @@ export default function SQLEditor({
   answer,
   exercise,
   submitted,
+  submittedAt,
   currentStatus,
 }) {
   const [code, setCode] = useState("");
@@ -31,7 +32,6 @@ export default function SQLEditor({
   const [database, setDatabase] = useState(null);
 
   const alertWithSwal = withReactContent(Swal);
-
   const router = useRouter();
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function SQLEditor({
         const SQL = await initSqlJs({
           locateFile: (file) => `https://sql.js.org/dist/${file}`,
         });
-        const sqlFile = await fetch("/data/preload.sqlite");
+        const sqlFile = await fetch("/data/Playground.SQLite");
         const sqlBuff = await sqlFile.arrayBuffer();
         setDatabase(new SQL.Database(new Uint8Array(sqlBuff)));
       } catch (error) {
@@ -162,6 +162,7 @@ export default function SQLEditor({
       setResults([]);
     }
   }
+  const submitDateTime = new Date(submittedAt).toLocaleString();
   return (
     <>
       {/* Editor Section */}
@@ -191,9 +192,14 @@ export default function SQLEditor({
           </p>
           {/* Baris Tombol */}
           {submitted === exercise || roles === "ADMIN" ? (
-            <p className="font-head text-lg text-green-600">
-              Anda Sudah Mengerjakan Soal Latihan Ini 😄
-            </p>
+            <>
+              <p className="font-head text-lg text-green-600">
+                Anda Telah Selesai Mengerjakan Soal Latihan 😄
+              </p>
+              <p className="font-head text-gray-500">
+                Selesai Pada: {!submittedAt ? `-` : submitDateTime}
+              </p>
+            </>
           ) : (
             <div className="flex flex-row justify-between">
               {/* Kiri */}

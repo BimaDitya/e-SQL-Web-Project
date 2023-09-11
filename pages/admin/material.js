@@ -51,7 +51,7 @@ export default function Material({ accounts, materials }) {
   const [showEdit, setShowEdit] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [showDelete, setShowDelete] = useState(false);
-  const contentPerPage = 4;
+  const contentPerPage = 5;
 
   // Tampilkan Materi
   const lastMaterial = currentPage * contentPerPage;
@@ -163,7 +163,7 @@ export default function Material({ accounts, materials }) {
                     <tbody className="bg-gray-50 font-body text-gray-500">
                       {Object.values(records).map((Rows, index) => (
                         <m.tr
-                          key={index}
+                          key={Rows?.Id}
                           transition={{
                             duration: 1,
                             type: "spring",
@@ -175,7 +175,7 @@ export default function Material({ accounts, materials }) {
                           className="border-b-2 border-secondary-100"
                         >
                           <td className="w-max px-2 py-2 text-center">
-                            {index + 1}
+                            {Rows?.Id}
                           </td>
                           <td className="w-max px-2 py-2">{Rows?.Title}</td>
                           <td className="max-w-xs px-2 py-2 text-center">

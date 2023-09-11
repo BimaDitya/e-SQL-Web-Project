@@ -92,11 +92,12 @@ model Exercise {
 
 // Account 1-Many Score
 model Score {
-  Id         Int     @id @default(autoincrement())
-  Score      Float   @db.Float @default(0) // <- Skor Dari Score Latihan
-  Exercise   String  @db.VarChar(255) // <- Judul Soal Latihan
-  Account    Account @relation(fields: [FK_Account], references: [Id], onDelete: Cascade)
-  FK_Account Int // <- FK To Account
+  Id          Int         @id @default(autoincrement())
+  SubmittedAt DateTime    @default(now()) @db.Timestamp(0) // <- Waktu & Tanggal Pengumpulan
+  Score       Float       @db.Float @default(0) // <- Skor Dari Score Latihan
+  Exercise    String      @db.VarChar(255) // <- Judul Soal Latihan
+  Account     Account     @relation(fields: [FK_Account], references: [Id], onDelete: Cascade)
+  FK_Account  Int // <- FK To Account
 
   @@index([FK_Account])
 }

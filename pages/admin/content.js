@@ -54,7 +54,7 @@ export default function Content({ accounts, materials, contents }) {
   const [showEdit, setShowEdit] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [showDelete, setShowDelete] = useState(false);
-  const contentPerPage = 4;
+  const contentPerPage = 5;
 
   // Tampilkan Konten
   const lastContent = currentPage * contentPerPage;
@@ -185,11 +185,11 @@ export default function Content({ accounts, materials, contents }) {
                         className="border-b-2 border-secondary-100"
                       >
                         <td className="w-max px-2 py-2 text-center">
-                          {Rows.Id}
+                          {Rows?.Id}
                         </td>
-                        <td className="w-max px-2 py-2">{Rows.Title}</td>
+                        <td className="w-max px-2 py-2">{Rows?.Title}</td>
                         <td className="w-max px-2 py-2">
-                          {Rows.Material.Title}
+                          {Rows?.Material?.Title}
                         </td>
                         <td className="w-max space-x-2 px-2 py-2 text-center">
                           <button
