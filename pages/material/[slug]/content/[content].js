@@ -1,5 +1,6 @@
 import axios from "axios";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { compile, run } from "@mdx-js/mdx";
 import rehypePrism from "rehype-prism-plus";
 import * as runtime from "react/jsx-runtime";
@@ -83,8 +84,10 @@ export default function ContentMaterial({
   queryContent,
   viewMaterial,
 }) {
+  const router = useRouter();
   const [mdxModule, setMdxModule] = useState();
   const materialId = viewMaterial?.viewMaterial?.Id;
+  const materialSlug = viewMaterial?.viewMaterial?.Slug;
   const MDXContent = mdxModule ? mdxModule.default : Fragment;
   async function UpdateStatus() {
     await axios
@@ -99,7 +102,7 @@ export default function ContentMaterial({
           },
         },
       )
-      .then(() => router.replace(router.asPath));
+      .then(() => router.push(`/material/${materialSlug}`));
   }
   useEffect(() => {
     (async () => {
@@ -116,7 +119,7 @@ export default function ContentMaterial({
         accounts={accounts}
         contents={contents}
         UpdateStatus={UpdateStatus}
-        status={viewStatus?.viewStatus}
+        status={viewStatus}
         materials={viewMaterial?.viewMaterial?.Slug}
       />
       <LazyMotion features={domAnimation}>

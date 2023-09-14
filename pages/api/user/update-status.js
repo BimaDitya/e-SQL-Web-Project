@@ -9,9 +9,9 @@ export default async function UpdateStatus(req, res) {
 
   const updateStatus = await prisma.progress.create({
     data: {
+      Slug: (`${queryContent}-user-${auth.id}`),
       FK_Material: parseInt(queryMaterial),
       FK_Account: auth.id,
-      Slug: queryContent,
       Complete: "TRUE",
     },
   });

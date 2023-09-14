@@ -4,18 +4,17 @@ import authorization from "@/middleware/authorization";
 export default async function ViewStatus(req, res) {
   if (req.method !== "GET") return res.status(405).end();
   const auth = await authorization(req, res);
-  const queryContent = req.query.queryContent;
   const queryMaterial = req.query.queryMaterial;
 
-  const viewStatus = await prisma.account.findUnique({
+  const viewProgress = await prisma.account.findMany({
     where: {
-      Id: auth.id,
+      Id: auth.id
     },
     include: {
       Progress: {
         where: {
-          Slug: (`${queryContent}-user-${auth.id}`),
-        },
+          FK_Account: auth.id,
+        }
       },
       _count: {
         select: {
@@ -23,14 +22,14 @@ export default async function ViewStatus(req, res) {
             where: {
               Complete: {
                 equals: "TRUE"
-              },
-            },
-          },
-        },
-      },
-    },
+              }
+            }
+          }
+        }
+      }
+    }
   });
   res.status(200).json({
-    viewStatus,
+    viewProgress,
   });
 }

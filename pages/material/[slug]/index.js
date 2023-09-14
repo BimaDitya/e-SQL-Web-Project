@@ -6,7 +6,7 @@ import Card from "@/components/Card/SubMaterial";
 import Pagination from "@/components/Pagination";
 import ExerciseCard from "@/components/Card/Exercise";
 import NavbarMaterial from "@/components/Navbar/Material";
-import { LazyMotion, domAnimation, m } from "framer-motion";
+import { LazyMotion, domAnimation, m, progress } from "framer-motion";
 
 export async function getServerSideProps(context) {
   const getCookies = context.req.headers.cookie;
@@ -35,12 +35,23 @@ export async function getServerSideProps(context) {
       },
     })
     .then((response) => response.data);
+    const viewProgress = await axios
+    .get(process.env.BASE_URL + "/api/user/view-progress", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        queryMaterial: queryMaterial,
+      },
+    })
+    .then((response) => response.data);
   const viewContent = viewMaterial?.viewMaterial?.Content;
   const viewExercise = viewMaterial?.viewMaterial?.Exercise;
   return {
     props: {
       materials: viewMaterial,
       exercises: viewExercise,
+      progress: viewProgress,
       contents: viewContent,
       status: viewStatus,
     },
@@ -50,6 +61,7 @@ export async function getServerSideProps(context) {
 export default function SubMaterial({
   materials,
   exercises,
+  progress,
   contents,
   status,
 }) {
@@ -111,7 +123,7 @@ export default function SubMaterial({
         <title>Materi</title>
         <link rel="icon" href="/icons/favicon.ico"></link>
       </Head>
-      <NavbarMaterial material={material} status={status} />
+      <NavbarMaterial material={material} progress={progress} />
       <LazyMotion features={domAnimation}>
         <div className="flex flex-row space-x-2 px-12 pb-6 pt-14">
           {/* Kolom Kiri */}

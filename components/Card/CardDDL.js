@@ -5,7 +5,7 @@ import { LazyMotion, domAnimation, m } from "framer-motion";
 
 // Card Data Definition Language
 export default function CardDDL({ material, status }) {
-  const progress = status?._count;
+  const progress = status?._count
   return (
     <>
       <LazyMotion features={domAnimation}>

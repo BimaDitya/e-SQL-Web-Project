@@ -1,11 +1,10 @@
 import ProgressBar from "@ramonak/react-progress-bar";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
-export default function NavbarMaterial({ material, status }) {
+export default function NavbarMaterial({ material, progress }) {
   const router = useRouter();
   const totalContent = material?._count?.Content;
-  const currentProgress = status?.viewStatus[0]?._count?.Progress;
+  const currentProgress = progress?.viewProgress[0]?._count?.Progress;
   return (
     <div className="sticky left-0 right-0 top-0 z-50 h-14">
       <nav className="bg-white/50 px-16 py-4 shadow-md backdrop-blur-sm">

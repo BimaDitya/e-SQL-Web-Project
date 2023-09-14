@@ -150,7 +150,7 @@ export default function User({ users, token, accounts }) {
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="bg-gray-50 font-body text-gray-500">
+                    <tbody className="bg-gray-50 font-body text-sm text-gray-500">
                       {Object.values(records).map((Rows, index) => {
                         const totalScore = (Rows?.Score).reduce(
                           (accumulator, scoreElement) =>
@@ -173,7 +173,9 @@ export default function User({ users, token, accounts }) {
                             <td className="w-max px-2 py-2 text-center">
                               {index + 1}
                             </td>
-                            <td className="w-max px-2 py-2">{Rows.Email}</td>
+                            <td className="w-max px-2 py-2">
+                              {Rows.Email.toUpperCase()}
+                            </td>
                             <td className="w-max px-2 py-2 text-center">{`${Rows._count.Progress} Materi`}</td>
                             <td className="w-max px-2 py-2 text-center">
                               <button
