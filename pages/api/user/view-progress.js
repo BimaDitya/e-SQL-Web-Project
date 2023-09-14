@@ -8,26 +8,26 @@ export default async function ViewStatus(req, res) {
 
   const viewProgress = await prisma.account.findMany({
     where: {
-      Id: auth.id
+      Id: auth.id,
     },
     include: {
       Progress: {
         where: {
           FK_Account: auth.id,
-        }
+        },
       },
       _count: {
         select: {
           Progress: {
             where: {
               Complete: {
-                equals: "TRUE"
-              }
-            }
-          }
-        }
-      }
-    }
+                equals: "TRUE",
+              },
+            },
+          },
+        },
+      },
+    },
   });
   res.status(200).json({
     viewProgress,

@@ -14,7 +14,7 @@ export default async function ViewStatus(req, res) {
     include: {
       Progress: {
         where: {
-          Slug: (`${queryContent}-user-${auth.id}`),
+          Slug: `${queryContent}-user-${auth.id}`,
         },
       },
       _count: {
@@ -22,7 +22,7 @@ export default async function ViewStatus(req, res) {
           Progress: {
             where: {
               Complete: {
-                equals: "TRUE"
+                equals: "TRUE",
               },
             },
           },
