@@ -1,8 +1,8 @@
 export default function Pagination({
   currentPage,
+  totalPages,
   previous,
   next,
-  totalPages,
 }) {
   return (
     <div className="mt-2 flex h-max w-full flex-row justify-center">

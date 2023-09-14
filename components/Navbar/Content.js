@@ -9,7 +9,7 @@ export default function NavbarContent({
 }) {
   const router = useRouter();
   const roles = accounts?.Role;
-  const complete = status?.viewStatus?.Progress[0]?.Complete
+  const complete = status?.viewStatus?.Progress[0]?.Complete;
   return (
     <div className="sticky left-0 right-0 top-0 z-50 h-14">
       <nav className="bg-white/50 px-16 py-4 shadow-md backdrop-blur-sm">
