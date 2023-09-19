@@ -127,10 +127,7 @@ export default function User({ users, token, accounts }) {
                   <table className="w-full table-auto border-2 border-secondary-100">
                     <thead className="bg-secondary-100 text-left font-head text-sm uppercase text-white">
                       <tr>
-                        <th scope="col" className="w-max px-2 py-2 text-center">
-                          #
-                        </th>
-                        <th scope="col" className="w-max px-2 py-2">
+                        <th scope="col" className="w-max px-4 py-2">
                           Email
                         </th>
                         <th scope="col" className="w-max px-2 py-2 text-center">
@@ -159,7 +156,7 @@ export default function User({ users, token, accounts }) {
                         );
                         return (
                           <m.tr
-                            key={Rows.id}
+                            key={Rows.Id}
                             transition={{
                               duration: 1,
                               type: "spring",
@@ -170,10 +167,7 @@ export default function User({ users, token, accounts }) {
                             animate={{ opacity: 1, x: 0 }}
                             className="border-b-2 border-secondary-100"
                           >
-                            <td className="w-max px-2 py-2 text-center">
-                              {index + 1}
-                            </td>
-                            <td className="w-max px-2 py-2">
+                            <td className="w-max px-4 py-2">
                               {Rows.Email.toUpperCase()}
                             </td>
                             <td className="w-max px-2 py-2 text-center">{`${Rows._count.Progress} Materi`}</td>

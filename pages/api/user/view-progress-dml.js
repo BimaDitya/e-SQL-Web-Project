@@ -1,11 +1,9 @@
 import prisma from "@/lib/prisma";
 import authorization from "@/middleware/authorization";
 
-export default async function ViewProgress(req, res) {
+export default async function ViewProgressDML(req, res) {
   if (req.method !== "GET") return res.status(405).end();
   const auth = await authorization(req, res);
-  const queryMaterialId = req.query.viewMaterialId;
-  console.log(req.query.viewMaterialId);
   const viewProgress = await prisma.account.findMany({
     where: {
       Id: auth.id,
@@ -14,14 +12,14 @@ export default async function ViewProgress(req, res) {
       Progress: {
         where: {
           FK_Account: auth.id,
-          FK_Material: parseInt(queryMaterialId),
+          FK_Material: 2,
         },
       },
       _count: {
         select: {
           Progress: {
             where: {
-              FK_Material: parseInt(queryMaterialId),
+              FK_Material: 2,
               Complete: {
                 equals: "TRUE",
               },

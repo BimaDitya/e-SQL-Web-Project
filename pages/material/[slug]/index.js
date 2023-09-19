@@ -6,7 +6,7 @@ import Card from "@/components/Card/SubMaterial";
 import Pagination from "@/components/Pagination";
 import ExerciseCard from "@/components/Card/Exercise";
 import NavbarMaterial from "@/components/Navbar/Material";
-import { LazyMotion, domAnimation, m, progress } from "framer-motion";
+import { LazyMotion, domAnimation, m } from "framer-motion";
 
 export async function getServerSideProps(context) {
   const getCookies = context.req.headers.cookie;
@@ -35,13 +35,14 @@ export async function getServerSideProps(context) {
       },
     })
     .then((response) => response.data);
+  const viewMaterialId = viewMaterial?.viewMaterial?.Id;
   const viewProgress = await axios
     .get(process.env.BASE_URL + "/api/user/view-progress", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
       params: {
-        queryMaterial: queryMaterial,
+        viewMaterialId: viewMaterialId,
       },
     })
     .then((response) => response.data);

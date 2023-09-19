@@ -22,16 +22,18 @@ export async function getServerSideProps(context) {
     .get(process.env.BASE_URL + "/api/admin/view-material")
     .then((response) => response.data);
   const viewProgress = await axios
-    .get(process.env.BASE_URL + "/api/user/view-progress", {
+    .get(process.env.BASE_URL + "/api/user/view-progress-all", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
     .then((response) => response.data);
-  return { props: { materials: viewMaterial, progress: viewProgress } };
+  return {
+    props: { materials: viewMaterial, progress: viewProgress, cookies: token },
+  };
 }
 
-export default function Material({ materials, progress }) {
+export default function Material({ materials, progress, cookies }) {
   return (
     <>
       <Head>
@@ -53,31 +55,31 @@ export default function Material({ materials, progress }) {
               {materials?.viewMaterial[0].Content?.lenth !== 0 && (
                 <CardDDL
                   material={materials?.viewMaterial[0]}
-                  status={progress?.viewProgress[0]}
+                  cookies={cookies}
                 />
               )}
               {materials?.viewMaterial[1]?.Content?.length !== 0 && (
                 <CardDML
                   material={materials?.viewMaterial[1]}
-                  status={progress?.viewProgress[1]}
+                  cookies={cookies}
                 />
               )}
               {materials?.viewMaterial[2]?.Content?.length !== 0 && (
                 <CardDCL
                   material={materials?.viewMaterial[2]}
-                  status={progress?.viewProgress[2]}
+                  cookies={cookies}
                 />
               )}
               {materials?.viewMaterial[3]?.Content?.length !== 0 && (
                 <CardJoin
                   material={materials?.viewMaterial[3]}
-                  status={progress?.viewProgress[3]}
+                  cookies={cookies}
                 />
               )}
               {materials?.viewMaterial[4]?.Content?.length !== 0 && (
                 <CardAF
                   material={materials?.viewMaterial[4]}
-                  status={progress?.viewProgress[4]}
+                  cookies={cookies}
                 />
               )}
             </div>

@@ -1,10 +1,30 @@
+import useSWR from "swr";
+import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { LazyMotion, domAnimation, m } from "framer-motion";
+import Loading from "../Loading";
 
-export default function CardAF({ material, status }) {
-  const progress = status?._count;
+// Card Data Definition Language
+export default function CardAF({ material, cookies }) {
+  const viewMaterialId = 5;
+  const fetcher = async () => {
+    const response = await axios.get(`/api/user/view-progress-af`, {
+      headers: {
+        Authorization: `Bearer ${cookies}`,
+      },
+    });
+    return response?.data?.viewProgress[0];
+  };
+  const { data, isLoading } = useSWR(`/api/user/view-progress-af`, fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: true,
+    revalidateOnReconnect: true,
+  });
+
+  const currentProgress = data?._count?.Progress;
+  console.log(currentProgress);
   return (
     <>
       <LazyMotion features={domAnimation}>
@@ -39,20 +59,24 @@ export default function CardAF({ material, status }) {
               </h6>
               <div className="font-head text-secondary-400">
                 <p>
-                  Progress: {!progress?.Progress ? 0 : progress?.Progress} /{" "}
+                  Progress: {!currentProgress ? 0 : currentProgress} /{" "}
                   {material?.Content?.length} Materi
                 </p>
               </div>
-              <ProgressBar
-                completed={`${progress?.Progress}`}
-                maxCompleted={material?.Content?.length}
-                animateOnRender
-                className="py-2"
-                bgColor="rgb(255 158 26)"
-                labelClassName="progressbar-label"
-                barContainerClassName="progressbar-container"
-              />
-              <div key={material?.id} className="button-primary w-max">
+              {isLoading ? (
+                <Loading />
+              ) : (
+                <ProgressBar
+                  completed={`${currentProgress}`}
+                  maxCompleted={material?.Content.length}
+                  animateOnRender
+                  className="py-2"
+                  bgColor="rgb(255 158 26)"
+                  labelClassName="progressbar-label"
+                  barContainerClassName="progressbar-container"
+                />
+              )}
+              <div key={material?.Id} className="button-primary w-max">
                 <Link href={`material/${material?.Slug}`}>Lihat Materi</Link>
               </div>
             </div>
