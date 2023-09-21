@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Public from "@/data/public.json";
 import MainLayout from "@/components/Layout/MainLayout";
-import { LazyMotion, domAnimation, m, AnimatePresence } from "framer-motion";
+import { LazyMotion, domAnimation, m } from "framer-motion";
 import { useState } from "react";
 import BasicCompetencies from "@/components/About/BasicCompetencies";
 import AchievementIndicator from "@/components/About/AchievementIndicator";
@@ -29,11 +29,10 @@ export default function Abouts() {
               transition={{ duration: 0.5, type: "spring", stiffness: 50 }}
               initial={{ opacity: 0, x: -100 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className="z-30 ml-24 w-3/4 justify-start rounded-md border-2 border-gray-200 bg-transparent px-12 py-8 shadow-lg backdrop-blur-sm"
+              className="z-30 ml-24 w-[65%] justify-start rounded-md border-2 border-gray-200 bg-transparent px-12 py-8 shadow-lg backdrop-blur-sm"
             >
-              <p className="font-body text-gray-500">Tentang Pengembang</p>
-              <p className="pb-2 font-head text-4xl font-bold text-secondary-400">
-                Halo, Saya <span className="text-primary-400">Bima! 👋🏻</span>
+              <p className="pb-2 font-head text-2xl font-bold text-secondary-400">
+                Halo 👋🏻, Dengan <span className="text-primary-400">Bima</span> Disini!
               </p>
               <p className="text-justify font-body text-gray-500">
                 {Public[1].about_desc}
@@ -44,7 +43,7 @@ export default function Abouts() {
               transition={{ duration: 0.5, type: "spring", stiffness: 50 }}
               initial={{ opacity: 0, x: 100 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className="mr-40 flex w-1/4 justify-end"
+              className="mr-40 flex w-[35%] justify-end"
             >
               <div className="relative flex transition duration-300 ease-in-out hover:scale-110">
                 <div className="z-10">
@@ -52,9 +51,9 @@ export default function Abouts() {
                     className="rounded-full"
                     src="/photos.png"
                     alt="My Photos"
-                    width={210}
-                    height={210}
-                    quality={75}
+                    width={225}
+                    height={225}
+                    quality={50}
                     priority
                   />
                 </div>

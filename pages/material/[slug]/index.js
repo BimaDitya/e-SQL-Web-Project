@@ -37,7 +37,7 @@ export async function getServerSideProps(context) {
     .then((response) => response.data);
   const viewMaterialId = viewMaterial?.viewMaterial?.Id;
   const viewProgress = await axios
-    .get(process.env.BASE_URL + "/api/user/view-progress", {
+    .get(process.env.BASE_URL + "/api/user/view-progress-material", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

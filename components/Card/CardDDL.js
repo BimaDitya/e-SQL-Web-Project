@@ -9,18 +9,25 @@ import Loading from "../Loading";
 // Card Data Definition Language
 export default function CardDDL({ material, cookies }) {
   const fetcher = async () => {
-    const response = await axios.get(`/api/user/view-progress-ddl`, {
-      headers: {
-        Authorization: `Bearer ${cookies}`,
+    const response = await axios.get(
+      `/api/user/progress/data-definition-language`,
+      {
+        headers: {
+          Authorization: `Bearer ${cookies}`,
+        },
       },
-    });
+    );
     return response?.data?.viewProgress[0];
   };
-  const { data, isLoading } = useSWR(`/api/user/view-progress-ddl`, fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: true,
-    revalidateOnReconnect: true,
-  });
+  const { data, isLoading } = useSWR(
+    `/api/user/progress/data-definition-language`,
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: true,
+      revalidateOnReconnect: true,
+    },
+  );
 
   const currentProgress = data?._count?.Progress;
   return (

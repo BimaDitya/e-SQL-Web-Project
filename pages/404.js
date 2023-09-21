@@ -16,6 +16,7 @@ export default function NotFound() {
             src="/illustrations/404.svg"
             width={360}
             height={360}
+            quality={50}
             alt="Page Not Found"
           />
           <p className="pb-8 font-head text-2xl font-bold tracking-wider text-red-400">

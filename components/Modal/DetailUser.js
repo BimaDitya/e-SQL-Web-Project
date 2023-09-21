@@ -8,7 +8,7 @@ export default function DetailUser({ user, setShowDetail }) {
   // Menampilkan Data Ke Input Field
   useEffect(() => {
     setValue("role", user?.Role);
-    setValue("email", user?.Email);
+    setValue("email", (user?.Email).toUpperCase());
     setValue("firstName", user?.Profile?.FirstName);
     setValue("lastName", user?.Profile?.LastName);
     setValue("school", user?.Profile?.School);

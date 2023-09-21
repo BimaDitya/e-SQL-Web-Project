@@ -105,7 +105,7 @@ export default function Home() {
                     alt="Homepage Illustration"
                     width={400}
                     height={400}
-                    quality={75}
+                    quality={50}
                     priority
                   />
                 </div>

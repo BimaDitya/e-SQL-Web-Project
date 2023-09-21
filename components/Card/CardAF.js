@@ -8,23 +8,25 @@ import Loading from "../Loading";
 
 // Card Data Definition Language
 export default function CardAF({ material, cookies }) {
-  const viewMaterialId = 5;
   const fetcher = async () => {
-    const response = await axios.get(`/api/user/view-progress-af`, {
+    const response = await axios.get(`/api/user/progress/aggregate-function`, {
       headers: {
         Authorization: `Bearer ${cookies}`,
       },
     });
     return response?.data?.viewProgress[0];
   };
-  const { data, isLoading } = useSWR(`/api/user/view-progress-af`, fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: true,
-    revalidateOnReconnect: true,
-  });
+  const { data, isLoading } = useSWR(
+    `/api/user/progress/aggregate-function`,
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: true,
+      revalidateOnReconnect: true,
+    },
+  );
 
   const currentProgress = data?._count?.Progress;
-  console.log(currentProgress);
   return (
     <>
       <LazyMotion features={domAnimation}>

@@ -28,6 +28,7 @@ export default function MainLayout({ children }) {
                 <Image
                   className="transition duration-300 ease-in-out hover:scale-110"
                   src="/illustrations/website.svg"
+                  quality={50}
                   width={200}
                   height={200}
                   alt="Desktop Access Only"

@@ -113,11 +113,10 @@ pre[class*="language-"] {
 @import "./syntax-highlighting.css";
 
 @layer base {
-
   /* Head Font */
   @font-face {
     font-family: "Ysabeau";
-    src: url("/fonts/Ysabeau.ttf");
+    src: url("/fonts/YsabeauOffice.ttf");
   }
 
   /* Body Font */
@@ -141,10 +140,11 @@ pre[class*="language-"] {
       @apply ml-5 list-decimal;
     }
 
-    :not(pre)>code {
+    :not(pre) > code {
       @apply rounded-sm bg-slate-200 px-1 py-0.5 font-code text-sm font-semibold text-secondary-400;
     }
 
+    /* CodeMirror Editor Text */
     .CodeMirror * {
       @apply rounded font-code text-sm;
     }
@@ -153,22 +153,27 @@ pre[class*="language-"] {
       color: rgba(0, 0, 0, 0);
     }
 
+    /* Style MD Table */
     .table {
       @apply w-full table-auto border-2 border-secondary-100 text-sm;
     }
 
+    /* Style MD Table Head */
     .table-head {
       @apply bg-secondary-100 text-left font-head text-xs uppercase text-white;
     }
 
+    /* Style MD Table Columns */
     .table-head-columns {
       @apply w-max px-2 py-0.5;
     }
 
+    /* Style MD Table Rows */
     .table-rows {
       @apply border-b-2 border-secondary-100;
     }
 
+    /* Style MD Table Record */
     .table-data {
       @apply max-w-xs px-2 py-0.5 text-justify;
     }
@@ -225,11 +230,11 @@ pre[class*="language-"] {
 
     /* Progress Bar */
     .progressbar-container {
-      @apply rounded bg-gray-200;
+      @apply my-4 rounded-sm border-2 border-primary-50 bg-gray-200;
     }
 
     .progressbar-label {
-      @apply px-2 pb-1 font-head text-white;
+      @apply px-2 font-head text-sm font-semibold text-white;
     }
 
     /* Button */

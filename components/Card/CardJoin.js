@@ -9,18 +9,22 @@ import Loading from "../Loading";
 // Card Data Definition Language
 export default function CardJoin({ material, cookies }) {
   const fetcher = async () => {
-    const response = await axios.get(`/api/user/view-progress-join`, {
+    const response = await axios.get(`/api/user/progress/multitable-join`, {
       headers: {
         Authorization: `Bearer ${cookies}`,
       },
     });
     return response?.data?.viewProgress[0];
   };
-  const { data, isLoading } = useSWR(`/api/user/view-progress-join`, fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: true,
-    revalidateOnReconnect: true,
-  });
+  const { data, isLoading } = useSWR(
+    `/api/user/progress/multitable-join`,
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: true,
+      revalidateOnReconnect: true,
+    },
+  );
 
   const currentProgress = data?._count?.Progress;
   return (
