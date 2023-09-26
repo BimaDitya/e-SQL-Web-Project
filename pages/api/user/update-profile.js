@@ -9,7 +9,7 @@ export default async function UpdateProfile(req, res) {
   const { firstName, lastName, school } = req.body;
   const updateProfile = await prisma.profile.upsert({
     where: {
-      Id: authId,
+      FK_Account: authId
     },
     update: {
       FirstName: firstName,
@@ -17,7 +17,7 @@ export default async function UpdateProfile(req, res) {
       School: school,
     },
     create: {
-      FK_Account: auth.id,
+      FK_Account: authId,
       FirstName: firstName,
       LastName: lastName,
       School: school,
