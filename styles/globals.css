@@ -39,80 +39,13 @@ pre[class*="language-"] {
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-/* Loading */
-.lds-ellipsis {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-
-.lds-ellipsis div {
-  position: absolute;
-  top: 33px;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: #ff9e1a;
-  animation-timing-function: cubic-bezier(0, 1, 1, 0);
-}
-
-.lds-ellipsis div:nth-child(1) {
-  left: 8px;
-  animation: lds-ellipsis1 0.6s infinite;
-}
-
-.lds-ellipsis div:nth-child(2) {
-  left: 8px;
-  animation: lds-ellipsis2 0.6s infinite;
-}
-
-.lds-ellipsis div:nth-child(3) {
-  left: 32px;
-  animation: lds-ellipsis2 0.6s infinite;
-}
-
-.lds-ellipsis div:nth-child(4) {
-  left: 56px;
-  animation: lds-ellipsis3 0.6s infinite;
-}
-
-@keyframes lds-ellipsis1 {
-  0% {
-    transform: scale(0);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes lds-ellipsis3 {
-  0% {
-    transform: scale(1);
-  }
-
-  100% {
-    transform: scale(0);
-  }
-}
-
-@keyframes lds-ellipsis2 {
-  0% {
-    transform: translate(0, 0);
-  }
-
-  100% {
-    transform: translate(24px, 0);
-  }
-}
-
 @tailwind components;
 @tailwind utilities;
 
 @import "./syntax-highlighting.css";
 
 @layer base {
+
   /* Head Font */
   @font-face {
     font-family: "Ysabeau";
@@ -140,7 +73,7 @@ pre[class*="language-"] {
       @apply ml-5 list-decimal;
     }
 
-    :not(pre) > code {
+    :not(pre)>code {
       @apply rounded-sm bg-slate-200 px-1 py-0.5 font-code text-sm font-semibold text-secondary-400;
     }
 
@@ -230,7 +163,7 @@ pre[class*="language-"] {
 
     /* Progress Bar */
     .progressbar-container {
-      @apply my-4 rounded-sm border-2 border-primary-50 bg-gray-200;
+      @apply rounded-sm border-2 border-primary-50 bg-gray-200;
     }
 
     .progressbar-label {
