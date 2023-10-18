@@ -32,7 +32,8 @@ export default function Abouts() {
               className="z-30 ml-24 w-[65%] justify-start rounded-md border-2 border-gray-200 bg-transparent px-12 py-8 shadow-lg backdrop-blur-sm"
             >
               <p className="pb-2 font-head text-2xl font-bold text-secondary-400">
-                Halo 👋🏻, Dengan <span className="text-primary-400">Bima</span> Disini!
+                Halo 👋🏻, Dengan <span className="text-primary-400">Bima</span>{" "}
+                Disini!
               </p>
               <p className="text-justify font-body text-gray-500">
                 {Public[1].about_desc}

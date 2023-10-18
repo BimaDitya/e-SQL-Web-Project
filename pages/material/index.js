@@ -28,12 +28,68 @@ export async function getServerSideProps(context) {
       },
     })
     .then((response) => response.data);
+  const progressDDL = await axios
+    .get(process.env.BASE_URL + "/api/user/progress/data-definition-language", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
+  const progressDML = await axios
+    .get(
+      process.env.BASE_URL + "/api/user/progress/data-manipulation-language",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
+  const progressDCL = await axios
+    .get(process.env.BASE_URL + "/api/user/progress/data-control-language", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
+  const progressJoin = await axios
+    .get(process.env.BASE_URL + "/api/user/progress/multitable-join", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
+  const progressAF = await axios
+    .get(process.env.BASE_URL + "/api/user/progress/aggregate-function", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
   return {
-    props: { materials: viewMaterial, progress: viewProgress, cookies: token },
+    props: {
+      materials: viewMaterial,
+      progress: viewProgress,
+      cookies: token,
+      progressDDL,
+      progressDML,
+      progressDCL,
+      progressJoin,
+      progressAF,
+    },
   };
 }
 
-export default function Material({ materials, progress, cookies }) {
+export default function Material({
+  materials,
+  progress,
+  cookies,
+  progressDDL,
+  progressDML,
+  progressDCL,
+  progressJoin,
+  progressAF,
+}) {
   return (
     <>
       <Head>
@@ -62,24 +118,34 @@ export default function Material({ materials, progress, cookies }) {
                 <CardDML
                   material={materials?.viewMaterial[1]}
                   cookies={cookies}
+                  progressDDL={progressDDL}
                 />
               )}
               {materials?.viewMaterial[2]?.Content?.length !== 0 && (
                 <CardDCL
                   material={materials?.viewMaterial[2]}
                   cookies={cookies}
+                  progressDDL={progressDDL}
+                  progressDML={progressDML}
                 />
               )}
               {materials?.viewMaterial[3]?.Content?.length !== 0 && (
                 <CardJoin
                   material={materials?.viewMaterial[3]}
                   cookies={cookies}
+                  progressDDL={progressDDL}
+                  progressDML={progressDML}
+                  progressDCL={progressDCL}
                 />
               )}
               {materials?.viewMaterial[4]?.Content?.length !== 0 && (
                 <CardAF
                   material={materials?.viewMaterial[4]}
                   cookies={cookies}
+                  progressDDL={progressDDL}
+                  progressDML={progressDML}
+                  progressDCL={progressDCL}
+                  progressAF={progressAF}
                 />
               )}
             </div>

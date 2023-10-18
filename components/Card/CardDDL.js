@@ -70,7 +70,7 @@ export default function CardDDL({ material, cookies }) {
               </div>
               {isLoading ? (
                 <Loading />
-                ) : (
+              ) : (
                 <ProgressBar
                   completed={`${currentProgress}`}
                   maxCompleted={material?.Content.length}

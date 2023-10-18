@@ -166,6 +166,10 @@ pre[class*="language-"] {
       @apply rounded-sm border-2 border-primary-50 bg-gray-200;
     }
 
+    .progressbar-container-empty {
+      @apply rounded-sm border-2 border-gray-300 bg-gray-200;
+    }
+
     .progressbar-label {
       @apply px-2 font-head text-sm font-semibold text-white;
     }

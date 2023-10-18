@@ -35,11 +35,6 @@ export default function SQLEditor({
   const router = useRouter();
 
   useEffect(() => {
-    // initSqlJs({
-    // 	locateFile: (file) => `https://sql.js.org/dist/${file}`,
-    // })
-    // 	.then((SQL) => setDatabase(new SQL.Database()))
-    // 	.catch((error) => setError(error));
     const initSql = async () => {
       try {
         const SQL = await initSqlJs({

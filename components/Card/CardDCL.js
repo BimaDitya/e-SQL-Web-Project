@@ -2,12 +2,13 @@ import useSWR from "swr";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
+import { Tooltip } from "@material-tailwind/react";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 import Loading from "../Loading";
 
 // Card Data Definition Language
-export default function CardDCL({ material, cookies }) {
+export default function CardDCL({ material, cookies, progressDDL, progressDML }) {
   const fetcher = async () => {
     const response = await axios.get(
       `/api/user/progress/data-control-language`,
@@ -78,12 +79,28 @@ export default function CardDCL({ material, cookies }) {
                   className="py-2"
                   bgColor="rgb(255 158 26)"
                   labelClassName="progressbar-label"
-                  barContainerClassName="progressbar-container"
+                  barContainerClassName={!currentProgress ? `progressbar-container-empty` : `progressbar-container`}
                 />
               )}
-              <div key={material?.Id} className="button-primary w-max">
-                <Link href={`material/${material?.Slug}`}>Lihat Materi</Link>
-              </div>
+              {progressDDL !== 10 || progressDML !== 7 ? (
+                <Tooltip
+                  content="Selesaikan Materi Sebelumnya Terlebih Dahulu"
+                  placement="top-start"
+                  className="rounded bg-gray-100 px-2 py-1.5 font-head text-base text-secondary-400 shadow-md"
+                >
+                  <button
+                    disabled={progressDDL !== 10 || progressDML !== 7}
+                    key={material?.Id}
+                    className="button-primary w-max disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-200"
+                  >
+                    Lihat Materi
+                  </button>
+                </Tooltip>
+              ) : (
+                <button key={material?.Id} className="button-primary w-max">
+                  <Link href={`material/${material?.Slug}`}>Lihat Materi</Link>
+                </button>
+              )}
             </div>
           </div>
         </m.div>
