@@ -1,32 +1,59 @@
+import prisma from "@/lib/prisma";
 import TokenizeThis from "tokenize-this";
+import authorization from "@/middleware/authorization";
 
 export default async function HandlePlayground(req, res) {
   if (req.method !== "POST") return res.status(405).end();
-  const { code, answer } = req.body;
 
-  var tokenizer = new TokenizeThis();
+  const auth = await authorization(req, res);
+  const { code, answer, trial } = req.body;
+  const { exercise } = req.query;
+
+  let Tokenizer = new TokenizeThis();
 
   const userCode = [];
-  tokenizer.tokenize(code, function (codes) {
-    userCode.push(codes);
-  });
-  const answerKey = [];
-  tokenizer.tokenize(answer, function (answers) {
-    answerKey.push(answers);
-  });
+  if (code) {
+    Tokenizer.tokenize(code, function (codes) {
+      userCode.push(codes);
+    });
+  }
 
-  const isAnswerCorrect =
-    JSON.stringify(answerKey).toLowerCase() ===
-    JSON.stringify(userCode).toLowerCase();
-  const message = isAnswerCorrect ? "Jawaban Benar 🎉" : "Jawaban Salah 😪";
-  const condition = isAnswerCorrect ? "TRUE" : "FALSE";
-  const description = isAnswerCorrect
+  const answerKey = [];
+  if (answer) {
+    Tokenizer.tokenize(answer, function (answers) {
+      answerKey.push(answers);
+    });
+  }
+  const isCorrectAnswer =
+    JSON.stringify(userCode).toLowerCase() ===
+    JSON.stringify(answerKey).toLowerCase();
+  const message = isCorrectAnswer ? "Jawaban Benar ✔️" : "Jawaban Salah ❌";
+  const condition = isCorrectAnswer ? "TRUE" : "FALSE";
+  const description = isCorrectAnswer
     ? "Silahkan Submit Jawaban Anda"
     : "Periksa Kembali Jawaban Anda";
 
   try {
-    res.json({ message, condition, description });
+    await prisma.score.upsert({
+      where: {
+        FK_Account: auth.id,
+        Exercise: exercise + ` User ${auth.id}`,
+      },
+      update: {
+        Trial: {
+          increment: trial,
+        },
+      },
+      create: {
+        FK_Account: auth.id,
+        Exercise: exercise + ` User ${auth.id}`,
+        Trial: trial,
+      },
+    });
+    res.status(200).json({ message, condition, description });
   } catch (error) {
-    res.json({ message: "Gagal Menjalankan Perintah", error });
+    res.status(500).json({ message: "Gagal Menjalankan Perintah", error });
+  } finally {
+    await prisma.$disconnect();
   }
 }

@@ -8,7 +8,13 @@ import { LazyMotion, domAnimation, m } from "framer-motion";
 import Loading from "../Loading";
 
 // Card Data Definition Language
-export default function CardJoin({ material, cookies, progressDDL, progressDML, progressDCL }) {
+export default function CardJoin({
+  material,
+  cookies,
+  progressDDL,
+  progressDML,
+  progressDCL,
+}) {
   const fetcher = async () => {
     const response = await axios.get(`/api/user/progress/multitable-join`, {
       headers: {
@@ -76,7 +82,11 @@ export default function CardJoin({ material, cookies, progressDDL, progressDML, 
                   className="py-2"
                   bgColor="rgb(255 158 26)"
                   labelClassName="progressbar-label"
-                  barContainerClassName={!currentProgress ? `progressbar-container-empty` : `progressbar-container`}
+                  barContainerClassName={
+                    !currentProgress
+                      ? `progressbar-container-empty`
+                      : `progressbar-container`
+                  }
                 />
               )}
               {progressDDL !== 10 || progressDML !== 7 || progressDCL !== 2 ? (
@@ -86,7 +96,11 @@ export default function CardJoin({ material, cookies, progressDDL, progressDML, 
                   className="rounded bg-gray-100 px-2 py-1.5 font-head text-base text-secondary-400 shadow-md"
                 >
                   <button
-                    disabled={progressDDL !== 10 || progressDML !== 7 || progressDCL !== 2}
+                    disabled={
+                      progressDDL !== 10 ||
+                      progressDML !== 7 ||
+                      progressDCL !== 2
+                    }
                     key={material?.Id}
                     className="button-primary w-max disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-200"
                   >

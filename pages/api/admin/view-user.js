@@ -26,6 +26,7 @@ export default async function ViewUser(req, res) {
           Exercise: true,
           Score: true,
           SubmittedAt: true,
+          Trial: true,
         },
       },
     },

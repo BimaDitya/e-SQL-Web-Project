@@ -2,6 +2,7 @@ import Link from "next/link";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
 export default function SubMaterialCard({ material, content, index }) {
+  const accessTime = new Date();
   return (
     <>
       <LazyMotion features={domAnimation}>

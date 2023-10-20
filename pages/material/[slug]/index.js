@@ -7,6 +7,7 @@ import Pagination from "@/components/Pagination";
 import ExerciseCard from "@/components/Card/Exercise";
 import NavbarMaterial from "@/components/Navbar/Material";
 import { LazyMotion, domAnimation, m } from "framer-motion";
+import Image from "next/image";
 
 export async function getServerSideProps(context) {
   const getCookies = context.req.headers.cookie;
@@ -25,16 +26,6 @@ export async function getServerSideProps(context) {
       },
     })
     .then((response) => response.data);
-  const viewStatus = await axios
-    .get(process.env.BASE_URL + "/api/user/view-status", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      params: {
-        queryMaterial: queryMaterial,
-      },
-    })
-    .then((response) => response.data);
   const viewMaterialId = viewMaterial?.viewMaterial?.Id;
   const viewProgress = await axios
     .get(process.env.BASE_URL + "/api/user/view-progress-material", {
@@ -48,23 +39,73 @@ export async function getServerSideProps(context) {
     .then((response) => response.data);
   const viewContent = viewMaterial?.viewMaterial?.Content;
   const viewExercise = viewMaterial?.viewMaterial?.Exercise;
+
+  // Progres Semua Materi
+  const progressDDL = await axios
+    .get(process.env.BASE_URL + "/api/user/progress/data-definition-language", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
+  const progressDML = await axios
+    .get(
+      process.env.BASE_URL + "/api/user/progress/data-manipulation-language",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
+  const progressDCL = await axios
+    .get(process.env.BASE_URL + "/api/user/progress/data-control-language", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
+  const progressJoin = await axios
+    .get(process.env.BASE_URL + "/api/user/progress/multitable-join", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
+  const progressAF = await axios
+    .get(process.env.BASE_URL + "/api/user/progress/aggregate-function", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
   return {
     props: {
       materials: viewMaterial,
       exercises: viewExercise,
       progress: viewProgress,
       contents: viewContent,
-      status: viewStatus,
+      queryMaterial,
+      progressDDL,
+      progressDML,
+      progressDCL,
+      progressJoin,
+      progressAF,
     },
   };
 }
 
 export default function SubMaterial({
+  queryMaterial,
   materials,
   exercises,
   progress,
   contents,
-  status,
+  progressDDL,
+  progressDML,
+  progressDCL,
+  progressJoin,
+  progressAF,
 }) {
   // Tab
   const [tabs, setTabs] = useState(1);
@@ -118,7 +159,8 @@ export default function SubMaterial({
   }
   const material = materials.viewMaterial;
   const router = useRouter();
-  return (
+
+  const allowedViews = (
     <div className="max-width max-height">
       <Head>
         <title>Materi</title>
@@ -207,6 +249,7 @@ export default function SubMaterial({
                 next={next}
               />
             </div>
+
             {/* Tab Latihan */}
             <div
               className={`space-y-2.5 ${
@@ -234,7 +277,6 @@ export default function SubMaterial({
           </m.div>
           {/* Kolom Kanan */}
           <div className="z-30 w-2/5 space-y-2">
-            {/* Baris Atas */}
             <m.div
               transition={{
                 duration: 0.5,
@@ -276,4 +318,71 @@ export default function SubMaterial({
       </LazyMotion>
     </div>
   );
+  const disallowedViews = (
+    <div className="max-width max-height flex flex-col justify-center">
+      <Head>
+        <title>Materi</title>
+        <link rel="icon" href="/icons/favicon.ico"></link>
+      </Head>
+      <NavbarMaterial material={material} progress={progress} />
+      <LazyMotion features={domAnimation}>
+        <m.div
+          transition={{
+            duration: 1,
+            type: "spring",
+            stiffness: 50,
+          }}
+          initial={{ opacity: 0, y: -100 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mx-16 mt-24 flex h-full flex-col items-center justify-center rounded border-2 border-gray-200 bg-transparent shadow-lg backdrop-blur-sm"
+        >
+          <div className="flex flex-col items-center justify-center">
+            <Image
+              className="transition duration-300 ease-in-out hover:scale-110"
+              src="/illustrations/notebook.svg"
+              width={360}
+              height={360}
+              quality={50}
+              alt="Page Not Found"
+            />
+            <p className="pb-10 font-head text-2xl font-bold tracking-wider text-secondary-400">
+              Anda Belum Menyelesaikan Materi Sebelumnya
+            </p>
+          </div>
+        </m.div>
+      </LazyMotion>
+    </div>
+  );
+
+  if (queryMaterial === "data-definition-language") {
+    return allowedViews;
+  } else if (queryMaterial === "data-manipulation-language") {
+    const isComplete = progressDDL === 10;
+    if (isComplete) {
+      return allowedViews;
+    } else {
+      return disallowedViews;
+    }
+  } else if (queryMaterial === "data-control-language") {
+    const isComplete = progressDML === 7;
+    if (isComplete) {
+      return allowedViews;
+    } else {
+      return disallowedViews;
+    }
+  } else if (queryMaterial === "multitable") {
+    const isComplete = progressDCL === 2;
+    if (isComplete) {
+      return allowedViews;
+    } else {
+      return disallowedViews;
+    }
+  } else if (queryMaterial === "aggregate-function") {
+    const isComplete = progressJoin === 3;
+    if (isComplete) {
+      return allowedViews;
+    } else {
+      return disallowedViews;
+    }
+  }
 }

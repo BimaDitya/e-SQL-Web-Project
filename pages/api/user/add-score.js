@@ -6,14 +6,17 @@ export default async function HandleAddScore(req, res) {
 
   const auth = await authorization(req, res);
   const { exercise } = req.query;
+  const { score } = req.body;
   const authId = auth.id;
-  const score = req.body;
-
   try {
-    const submitScore = await prisma.score.create({
-      data: {
+    const submitScore = await prisma.score.update({
+      where: {
         FK_Account: authId,
-        Exercise: exercise,
+        Exercise: exercise + ` User ${auth.id}`,
+      },
+      data: {
+        Exercise: exercise + ` User ${auth.id}`,
+        FK_Account: authId,
         Score: score,
       },
     });
@@ -26,5 +29,7 @@ export default async function HandleAddScore(req, res) {
       message: `Gagal Mengirim Jawaban`,
       error,
     });
+  } finally {
+    await prisma.$disconnect();
   }
 }

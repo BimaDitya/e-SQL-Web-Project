@@ -42,7 +42,11 @@ export default function NavbarMaterial({ material, progress }) {
               className="py-2"
               bgColor="rgb(255 158 26)"
               labelClassName="progressbar-label"
-              barContainerClassName="progressbar-container"
+              barContainerClassName={
+                !currentProgress
+                  ? `progressbar-container-empty`
+                  : `progressbar-container`
+              }
             />
           </div>
         </div>

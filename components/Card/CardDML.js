@@ -78,7 +78,11 @@ export default function CardDML({ material, cookies, progressDDL }) {
                   className="py-2"
                   bgColor="rgb(255 158 26)"
                   labelClassName="progressbar-label"
-                  barContainerClassName={!currentProgress ? `progressbar-container-empty` : `progressbar-container`}
+                  barContainerClassName={
+                    !currentProgress
+                      ? `progressbar-container-empty`
+                      : `progressbar-container`
+                  }
                 />
               )}
               {progressDDL !== 10 ? (

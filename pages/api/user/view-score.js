@@ -12,7 +12,7 @@ export default async function HandleViewScore(req, res) {
     const submitScore = await prisma.score.findMany({
       where: {
         FK_Account: authId,
-        Exercise: exercise,
+        Exercise: exercise + ` User ${auth.id}`,
       },
     });
     const sumScore = await prisma.score.aggregate({

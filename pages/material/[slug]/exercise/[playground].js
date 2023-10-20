@@ -9,6 +9,7 @@ import { useState, useEffect, Fragment } from "react";
 import remarkCodeTitles from "remark-flexible-code-titles";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 import NavbarPlayground from "@/components/Navbar/Playground";
+import Image from "next/image";
 const CodeEditor = dynamic(import("@/components/EditorInput"), { ssr: false });
 
 export async function getServerSideProps(context) {
@@ -51,10 +52,49 @@ export async function getServerSideProps(context) {
       },
     },
   );
-  const submittedAt = viewScore?.data;
-  const score = viewScore?.data?.submitScore;
   const sumScore = viewScore?.data?.sumScore;
   const account = viewAccount.data?.data;
+  const submittedAt = viewScore?.data;
+  const score = viewScore?.data?.submitScore[0]?.Score || null;
+
+  const progressDDL = await axios
+    .get(process.env.BASE_URL + "/api/user/progress/data-definition-language", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
+  const progressDML = await axios
+    .get(
+      process.env.BASE_URL + "/api/user/progress/data-manipulation-language",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
+  const progressDCL = await axios
+    .get(process.env.BASE_URL + "/api/user/progress/data-control-language", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
+  const progressJoin = await axios
+    .get(process.env.BASE_URL + "/api/user/progress/multitable-join", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
+  const progressAF = await axios
+    .get(process.env.BASE_URL + "/api/user/progress/aggregate-function", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
 
   const compileMarkdown = String(
     await compile(exercise?.Exercise[0]?.Question, {
@@ -71,6 +111,11 @@ export async function getServerSideProps(context) {
       account,
       exercise,
       sumScore,
+      progressDDL,
+      progressDML,
+      progressDCL,
+      progressJoin,
+      progressAF,
       submittedAt,
       queryExercise,
       queryMaterial,
@@ -81,6 +126,11 @@ export async function getServerSideProps(context) {
 export default function Playground({
   queryMaterial,
   submittedAt,
+  progressDDL,
+  progressDML,
+  progressDCL,
+  progressJoin,
+  progressAF,
   sumScore,
   exercise,
   sources,
@@ -102,9 +152,8 @@ export default function Playground({
       setMdxModule(await run(sources, runtime));
     })();
   }, [sources]);
-  const submitted = score[0]?.Exercise;
   const accountRole = account?.Role;
-  return (
+  const allowedViews = (
     <div className="max-width max-height">
       <Head>
         <title>Playground</title>
@@ -133,8 +182,7 @@ export default function Playground({
               >
                 <div
                   className={`space-y-2 ${
-                    currentStatus === "TRUE" ||
-                    submitted === exercise?.Exercise[0]?.Title
+                    currentStatus === "TRUE" || score !== null
                       ? "opacity-50 transition duration-500 ease-in-out"
                       : null
                   }`}
@@ -170,8 +218,8 @@ export default function Playground({
                 <CodeEditor
                   token={token}
                   answer={answer}
+                  getScore={score}
                   roles={accountRole}
-                  submitted={submitted}
                   currentStatus={checkCurrentStatus}
                   score={exercise?.Exercise[0]?.Score}
                   exercise={exercise?.Exercise[0]?.Title}
@@ -184,4 +232,77 @@ export default function Playground({
       </LazyMotion>
     </div>
   );
+
+  const disallowedViews = (
+    <div className="max-width max-height">
+      <Head>
+        <title>Playground</title>
+        <link rel="icon" href="/icons/favicon.ico"></link>
+      </Head>
+      <NavbarPlayground
+        roles={accountRole}
+        exercise={exercise}
+        sumScore={sumScore}
+        material={queryMaterial}
+      />
+      <LazyMotion features={domAnimation}>
+        <m.div
+          transition={{
+            duration: 1,
+            type: "spring",
+            stiffness: 50,
+          }}
+          initial={{ opacity: 0, y: -100 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mx-16 mt-20 flex h-full flex-col items-center justify-center rounded border-2 border-gray-200 bg-transparent shadow-lg backdrop-blur-sm"
+        >
+          <div className="flex flex-col items-center justify-center">
+            <Image
+              className="transition duration-300 ease-in-out hover:scale-110"
+              src="/illustrations/notebook.svg"
+              width={360}
+              height={360}
+              quality={50}
+              alt="Page Not Found"
+            />
+            <p className="pb-10 font-head text-2xl font-bold tracking-wider text-secondary-400">
+              Anda Belum Menyelesaikan Materi Sebelumnya
+            </p>
+          </div>
+        </m.div>
+      </LazyMotion>
+    </div>
+  );
+
+  if (queryMaterial === "data-definition-language") {
+    return allowedViews;
+  } else if (queryMaterial === "data-manipulation-language") {
+    const isComplete = progressDDL === 10;
+    if (isComplete) {
+      return allowedViews;
+    } else {
+      return disallowedViews;
+    }
+  } else if (queryMaterial === "data-control-language") {
+    const isComplete = progressDML === 7;
+    if (isComplete) {
+      return allowedViews;
+    } else {
+      return disallowedViews;
+    }
+  } else if (queryMaterial === "multitable") {
+    const isComplete = progressDCL === 2;
+    if (isComplete) {
+      return allowedViews;
+    } else {
+      return disallowedViews;
+    }
+  } else if (queryMaterial === "aggregate-function") {
+    const isComplete = progressJoin === 3;
+    if (isComplete) {
+      return allowedViews;
+    } else {
+      return disallowedViews;
+    }
+  }
 }

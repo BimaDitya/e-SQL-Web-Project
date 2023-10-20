@@ -62,40 +62,49 @@ export default function DetailScore({ score, setShowScore }) {
                     <th scope="col" className="w-max px-2 py-2 text-center">
                       Tanggal Submit
                     </th>
+                    <th scope="col" className="w-max px-2 py-2 text-center">
+                      Total Percobaan
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-gray-50 font-body text-gray-500">
                   {Object.values(scores).map((Rows) =>
-                    Object.values(Rows.Score).map((Row, index) => (
-                      <m.tr
-                        key={index}
-                        transition={{
-                          duration: 1,
-                          type: "spring",
-                          stiffness: 50,
-                          delay: index * 0.25,
-                        }}
-                        initial={{ opacity: 0, x: 100 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="border-b-2 border-secondary-100"
-                      >
-                        <td className="w-max py-2 pl-2 pr-8 text-center">
-                          {index + 1}
-                        </td>
-                        <td className="w-max px-2 py-2 font-semibold">
-                          {Row?.Exercise}
-                        </td>
-                        <td className="w-max px-2 py-2 text-center">
-                          {Row?.Score}
-                        </td>
-                        <td className="w-max px-2 py-2 text-center">
-                          {new Date(Row?.SubmittedAt).toLocaleTimeString()}
-                        </td>
-                        <td className="w-max px-2 py-2 text-center">
-                          {new Date(Row?.SubmittedAt).toLocaleDateString()}
-                        </td>
-                      </m.tr>
-                    )),
+                    Object.values(Rows.Score).map((Row, index) => {
+                      const Exercise = Row?.Exercise
+                        ? Row.Exercise.split(" ").slice(0, -2).join(" ")
+                        : Row?.Exercise;
+                      return (
+                        <m.tr
+                          key={index}
+                          transition={{
+                            duration: 1,
+                            type: "spring",
+                            stiffness: 50,
+                            delay: index * 0.25,
+                          }}
+                          initial={{ opacity: 0, x: 100 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          className="border-b-2 border-secondary-100"
+                        >
+                          <td className="w-max py-2 pl-2 pr-8 text-center">
+                            {index + 1}
+                          </td>
+                          <td className="w-max px-2 py-2">{Exercise}</td>
+                          <td className="w-max px-2 py-2 text-center">
+                            {Row?.Score}
+                          </td>
+                          <td className="w-max px-2 py-2 text-center">
+                            {new Date(Row?.SubmittedAt).toLocaleTimeString()}
+                          </td>
+                          <td className="w-max px-2 py-2 text-center">
+                            {new Date(Row?.SubmittedAt).toLocaleDateString()}
+                          </td>
+                          <td className="w-max px-2 py-2 text-center">
+                            {`${Row?.Trial} ✗`}
+                          </td>
+                        </m.tr>
+                      );
+                    }),
                   )}
                 </tbody>
               </table>

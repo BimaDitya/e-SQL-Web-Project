@@ -8,7 +8,12 @@ import { LazyMotion, domAnimation, m } from "framer-motion";
 import Loading from "../Loading";
 
 // Card Data Definition Language
-export default function CardDCL({ material, cookies, progressDDL, progressDML }) {
+export default function CardDCL({
+  material,
+  cookies,
+  progressDDL,
+  progressDML,
+}) {
   const fetcher = async () => {
     const response = await axios.get(
       `/api/user/progress/data-control-language`,
@@ -79,7 +84,11 @@ export default function CardDCL({ material, cookies, progressDDL, progressDML })
                   className="py-2"
                   bgColor="rgb(255 158 26)"
                   labelClassName="progressbar-label"
-                  barContainerClassName={!currentProgress ? `progressbar-container-empty` : `progressbar-container`}
+                  barContainerClassName={
+                    !currentProgress
+                      ? `progressbar-container-empty`
+                      : `progressbar-container`
+                  }
                 />
               )}
               {progressDDL !== 10 || progressDML !== 7 ? (

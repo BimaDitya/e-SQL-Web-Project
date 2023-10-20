@@ -20,11 +20,12 @@ export default function SQLEditor({
   score,
   answer,
   exercise,
-  submitted,
+  getScore,
   submittedAt,
   currentStatus,
 }) {
   const [code, setCode] = useState("");
+  const [trial, setTrial] = useState(1);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState("");
   const [results, setResults] = useState([]);
@@ -56,18 +57,21 @@ export default function SQLEditor({
   async function reset() {
     router.reload();
   }
-
   async function submit() {
     axios
-      .post("/api/user/add-score", score, {
-        params: {
-          exercise: exercise,
+      .post(
+        "/api/user/add-score",
+        { score },
+        {
+          params: {
+            exercise: exercise,
+          },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         },
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      )
       .then(() => {
         setTimeout(() => {
           reset();
@@ -117,7 +121,19 @@ export default function SQLEditor({
 
   async function execute() {
     axios
-      .post("/api/playground", { code, answer })
+      .post(
+        "/api/playground",
+        { code, answer, trial },
+        {
+          params: {
+            exercise: exercise,
+          },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
       .then(({ data }) => {
         setStatus(data.condition);
         alertWithSwal.fire({
@@ -145,6 +161,11 @@ export default function SQLEditor({
             </p>
           ),
         });
+        if (data.condition === "FALSE") {
+          setTimeout(() => {
+            router.reload();
+          }, 2500);
+        }
       })
       .catch((error) => error);
     try {
@@ -154,6 +175,7 @@ export default function SQLEditor({
       setError(null);
     } catch (error) {
       setError(error.message.toUpperCase());
+      setTrial(trial + 1);
       setResults([]);
     }
   }
@@ -182,23 +204,20 @@ export default function SQLEditor({
               }}
             />
           </div>
-          <p className="py-2 font-body text-sm text-gray-400">
-            &apos; Ctrl + Space &apos; Untuk Menampilkan <i>Autocomplete</i>
-          </p>
           {/* Baris Tombol */}
-          {submitted === exercise || roles === "ADMIN" ? (
+          {getScore !== null || roles === "ADMIN" ? (
             <>
-              <p className="font-head text-lg text-green-600">
-                Anda Telah Selesai Mengerjakan Soal Latihan 😄
+              <p className="mt-2 font-head text-lg text-green-500">
+                Anda Telah Selesai Mengerjakan Soal Latihan Ini 👍🏻
               </p>
-              <p className="font-head text-gray-500">
-                Selesai Pada: {!submittedAt ? `-` : submitDateTime}
+              <p className="font-head text-sm text-gray-500">
+                Pada: {!submittedAt ? `-` : submitDateTime}
               </p>
             </>
           ) : (
             <div className="flex flex-row justify-between">
               {/* Kiri */}
-              <div className="flex flex-row justify-start space-x-4">
+              <div className="mt-2 flex flex-row justify-start space-x-4">
                 <button
                   onClick={execute}
                   disabled={!code}

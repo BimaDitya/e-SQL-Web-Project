@@ -95,7 +95,8 @@ model Score {
   Id          Int      @id @default(autoincrement())
   SubmittedAt DateTime @default(now()) @db.Timestamp(0) // <- Waktu & Tanggal Pengumpulan
   Score       Float    @default(0) @db.Float // <- Skor Dari Score Latihan
-  Exercise    String   @db.VarChar(255) // <- Judul Soal Latihan
+  Trial       Float    @default(0) @db.Float // <- Jumlah Percobaan Menjawab Latihan
+  Exercise    String   @unique @db.VarChar(255) // <- Judul Soal Latihan
   Account     Account  @relation(fields: [FK_Account], references: [Id], onDelete: Cascade)
   FK_Account  Int // <- FK To Account
 

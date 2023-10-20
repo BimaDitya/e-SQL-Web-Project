@@ -45,7 +45,6 @@ pre[class*="language-"] {
 @import "./syntax-highlighting.css";
 
 @layer base {
-
   /* Head Font */
   @font-face {
     font-family: "Ysabeau";
@@ -73,7 +72,7 @@ pre[class*="language-"] {
       @apply ml-5 list-decimal;
     }
 
-    :not(pre)>code {
+    :not(pre) > code {
       @apply rounded-sm bg-slate-200 px-1 py-0.5 font-code text-sm font-semibold text-secondary-400;
     }
 

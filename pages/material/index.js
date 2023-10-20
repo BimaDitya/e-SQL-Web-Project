@@ -108,46 +108,35 @@ export default function Material({
               <p className="text-center font-head text-xl font-bold text-secondary-400">
                 Daftar Materi
               </p>
-              {materials?.viewMaterial[0].Content?.lenth !== 0 && (
-                <CardDDL
-                  material={materials?.viewMaterial[0]}
-                  cookies={cookies}
-                />
-              )}
-              {materials?.viewMaterial[1]?.Content?.length !== 0 && (
-                <CardDML
-                  material={materials?.viewMaterial[1]}
-                  cookies={cookies}
-                  progressDDL={progressDDL}
-                />
-              )}
-              {materials?.viewMaterial[2]?.Content?.length !== 0 && (
-                <CardDCL
-                  material={materials?.viewMaterial[2]}
-                  cookies={cookies}
-                  progressDDL={progressDDL}
-                  progressDML={progressDML}
-                />
-              )}
-              {materials?.viewMaterial[3]?.Content?.length !== 0 && (
-                <CardJoin
-                  material={materials?.viewMaterial[3]}
-                  cookies={cookies}
-                  progressDDL={progressDDL}
-                  progressDML={progressDML}
-                  progressDCL={progressDCL}
-                />
-              )}
-              {materials?.viewMaterial[4]?.Content?.length !== 0 && (
-                <CardAF
-                  material={materials?.viewMaterial[4]}
-                  cookies={cookies}
-                  progressDDL={progressDDL}
-                  progressDML={progressDML}
-                  progressDCL={progressDCL}
-                  progressAF={progressAF}
-                />
-              )}
+              {materials?.viewMaterial.map((material, index) => {
+                if (material.Content?.length !== 0) {
+                  const cardProps = {
+                    material,
+                    cookies,
+                    progressDDL,
+                    progressDML,
+                    progressDCL,
+                    progressAF,
+                  };
+
+                  switch (index) {
+                    case 0:
+                      return <CardDDL {...cardProps} />;
+                    case 1:
+                      return <CardDML {...cardProps} />;
+                    case 2:
+                      return <CardDCL {...cardProps} />;
+                    case 3:
+                      return <CardJoin {...cardProps} />;
+                    case 4:
+                      return <CardAF {...cardProps} />;
+                    default:
+                      return null;
+                  }
+                } else {
+                  return null;
+                }
+              })}
             </div>
           </div>
         </div>
