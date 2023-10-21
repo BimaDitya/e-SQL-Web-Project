@@ -1,7 +1,6 @@
 import axios from "axios";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import remarkGfm from "remark-gfm";
 import { compile, run } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
 import rehypePrism from "rehype-prism-plus";
@@ -98,7 +97,7 @@ export async function getServerSideProps(context) {
 
   const compileMarkdown = String(
     await compile(exercise?.Exercise[0]?.Question, {
-      remarkPlugins: [remarkGfm, remarkCodeTitles],
+      remarkPlugins: [remarkCodeTitles],
       rehypePlugins: [rehypePrism],
       outputFormat: "function-body",
       development: false,

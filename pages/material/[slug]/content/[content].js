@@ -1,6 +1,5 @@
 import axios from "axios";
 import Head from "next/head";
-import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { compile, run } from "@mdx-js/mdx";
@@ -85,13 +84,6 @@ export async function getServerSideProps(context) {
       },
     })
     .then((response) => response.data?.viewProgress[0]?._count?.Progress);
-  const progressAF = await axios
-    .get(process.env.BASE_URL + "/api/user/progress/aggregate-function", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
   const accounts = viewAccount?.data?.data;
   const compileMarkdown = String(
     await compile(viewContent?.viewContent[0]?.Content, {
@@ -112,7 +104,6 @@ export async function getServerSideProps(context) {
       progressDML,
       progressDCL,
       progressJoin,
-      progressAF,
       contents: viewContent,
       sources: compileMarkdown,
       slugMaterial: queryMaterial,
@@ -130,7 +121,6 @@ export default function ContentMaterial({
   progressDML,
   progressDCL,
   progressJoin,
-  progressAF,
   queryContent,
   viewMaterial,
   slugMaterial,

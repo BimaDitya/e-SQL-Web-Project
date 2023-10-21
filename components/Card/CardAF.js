@@ -14,7 +14,7 @@ export default function CardAF({
   progressDDL,
   progressDML,
   progressDCL,
-  progressAF,
+  progressJoin,
 }) {
   const fetcher = async () => {
     const response = await axios.get(`/api/user/progress/aggregate-function`, {
@@ -93,7 +93,7 @@ export default function CardAF({
               {progressDDL !== 10 ||
               progressDML !== 7 ||
               progressDCL !== 2 ||
-              progressAF !== 3 ? (
+              progressJoin !== 3 ? (
                 <Tooltip
                   content="Selesaikan Materi Sebelumnya Terlebih Dahulu"
                   placement="top-start"
@@ -104,7 +104,7 @@ export default function CardAF({
                       progressDDL !== 10 ||
                       progressDML !== 7 ||
                       progressDCL !== 2 ||
-                      progressAF !== 3
+                      progressJoin !== 3
                     }
                     key={material?.Id}
                     className="button-primary w-max disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-200"

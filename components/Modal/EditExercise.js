@@ -1,15 +1,20 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
+import Markdown from "react-markdown";
+import { useEffect, useState } from "react";
+import rehypePrism from "rehype-prism-plus";
+import { useForm, Controller } from "react-hook-form";
 import withReactContent from "sweetalert2-react-content";
+import remarkCodeTitles from "remark-flexible-code-titles";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
 export default function EditExercise({ setShowEdit, materials, exercise }) {
   const router = useRouter();
   const {
     reset,
+    watch,
+    control,
     setValue,
     register,
     handleSubmit,
@@ -17,6 +22,13 @@ export default function EditExercise({ setShowEdit, materials, exercise }) {
   } = useForm();
 
   const alertWithSwal = withReactContent(Swal);
+
+  const [questions, setQuestion] = useState("");
+
+  setTimeout(() => {
+    const inputValue = watch("question");
+    setQuestion(inputValue);
+  }, 5000);
 
   async function EditExercise(data) {
     await axios
@@ -249,20 +261,49 @@ export default function EditExercise({ setShowEdit, materials, exercise }) {
                   </div>
                 </div>
                 {/* Soal Materi */}
-                <div className="flex w-full flex-col space-y-2">
-                  <label className="font-head text-secondary-400">
-                    Soal Materi
-                  </label>
-                  <textarea
-                    label="Question"
-                    name="question"
-                    className="h-24 resize-none rounded bg-gray-100 p-2 text-justify font-body text-gray-600 outline-none ring-2 ring-gray-200 transition ease-in-out focus:ring-primary-100"
-                    type="text"
-                    placeholder="Masukkan Soal..."
-                    {...register("question", {
-                      required: true,
-                    })}
-                  />
+                <div className="flex w-full flex-row space-x-4">
+                  <div className="flex w-1/2 flex-col space-y-2">
+                    <label className="font-head text-secondary-400">
+                      Soal Materi
+                    </label>
+                    <Controller
+                      name="question"
+                      control={control}
+                      render={({ ...fieled }) => (
+                        <>
+                          <textarea
+                            {...fieled}
+                            label="Question"
+                            name="question"
+                            className="h-48 resize-none rounded bg-gray-100 p-2 text-justify font-body text-gray-600 outline-none ring-2 ring-gray-200 transition ease-in-out focus:ring-primary-100"
+                            type="text"
+                            placeholder="Masukkan Konten..."
+                            {...register("question", {
+                              required: true,
+                            })}
+                          />
+                          {errors.desc && errors.desc.type === "required" && (
+                            <p className="font-head text-sm text-red-400">
+                              Masukkan Soal
+                            </p>
+                          )}
+                        </>
+                      )}
+                    />
+                  </div>
+                  {/* Pratinjau */}
+                  <div className="flex w-1/2 flex-col space-y-2">
+                    <label className="font-head text-secondary-400">
+                      Pratinjau Soal
+                    </label>
+                    <Markdown
+                      rehypePlugins={rehypePrism}
+                      remarkPlugins={remarkCodeTitles}
+                      className="h-48 resize-none overflow-x-scroll rounded bg-gray-100 p-2 text-justify font-body text-gray-600 outline-none ring-2 ring-gray-200 transition ease-in-out focus:ring-primary-100"
+                    >
+                      {questions}
+                    </Markdown>
+                  </div>
                   {errors.question && errors.question.type === "required" && (
                     <p className="font-head text-sm text-red-400">
                       Masukkan Soal
@@ -272,12 +313,12 @@ export default function EditExercise({ setShowEdit, materials, exercise }) {
                 {/* Jawaban Soal */}
                 <div className="flex w-full flex-col space-y-2">
                   <label className="font-head text-secondary-400">
-                    Jawaban Materi
+                    Jawaban Soal
                   </label>
                   <textarea
                     label="Answer"
                     name="answer"
-                    className="h-24 resize-none rounded bg-gray-100 p-2 text-justify font-body text-gray-600 outline-none ring-2 ring-gray-200 transition ease-in-out focus:ring-primary-100"
+                    className="focus:ring-secondary-100-100 h-32 resize-none rounded bg-gray-800 p-2 text-justify font-code text-sm text-gray-100 outline-none ring-2 ring-gray-200 transition ease-in-out"
                     type="text"
                     placeholder="Masukkan Jawaban..."
                     {...register("answer", {

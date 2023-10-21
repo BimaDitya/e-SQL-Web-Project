@@ -1,15 +1,20 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
+import Markdown from "react-markdown";
 import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import rehypePrism from "rehype-prism-plus";
+import { useForm, Controller } from "react-hook-form";
 import withReactContent from "sweetalert2-react-content";
+import remarkCodeTitles from "remark-flexible-code-titles";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
 export default function EditContent({ setShowEdit, materials, content }) {
   const router = useRouter();
   const {
     reset,
+    watch,
+    control,
     setValue,
     register,
     handleSubmit,
@@ -17,6 +22,13 @@ export default function EditContent({ setShowEdit, materials, content }) {
   } = useForm();
 
   const alertWithSwal = withReactContent(Swal);
+
+  const [contents, setContents] = useState("");
+
+  setTimeout(() => {
+    const inputValue = watch("content");
+    setContents(inputValue);
+  }, 5000);
 
   async function EditContent(data) {
     await axios
@@ -102,7 +114,7 @@ export default function EditContent({ setShowEdit, materials, content }) {
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="mx-48 h-max w-full rounded-lg bg-white px-8 py-4 shadow"
+            className="mx-32 h-[93.5%] w-full rounded-lg bg-white px-8 py-4 shadow"
           >
             <form
               noValidate
@@ -225,21 +237,40 @@ export default function EditContent({ setShowEdit, materials, content }) {
                   <label className="font-head text-secondary-400">
                     Isi Konten
                   </label>
-                  <textarea
-                    label="Content"
+                  <Controller
                     name="content"
-                    className="mt-2 h-64 resize-none rounded bg-gray-100 p-2 text-justify font-body text-gray-600 outline-none ring-2 ring-gray-200 transition ease-in-out focus:ring-primary-100"
-                    type="text"
-                    placeholder="Masukkan Konten..."
-                    {...register("content", {
-                      required: true,
-                    })}
+                    control={control}
+                    render={({ ...fieled }) => (
+                      <>
+                        <textarea
+                          {...fieled}
+                          label="Content"
+                          name="content"
+                          className="mt-2 h-40 resize-none rounded bg-gray-100 p-2 text-justify font-body text-gray-600 outline-none ring-2 ring-gray-200 transition ease-in-out focus:ring-primary-100"
+                          type="text"
+                          placeholder="Masukkan Konten..."
+                          {...register("content", {
+                            required: true,
+                          })}
+                        />
+                        {errors.desc && errors.desc.type === "required" && (
+                          <p className="font-head text-sm text-red-400">
+                            Masukkan Konten
+                          </p>
+                        )}
+                      </>
+                    )}
                   />
-                  {errors.desc && errors.desc.type === "required" && (
-                    <p className="font-head text-sm text-red-400">
-                      Masukkan Konten
-                    </p>
-                  )}
+                  <label className="mt-2 font-head text-secondary-400">
+                    Pratinjau Konten
+                  </label>
+                  <Markdown
+                    rehypePlugins={rehypePrism}
+                    remarkPlugins={remarkCodeTitles}
+                    className="mt-2 h-40 resize-none overflow-x-scroll rounded bg-gray-100 p-2 text-justify font-body text-gray-600 outline-none ring-2 ring-gray-200 transition ease-in-out focus:ring-primary-100"
+                  >
+                    {contents}
+                  </Markdown>
                 </div>
                 <div className="flex w-full flex-row space-x-4">
                   <button

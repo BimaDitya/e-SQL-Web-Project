@@ -59,13 +59,6 @@ export async function getServerSideProps(context) {
       },
     })
     .then((response) => response.data?.viewProgress[0]?._count?.Progress);
-  const progressAF = await axios
-    .get(process.env.BASE_URL + "/api/user/progress/aggregate-function", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
   return {
     props: {
       materials: viewMaterial,
@@ -75,7 +68,6 @@ export async function getServerSideProps(context) {
       progressDML,
       progressDCL,
       progressJoin,
-      progressAF,
     },
   };
 }
@@ -88,7 +80,6 @@ export default function Material({
   progressDML,
   progressDCL,
   progressJoin,
-  progressAF,
 }) {
   return (
     <>
@@ -116,7 +107,7 @@ export default function Material({
                     progressDDL,
                     progressDML,
                     progressDCL,
-                    progressAF,
+                    progressJoin,
                   };
 
                   switch (index) {
