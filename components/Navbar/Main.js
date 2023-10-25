@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import Loading from "../Loading";
 import Dropdown from "./Dropdown";
 import { useRouter } from "next/router";
 import styles from "./Navbar.module.css";
@@ -11,8 +12,10 @@ export default function Navbar({ isLoading, cookies, data }) {
     return (
       <div className="sticky left-0 right-0 top-0 z-50 -mb-6 h-[80px]">
         <nav className="flex h-full items-center justify-center bg-white/50 shadow-md backdrop-blur">
-          <p className="font-head text-xl font-semibold text-secondary-200">
-            Sedang Memuat Navbar ⏳
+          <p
+            className={`text-xl font-semibold text-secondary-200 ${styles.font}`}
+          >
+            <Loading />
           </p>
         </nav>
       </div>
