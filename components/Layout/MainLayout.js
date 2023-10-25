@@ -2,8 +2,8 @@ import useSWR from "swr";
 import axios from "axios";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { useCookies } from "react-cookie";
 import Device from "../Device/Module";
+import { useCookies } from "react-cookie";
 const Navbar = dynamic(import("@/components/Navbar/Main"), { ssr: false });
 
 export default function MainLayout({ children }) {

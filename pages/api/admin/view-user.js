@@ -18,7 +18,11 @@ export default async function ViewUser(req, res) {
       Profile: true,
       Progress: {
         select: {
+          Start_Time: true,
+          End_Time: true,
           Complete: true,
+          Material: true,
+          Slug: true,
         },
       },
       Score: {

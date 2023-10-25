@@ -1,13 +1,14 @@
 import axios from "axios";
 import Head from "next/head";
 import { useState } from "react";
-import Pagination from "@/components/Pagination";
-import SideMenu from "@/components/Admin/SideMenu";
-import AddContent from "@/components/Modal/AddContent";
-import MainLayout from "@/components/Layout/MainLayout";
-import EditContent from "@/components/Modal/EditContent";
+import dynamic from "next/dynamic";
 import { LazyMotion, domAnimation, m } from "framer-motion";
-import DeleteContent from "@/components/Modal/DeleteContent";
+const Pagination = dynamic(() => import("@/components/Pagination"));
+const SideMenu = dynamic(() => import("@/components/Admin/SideMenu"));
+const AddContent = dynamic(() => import("@/components/Modal/AddContent"));
+const MainLayout = dynamic(() => import("@/components/Layout/MainLayout"));
+const EditContent = dynamic(() => import("@/components/Modal/EditContent"));
+const DeleteContent = dynamic(() => import("@/components/Modal/DeleteContent"));
 
 export async function getServerSideProps(context) {
   const getCookies = context.req.headers.cookie;

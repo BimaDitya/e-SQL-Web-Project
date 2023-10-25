@@ -1,15 +1,18 @@
 import { useRouter } from "next/router";
+import Timer from "../Timer";
 
 export default function NavbarContent({
   status,
-  contents,
   accounts,
+  studyTime,
   materials,
   UpdateStatus,
 }) {
   const router = useRouter();
   const roles = accounts?.Role;
   const complete = status?.viewStatus?.Progress[0]?.Complete;
+  const studyEnd = status?.viewStatus?.Progress[0]?.End_Time;
+
   return (
     <div className="sticky left-0 right-0 top-0 z-50 h-14">
       <nav className="bg-white/50 px-16 py-4 shadow-md backdrop-blur-sm">
@@ -31,11 +34,27 @@ export default function NavbarContent({
                 d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
               />
             </svg>{" "}
-            {contents?.viewContent[0]?.Title}
+            Daftar Sub-Materi
           </button>
-          <div className="flex flex-row space-x-4">
+          <div className="flex flex-row items-center space-x-4">
+            <div className="flex flex-row space-x-2 font-head text-secondary-400">
+              {!studyEnd ? (
+                <div className="flex flex-row space-x-2 font-head text-secondary-400">
+                  <p>Durasi Belajar: </p>
+                  <Timer studyTime={studyTime} />
+                </div>
+              ) : (
+                <div className="flex flex-row space-x-2 font-head text-secondary-400">
+                  <p>Selesai Pada: {new Date(studyEnd).toLocaleString()}</p>
+                </div>
+              )}
+            </div>
             <button
-              disabled={complete === "TRUE" || roles === "ADMIN"}
+              disabled={
+                complete === "TRUE" ||
+                roles === "ADMIN" ||
+                studyTime <= "00:00:10"
+              }
               onClick={UpdateStatus}
               type="submit"
               className="button-primary disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-200"

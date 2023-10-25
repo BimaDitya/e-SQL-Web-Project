@@ -49,7 +49,6 @@ export async function getServerSideProps(context) {
       },
       params: {
         queryContent: queryContent,
-        queryMaterial: queryMaterial,
       },
     })
     .then((response) => response.data);
@@ -130,11 +129,51 @@ export default function ContentMaterial({
   const materialId = viewMaterial?.viewMaterial?.Id;
   const materialSlug = viewMaterial?.viewMaterial?.Slug;
   const MDXContent = mdxModule ? mdxModule.default : Fragment;
+
+  const [elapsed, setElapsed] = useState(0);
+  const startTime = Date.now();
+
+  const [studyStart, setStudyStart] = useState();
+
+  useEffect(() => {
+    const getCurrentTime = () => {
+      return new Date().toLocaleString();
+    };
+
+    setStudyStart(getCurrentTime());
+  }, []);
+
+  useEffect(() => {
+    if (startTime && elapsed < 1000) {
+      const timer = setInterval(() => {
+        setElapsed(Date.now() - startTime);
+      }, 10);
+      return () => {
+        clearInterval(timer);
+      };
+    }
+  }, []);
+
+  const formatTime = (milliseconds) => {
+    const totalSeconds = Math.floor(milliseconds / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    const formattedTime = `${String(hours).padStart(2, "0")}:${String(
+      minutes,
+    ).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    return formattedTime;
+  };
+
+  let studyTime = formatTime(elapsed);
+  const studyEnd = Date.now();
+
   async function UpdateStatus() {
     await axios
       .patch(
         "/api/user/update-status",
-        {},
+        { studyStart, studyEnd },
         {
           params: { queryContent: queryContent, queryMaterial: materialId },
           headers: {
@@ -150,6 +189,7 @@ export default function ContentMaterial({
       setMdxModule(await run(sources, runtime));
     })();
   }, [sources]);
+
   // DDL
   const allowedViews = (
     <div className="max-width max-height">
@@ -159,9 +199,9 @@ export default function ContentMaterial({
       </Head>
       <NavbarContent
         accounts={accounts}
-        contents={contents}
-        UpdateStatus={UpdateStatus}
         status={viewStatus}
+        studyTime={studyTime}
+        UpdateStatus={UpdateStatus}
         materials={viewMaterial?.viewMaterial?.Slug}
       />
       <LazyMotion features={domAnimation}>

@@ -2,11 +2,14 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import Public from "@/data/public.json";
 import Typewriter from "typewriter-effect";
-import MainLayout from "@/components/Layout/MainLayout";
+const MainLayout = dynamic(() => import("@/components/Layout/MainLayout"));
+const DetailUserGuide = dynamic(() =>
+  import("@/components/Modal/DetailUserGuide"),
+);
 import { LazyMotion, domAnimation, m } from "framer-motion";
-import DetailUserGuide from "@/components/Modal/DetailUserGuide";
 
 export default function Home() {
   const [showDetail, setShowDetail] = useState(false);

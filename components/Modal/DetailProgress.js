@@ -1,7 +1,7 @@
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
-export default function DetailScore({ score, setShowScore }) {
-  const scores = [score];
+export default function DetailProgress({ setShowProgress, progress }) {
+  const progressDetail = progress.Progress;
   return (
     <LazyMotion features={domAnimation}>
       <div className="flex h-auto w-full items-center justify-center">
@@ -18,10 +18,10 @@ export default function DetailScore({ score, setShowScore }) {
           <div className="h-[75%] w-[75%] space-y-2 rounded-lg bg-white px-8 py-4 shadow">
             <div className="flex flex-row items-center justify-between">
               <p className="font-head text-xl font-semibold text-secondary-400">
-                Detail Score
+                Detail Progres
               </p>
               <button
-                onClick={() => setShowScore(false)}
+                onClick={() => setShowProgress(false)}
                 className="rounded-lg bg-gray-200 p-2 font-head text-gray-400 duration-300 ease-in-out hover:cursor-pointer hover:bg-red-400 hover:text-white hover:shadow-md"
               >
                 <svg
@@ -48,61 +48,61 @@ export default function DetailScore({ score, setShowScore }) {
                       #
                     </th>
                     <th scope="col" className="w-max py-2">
-                      Judul Latihan
+                      Judul Materi
                     </th>
                     <th scope="col" className="w-max py-2 text-center">
-                      Score
+                      Waktu Mulai
                     </th>
                     <th scope="col" className="w-max py-2 text-center">
-                      Jam Submit
+                      Waktu Selesai
                     </th>
                     <th scope="col" className="w-max py-2 text-center">
-                      Tgl. Submit
-                    </th>
-                    <th scope="col" className="w-max py-2 text-center">
-                      Total Percobaan
+                      Durasi Belajar
                     </th>
                   </tr>
                 </thead>
                 <tbody className="bg-gray-50 font-body text-gray-500">
-                  {Object.values(scores).map((Rows) =>
-                    Object.values(Rows.Score).map((Row, index) => {
-                      const Exercise = Row?.Exercise
-                        ? Row.Exercise.split(" ").slice(0, -2).join(" ")
-                        : Row?.Exercise;
-                      return (
-                        <m.tr
-                          key={index}
-                          transition={{
-                            duration: 1,
-                            type: "spring",
-                            stiffness: 50,
-                            delay: index * 0.25,
-                          }}
-                          initial={{ opacity: 0, x: 100 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          className="border-b-2 border-secondary-100"
-                        >
-                          <td className="w-max py-2 pl-2 pr-2 text-center">
-                            {index + 1}
-                          </td>
-                          <td className="w-max py-2">{Exercise}</td>
-                          <td className="w-max py-2 text-center">
-                            {Row?.Score}
-                          </td>
-                          <td className="w-max py-2 text-center">
-                            {new Date(Row?.SubmittedAt).toLocaleTimeString()}
-                          </td>
-                          <td className="w-max py-2 text-center">
-                            {new Date(Row?.SubmittedAt).toLocaleDateString()}
-                          </td>
-                          <td className="w-max py-2 text-center">
-                            {`${Row?.Trial} ✗`}
-                          </td>
-                        </m.tr>
-                      );
-                    }),
-                  )}
+                  {Object.values(progressDetail).map((Rows, index) => {
+                    const startStudy = new Date(
+                      Rows?.Start_Time,
+                    ).toLocaleString();
+                    const endStudy = new Date(Rows?.End_Time).toLocaleString();
+
+                    const duration = new Date(endStudy) - new Date(startStudy);
+
+                    let seconds = Math.floor(duration / 1000) % 60;
+                    let minutes = Math.floor(duration / 1000 / 60) % 60;
+
+                    return (
+                      <m.tr
+                        key={index}
+                        transition={{
+                          duration: 1,
+                          type: "spring",
+                          stiffness: 50,
+                          delay: index * 0.25,
+                        }}
+                        initial={{ opacity: 0, x: 100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="border-b-2 border-secondary-100"
+                      >
+                        <td className="w-max px-2 py-2 text-center">
+                          {index + 1}
+                        </td>
+                        <td className="w-max py-2">
+                          {(Rows?.Slug).trim()
+                            .split(/\s+/)
+                            .slice(0, -2)
+                            .join(" ")}
+                        </td>
+                        <td className="w-max py-2 text-center">{startStudy}</td>
+                        <td className="w-max py-2 text-center">{endStudy}</td>
+                        <td className="w-max py-2 text-center">
+                          {`${minutes} Menit ${seconds} Detik`}
+                        </td>
+                      </m.tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

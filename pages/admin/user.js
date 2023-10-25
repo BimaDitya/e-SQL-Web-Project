@@ -7,6 +7,7 @@ import DetailUser from "@/components/Modal/DetailUser";
 import MainLayout from "@/components/Layout/MainLayout";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 import DetailScore from "@/components/Modal/DetailScore";
+import DetailProgress from "@/components/Modal/DetailProgress";
 
 export async function getServerSideProps(context) {
   const getCookies = context.req.headers.cookie;
@@ -46,8 +47,10 @@ export async function getServerSideProps(context) {
 export default function User({ users, token, accounts }) {
   const [user, setUser] = useState();
   const [score, setScore] = useState();
+  const [progress, setProgress] = useState();
   const [showScore, setShowScore] = useState(false);
   const [showDetail, setShowDetail] = useState(false);
+  const [showProgress, setShowProgress] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const contentPerPage = 5;
 
@@ -87,6 +90,14 @@ export default function User({ users, token, accounts }) {
             token={token}
             score={score}
             setShowScore={setShowScore}
+          />
+        ) : null}
+        {/* Detail Progress Modal */}
+        {showProgress ? (
+          <DetailProgress
+            token={token}
+            progress={progress}
+            setShowProgress={setShowProgress}
           />
         ) : null}
         <div className="flex flex-row space-x-4 px-8 py-12">
@@ -131,7 +142,7 @@ export default function User({ users, token, accounts }) {
                           Email
                         </th>
                         <th scope="col" className="w-max px-2 py-2 text-center">
-                          Progress
+                          Progres
                         </th>
                         <th scope="col" className="w-max px-2 py-2 text-center">
                           Skor Kumulatif
@@ -170,7 +181,21 @@ export default function User({ users, token, accounts }) {
                             <td className="w-max px-4 py-2">
                               {Rows.Email.toUpperCase()}
                             </td>
-                            <td className="w-max px-2 py-2 text-center">{`${Rows._count.Progress} Materi`}</td>
+                            <td className="w-max px-2 py-2 text-center">
+                              <button
+                                disabled={
+                                  Rows.Role === "ADMIN" ||
+                                  Rows._count.Progress === 0
+                                }
+                                className="button-primary w-max disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
+                                onClick={() => {
+                                  setShowProgress(true);
+                                  setProgress(Rows);
+                                }}
+                              >
+                                {`${Rows._count.Progress} Materi`}
+                              </button>
+                            </td>
                             <td className="w-max px-2 py-2 text-center">
                               <button
                                 disabled={
@@ -194,7 +219,9 @@ export default function User({ users, token, accounts }) {
                                     ]?.SubmittedAt,
                                   ).toLocaleString()}
                             </td>
-                            <td className="w-max px-2 py-2">{Rows.Role}</td>
+                            <td className="w-max px-2 py-2 text-center">
+                              {Rows.Role}
+                            </td>
                             <td className="w-max space-x-2 px-2 py-2 text-center">
                               <button
                                 disabled={Rows.Role === "ADMIN"}

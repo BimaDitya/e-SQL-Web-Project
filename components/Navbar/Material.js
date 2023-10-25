@@ -26,7 +26,7 @@ export default function NavbarMaterial({ material, progress }) {
                 d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
               />
             </svg>{" "}
-            {material?.Title}
+            Daftar Materi Utama
           </button>
           <div className="flex w-2/5 flex-col justify-between px-6">
             <div className="font-head text-secondary-400">

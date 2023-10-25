@@ -5,7 +5,9 @@ export default async function ViewStatus(req, res) {
   if (req.method !== "GET") return res.status(405).end();
   const auth = await authorization(req, res);
   const queryContent = req.query.queryContent;
-  const queryMaterial = req.query.queryMaterial;
+  const properQuery = queryContent
+    .replace(/-/g, " ")
+    .replace(/(^|\s)([a-z])/g, (match) => match.toUpperCase());
 
   const viewStatus = await prisma.account.findUnique({
     where: {
@@ -14,7 +16,7 @@ export default async function ViewStatus(req, res) {
     include: {
       Progress: {
         where: {
-          Slug: `${queryContent}-user-${auth.id}`,
+          Slug: `${properQuery} User ${auth.id}`,
         },
       },
       _count: {

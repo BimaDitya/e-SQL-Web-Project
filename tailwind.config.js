@@ -1,9 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     typography: {
@@ -18,12 +19,12 @@ module.exports = {
         },
       },
     },
-    fontFamily: {
-      head: ["Ysabeau", "serif"],
-      body: ["Assistant", "sans-serif"],
-      code: ["Source Code Pro", "monospace"],
-    },
     extend: {
+      fontFamily: {
+        head: ["var(--font-Ysabeau)"],
+        body: ["var(--font-Assistant)"],
+        code: ["var(--font-SourceCodePro)"],
+      },
       height: {
         adaptive: "calc(100vh - 4rem)",
       },

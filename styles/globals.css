@@ -45,24 +45,6 @@ pre[class*="language-"] {
 @import "./syntax-highlighting.css";
 
 @layer base {
-  /* Head Font */
-  @font-face {
-    font-family: "Ysabeau";
-    src: url("/fonts/YsabeauOffice.ttf");
-  }
-
-  /* Body Font */
-  @font-face {
-    font-family: "Assistant";
-    src: url("/fonts/Assistant.ttf");
-  }
-
-  /* Editor Font */
-  @font-face {
-    font-family: "Source Code Pro";
-    src: url("/fonts/SourceCodePro.ttf");
-  }
-
   @layer components {
     .unordered-list {
       @apply ml-5 list-disc;
