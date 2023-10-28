@@ -1,0 +1,15 @@
+/* src/components/Component.module.css */
+@font-face {
+  font-family: "Ysabeau";
+  src: url("/fonts/YsabeauOffice.ttf");
+}
+@font-face {
+  font-family: "Assistant";
+  src: url("/fonts/Assistant.ttf");
+}
+.FontHead {
+  font-family: "Ysabeau";
+}
+.FontBody {
+  font-family: "Assistant";
+}

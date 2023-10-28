@@ -1,8 +1,11 @@
+import "animate.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import withReactContent from "sweetalert2-react-content";
+import Styles from "../Component.module.css";
+
 export function RegistrationForm() {
   const router = useRouter();
   const {
@@ -25,24 +28,35 @@ export function RegistrationForm() {
       .then(async () => {
         reset();
         await alertWithSwal.fire({
-          toast: true,
           timer: 3000,
           timerProgressBar: true,
           showConfirmButton: false,
-          width: "40%",
+          width: "50%",
           imageUrl: "/icons/success.png",
           imageWidth: "20%",
+          showClass: {
+            popup: "animate__animated animate__bounceIn",
+          },
+          hideClass: {
+            popup: "animate__animated animate__bounceOut",
+          },
           title: (
-            <p className="text-center font-head text-lg font-semibold tracking-wide text-green-600">
+            <p
+              className={`${Styles.FontHead} text-center text-lg font-semibold tracking-wide text-green-600`}
+            >
               Registrasi Berhasil!
             </p>
           ),
           html: (
-            <p className="text-center font-body font-medium tracking-wide text-green-400">
-              Registrasi Dengan{" "}
-              <p className="font-body font-semibold">
-                {data.email.toUpperCase()}
-              </p>{" "}
+            <p
+              className={`${Styles.FontBody} text-center font-medium tracking-wide text-green-400`}
+            >
+              Registrasi Dengan
+              <span
+                className={`${Styles.FontBody} font-semibold text-green-500`}
+              >
+                {` ${data.email.toUpperCase()} `}
+              </span>
               Berhasil
             </p>
           ),
@@ -51,24 +65,33 @@ export function RegistrationForm() {
       })
       .catch(async () => {
         await alertWithSwal.fire({
-          toast: true,
           timer: 3000,
           timerProgressBar: true,
           showConfirmButton: false,
-          width: "40%",
+          width: "50%",
           imageUrl: "/icons/error.png",
           imageWidth: "20%",
+          showClass: {
+            popup: "animate__animated animate__bounceIn",
+          },
+          hideClass: {
+            popup: "animate__animated animate__bounceOut",
+          },
           title: (
-            <p className="text-center font-head text-lg font-semibold tracking-wide text-red-600">
-              Kesalahan Dalam Registrasi
+            <p
+              className={`${Styles.FontHead} text-center text-lg font-semibold tracking-wide text-red-600`}
+            >
+              Registrasi Gagal!
             </p>
           ),
           html: (
-            <p className="text-center font-body font-medium tracking-wide text-red-400">
-              Alamat Email{" "}
-              <p className="font-body font-semibold">
-                {data.email.toUpperCase()}
-              </p>{" "}
+            <p
+              className={`${Styles.FontBody} text-center font-medium tracking-wide text-red-400`}
+            >
+              Alamat Email
+              <span className={`${Styles.FontBody} font-semibold text-red-500`}>
+                {` ${data.email.toUpperCase()} `}
+              </span>
               Telah Terdaftar
             </p>
           ),

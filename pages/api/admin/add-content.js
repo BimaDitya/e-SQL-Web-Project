@@ -1,10 +1,20 @@
 import prisma from "@/lib/prisma";
 
 export default async function AddContent(req, res) {
-  if (req.method !== "POST")
-    return res.status(405).end("Method Tidak Diizinkan");
+  if (req.method !== "POST") return res.status(405).end();
+
+  const { title, slug, content, material } = req.body;
+
+  function capitalizeText(text) {
+    const words = text.split("-");
+    const capitalizedWords = words.map(
+      (word) => word.charAt(0).toUpperCase() + word.slice(1),
+    );
+    const result = capitalizedWords.join(" ");
+    return result;
+  }
+
   try {
-    const { title, slug, content, material } = req.body;
     const addContent = await prisma.content.create({
       data: {
         Title: title,
@@ -19,7 +29,8 @@ export default async function AddContent(req, res) {
     });
   } catch (error) {
     res.status(500).json({
-      message: `Gagal Menambahkan Konten`,
+      message: "Gagal Menambahkan Konten",
+      content: capitalizeText(slug),
       error,
     });
   }

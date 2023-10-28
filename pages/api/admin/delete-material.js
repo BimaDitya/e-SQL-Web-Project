@@ -1,8 +1,7 @@
 import prisma from "@/lib/prisma";
 
 export default async function DeleteMaterial(req, res) {
-  if (req.method !== "DELETE")
-    return res.status(405).end("Method Tidak Diizinkan");
+  if (req.method !== "DELETE") return res.status(405).end();
   const { params } = req.query;
 
   try {

@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import withReactContent from "sweetalert2-react-content";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 import { useRouter } from "next/router";
+import Styles from "../Component.module.css";
+
 export default function DeleteMaterial({ material, setShowDelete }) {
   const router = useRouter();
   const { handleSubmit } = useForm();
@@ -22,24 +24,33 @@ export default function DeleteMaterial({ material, setShowDelete }) {
       .then((response) => {
         setShowDelete(false);
         alertWithSwal.fire({
-          toast: true,
           timer: 3000,
           timerProgressBar: true,
           showConfirmButton: false,
-          width: "40%",
+          width: "50%",
           imageUrl: "/icons/success.png",
           imageWidth: "20%",
+          showClass: {
+            popup: "animate__animated animate__bounceIn",
+          },
+          hideClass: {
+            popup: "animate__animated animate__bounceOut",
+          },
           title: (
-            <p className="text-center font-head text-lg font-semibold tracking-wide text-green-600">
+            <p
+              className={`${Styles.FontHead} text-center text-lg font-semibold tracking-wide text-green-600`}
+            >
               Perintah Berhasil
             </p>
           ),
           html: (
-            <div className="text-center font-body font-medium tracking-wide text-green-400">
-              Materi{" "}
+            <div
+              className={`${Styles.FontBody} text-center font-medium tracking-wide text-green-400`}
+            >
+              Materi
               <span className="font-semiboldbold text-green-500">
-                {response.data.deleteMaterial.Title}
-              </span>{" "}
+                {` ${response.data.deleteMaterial.Title} `}
+              </span>
               Telah Dihapus
             </div>
           ),
@@ -58,9 +69,9 @@ export default function DeleteMaterial({ material, setShowDelete }) {
           }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/25 backdrop-blur-sm"
+          className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50 backdrop-blur-sm"
         >
-          <div className="mx-48 h-max w-[32rem] rounded-lg bg-white px-8 py-4 shadow">
+          <div className="mx-48 h-max w-[50%] rounded-lg bg-white px-8 py-4 shadow">
             <form
               noValidate
               className="space-y-4"
@@ -74,9 +85,8 @@ export default function DeleteMaterial({ material, setShowDelete }) {
               <div className="flex h-max w-full flex-col space-y-4">
                 <p className="font-body text-gray-400">
                   Materi
-                  <span className="font-semibold text-secondary-400">
-                    {" "}
-                    {material.Title}{" "}
+                  <span className="font-semibold text-red-500">
+                    {` ${material.Title} `}
                   </span>
                   Akan Dihapus?
                 </p>

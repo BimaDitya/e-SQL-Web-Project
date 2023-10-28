@@ -1,3 +1,4 @@
+import "animate.css";
 import axios from "axios";
 import Link from "next/link";
 import Swal from "sweetalert2";
@@ -5,6 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import withReactContent from "sweetalert2-react-content";
 import { LazyMotion, domAnimation, m } from "framer-motion";
+import Styles from "../Component.module.css";
 
 export default function Dropdown({ data, cookies }) {
   const [toggle, setToggle] = useState(true);
@@ -19,20 +21,29 @@ export default function Dropdown({ data, cookies }) {
       })
       .then(() => {
         alertWithSwal.fire({
-          toast: true,
           timer: 3000,
           timerProgressBar: true,
           showConfirmButton: false,
-          width: "40%",
+          width: "50%",
           imageUrl: "/icons/success.png",
           imageWidth: "20%",
+          showClass: {
+            popup: "animate__animated animate__bounceIn",
+          },
+          hideClass: {
+            popup: "animate__animated animate__bounceOut",
+          },
           title: (
-            <p className="text-center font-head text-lg font-semibold tracking-wide text-green-600">
+            <p
+              className={`text-center ${Styles.FontHead} text-lg font-semibold tracking-wide text-green-600`}
+            >
               Logout Berhasil!
             </p>
           ),
           html: (
-            <div className="text-center font-body font-medium tracking-wide text-green-400">
+            <div
+              className={`${Styles.FontBody} text-center font-medium tracking-wide text-green-400`}
+            >
               Sampai Jumpa,
               <p className="font-semibold text-green-500">
                 {` ${(data?.Email).toUpperCase()} `}
@@ -42,7 +53,7 @@ export default function Dropdown({ data, cookies }) {
         });
         setTimeout(() => {
           router.reload(() => "/");
-        }, 3000);
+        }, 3500);
       });
   }
   const profiles = data?.Profile;

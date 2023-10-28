@@ -10,8 +10,11 @@
   }
 }
 
-@tailwind base;
+.swal2-container.swal2-backdrop-show {
+  @apply bg-gray-500/50 backdrop-blur-sm;
+}
 
+@tailwind base;
 :root {
   background-color: transparent;
 }

@@ -1,3 +1,4 @@
+import "animate.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
@@ -5,6 +6,8 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import withReactContent from "sweetalert2-react-content";
 import { LazyMotion, domAnimation, m } from "framer-motion";
+import Styles from "../Component.module.css";
+
 export default function EditMaterial({ material, setShowEdit }) {
   const router = useRouter();
   const {
@@ -31,48 +34,70 @@ export default function EditMaterial({ material, setShowEdit }) {
         setShowEdit(false);
         reset();
         alertWithSwal.fire({
-          toast: true,
           timer: 3000,
           timerProgressBar: true,
           showConfirmButton: false,
-          width: "40%",
+          width: "50%",
           imageUrl: "/icons/success.png",
           imageWidth: "20%",
+          showClass: {
+            popup: "animate__animated animate__bounceIn",
+          },
+          hideClass: {
+            popup: "animate__animated animate__bounceOut",
+          },
           title: (
-            <p className="text-center font-head text-lg font-semibold tracking-wide text-green-600">
+            <p
+              className={`${Styles.FontHead} text-center text-lg font-semibold tracking-wide text-green-600`}
+            >
               Perintah Berhasil
             </p>
           ),
           html: (
-            <div className="text-center font-body font-medium tracking-wide text-green-400">
-              Materi{" "}
+            <div
+              className={`${Styles.FontBody} text-center font-medium tracking-wide text-green-400`}
+            >
+              Materi
               <span className="font-semibold text-green-500">
-                {response.data.updateMaterial.Title}
-              </span>{" "}
-              Diperbarui
+                {` ${response.data.updateMaterial.Title} `}
+              </span>
+              Telah Diperbarui
             </div>
           ),
         });
         router.replace(router.asPath);
       })
-      .catch(() => {
+      .catch((error) => {
         alertWithSwal.fire({
-          toast: true,
           timer: 3000,
           timerProgressBar: true,
           showConfirmButton: false,
-          width: "40%",
+          width: "50%",
           imageUrl: "/icons/error.png",
           imageWidth: "20%",
+          showClass: {
+            popup: "animate__animated animate__bounceIn",
+          },
+          hideClass: {
+            popup: "animate__animated animate__bounceOut",
+          },
           title: (
-            <p className="text-center font-head text-lg font-semibold tracking-wide text-red-600">
-              Terjadi Kesalahan
+            <p
+              className={`${Styles.FontHead} text-center text-lg font-semibold tracking-wide text-red-600`}
+            >
+              Perintah Gagal
             </p>
           ),
           html: (
-            <p className="text-center font-body font-medium tracking-wide text-red-400">
-              Gagal Memperbarui Materi
-            </p>
+            <div
+              className={`${Styles.FontBody} text-center font-medium tracking-wide text-red-400`}
+            >
+              Judul Materi
+              <span className="font-semibold text-red-500">
+                {` ${error.response.data.content} `}
+              </span>
+              Telah Digunakan
+            </div>
           ),
         });
       });
@@ -94,7 +119,7 @@ export default function EditMaterial({ material, setShowEdit }) {
           }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/25 backdrop-blur-sm"
+          className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50 backdrop-blur-sm"
         >
           <div className="mx-48 h-max w-full rounded-lg bg-white px-8 py-4 shadow">
             <form

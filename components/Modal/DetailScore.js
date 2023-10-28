@@ -13,7 +13,7 @@ export default function DetailScore({ score, setShowScore }) {
           }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/25 backdrop-blur-sm"
+          className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50 backdrop-blur-sm"
         >
           <div className="h-[75%] w-[75%] space-y-2 rounded-lg bg-white px-8 py-4 shadow">
             <div className="flex flex-row items-center justify-between">

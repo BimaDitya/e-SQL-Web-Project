@@ -31,7 +31,7 @@ export default function DetailUser({ user, setShowDetail }) {
           }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/25 backdrop-blur-sm"
+          className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50 backdrop-blur-sm"
         >
           <div className="mx-48 h-max w-full rounded-lg bg-white px-8 py-4 shadow">
             <form noValidate className="space-y-4">

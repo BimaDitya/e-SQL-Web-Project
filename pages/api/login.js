@@ -13,11 +13,12 @@ export default async function HandleLogin(req, res) {
       Email: email,
     },
   });
-  if (!accounts) return res.status(401).end("Email Tidak Terdaftar");
+  if (!accounts)
+    return res.status(401).end(`Email ${email.toUpperCase()} Tidak Terdaftar`);
 
   // Verify Password
   const verify = await bcrypt.compare(password, accounts.Password);
-  if (!verify) return res.status(401).end("Kata Sandi Salah");
+  if (!verify) return res.status(401).end("Kata Sandi Yang Dimasukkan Salah");
 
   const token = jwt.sign(
     {

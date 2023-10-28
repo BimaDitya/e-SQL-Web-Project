@@ -8,6 +8,7 @@ import { useForm, Controller } from "react-hook-form";
 import withReactContent from "sweetalert2-react-content";
 import remarkCodeTitles from "remark-flexible-code-titles";
 import { LazyMotion, domAnimation, m } from "framer-motion";
+import Styles from "../Component.module.css";
 
 export default function EditExercise({ setShowEdit, materials, exercise }) {
   const router = useRouter();
@@ -44,21 +45,34 @@ export default function EditExercise({ setShowEdit, materials, exercise }) {
         setShowEdit(false);
         reset();
         alertWithSwal.fire({
-          toast: true,
           timer: 3000,
           timerProgressBar: true,
           showConfirmButton: false,
-          width: "40%",
+          width: "50%",
           imageUrl: "/icons/success.png",
           imageWidth: "20%",
+          showClass: {
+            popup: "animate__animated animate__bounceIn",
+          },
+          hideClass: {
+            popup: "animate__animated animate__bounceOut",
+          },
           title: (
-            <p className="text-center font-head text-lg font-semibold tracking-wide text-green-600">
+            <p
+              className={`${Styles.FontHead} text-center text-lg font-semibold tracking-wide text-green-600`}
+            >
               Perintah Berhasil
             </p>
           ),
           html: (
-            <div className="text-center font-body font-medium tracking-wide text-green-400">
-              {response.data.message}
+            <div
+              className={`${Styles.FontBody} text-center font-medium tracking-wide text-green-400`}
+            >
+              Latihan Soal
+              <span className="font-semibold text-green-500">
+                {` ${response.data.updateExercise.Title} `}
+              </span>
+              Telah Diperbarui
             </div>
           ),
         });
@@ -66,21 +80,34 @@ export default function EditExercise({ setShowEdit, materials, exercise }) {
       })
       .catch((error) => {
         alertWithSwal.fire({
-          toast: true,
           timer: 3000,
           timerProgressBar: true,
           showConfirmButton: false,
-          width: "40%",
+          width: "50%",
           imageUrl: "/icons/error.png",
           imageWidth: "20%",
+          showClass: {
+            popup: "animate__animated animate__bounceIn",
+          },
+          hideClass: {
+            popup: "animate__animated animate__bounceOut",
+          },
           title: (
-            <p className="text-center font-head text-lg font-semibold tracking-wide text-red-600">
-              Terjadi Kesalahan
+            <p
+              className={`${Styles.FontHead} text-center text-lg font-semibold tracking-wide text-red-600`}
+            >
+              Perintah Gagal
             </p>
           ),
           html: (
-            <p className="text-center font-body font-medium tracking-wide text-red-400">
-              {error.response.data.message}
+            <p
+              className={`${Styles.FontBody} text-center font-medium tracking-wide text-red-400`}
+            >
+              Latihan Soal
+              <span className="font-semibold text-red-500">
+                {` ${error.response.data.content} `}
+              </span>
+              Telah Digunakan
             </p>
           ),
         });
@@ -105,7 +132,7 @@ export default function EditExercise({ setShowEdit, materials, exercise }) {
   ]);
   return (
     <div className="flex h-auto w-full items-center justify-center">
-      <div className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/25 backdrop-blur-sm">
+      <div className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50 backdrop-blur-sm">
         <LazyMotion features={domAnimation}>
           <m.div
             transition={{

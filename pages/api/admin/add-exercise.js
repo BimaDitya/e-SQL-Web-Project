@@ -2,8 +2,19 @@ import prisma from "@/lib/prisma";
 
 export default async function AddContent(req, res) {
   if (req.method !== "POST") return res.status(405).end();
+
+  const { material, question, answer, score, title, slug } = req.body;
+
+  function capitalizeText(text) {
+    const words = text.split("-");
+    const capitalizedWords = words.map(
+      (word) => word.charAt(0).toUpperCase() + word.slice(1),
+    );
+    const result = capitalizedWords.join(" ");
+    return result;
+  }
+
   try {
-    const { material, question, answer, score, title, slug } = req.body;
     const addExercise = await prisma.exercise.create({
       data: {
         FK_Material: parseInt(material),
@@ -21,6 +32,7 @@ export default async function AddContent(req, res) {
   } catch (error) {
     res.status(500).json({
       message: `Gagal Menambahkan Latihan`,
+      content: capitalizeText(slug),
       error,
     });
   }
