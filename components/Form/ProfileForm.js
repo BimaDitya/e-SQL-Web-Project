@@ -26,7 +26,7 @@ export default function ProfileForm({ accounts, token }) {
       })
       .then(() => {
         alertWithSwal.fire({
-          toast: true,
+          toast: false,
           timer: 3000,
           timerProgressBar: true,
           showConfirmButton: false,
@@ -35,12 +35,12 @@ export default function ProfileForm({ accounts, token }) {
           imageWidth: "20%",
           title: (
             <p className="text-center font-head text-lg font-semibold tracking-wide text-green-600">
-              Operasi Berhasil
+              Perintah Berhasil
             </p>
           ),
           html: (
             <div className="text-center font-body font-medium tracking-wide text-green-400">
-              Profile Berhasil Diperbarui
+              Berhasil Memperbarui Profile Pengguna
             </div>
           ),
         });
@@ -48,7 +48,7 @@ export default function ProfileForm({ accounts, token }) {
       })
       .catch(() => {
         alertWithSwal.fire({
-          toast: true,
+          toast: false,
           timer: 3000,
           timerProgressBar: true,
           showConfirmButton: false,
@@ -57,12 +57,12 @@ export default function ProfileForm({ accounts, token }) {
           imageWidth: "20%",
           title: (
             <p className="text-center font-head text-lg font-semibold tracking-wide text-red-600">
-              Terjadi Kesalahan
+              Perintah Gagal
             </p>
           ),
           html: (
             <p className="text-center font-body font-medium tracking-wide text-red-400">
-              Gagal Memperbarui Profile
+              Gagal Memperbarui Profile Pengguna
             </p>
           ),
         });
