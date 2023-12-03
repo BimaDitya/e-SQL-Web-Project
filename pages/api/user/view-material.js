@@ -21,10 +21,4 @@ export default async function ViewMaterial(req, res) {
     message: "Berhasil Menampilkan Materi",
     viewMaterial,
   });
-  // } catch (error) {
-  // 	res.status(500).json({
-  // 		message: `Gagal Menampilkan Materi`,
-  // 		error,
-  // 	});
-  // }
 }

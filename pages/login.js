@@ -31,7 +31,7 @@ export default function Login() {
             transition={{ duration: 1, type: "spring", stiffness: 75 }}
             initial={{ opacity: 0, y: -75 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex w-3/5 flex-row justify-between rounded-md border-2 border-gray-100 bg-transparent px-6 py-2 shadow-xl backdrop-blur-sm"
+            className="flex w-3/5 flex-row justify-between rounded-md border-2 border-gray-300 bg-transparent px-6 py-2 shadow backdrop-blur-sm"
           >
             <div className="flex w-3/5 flex-col justify-center p-4">
               <p className="mb-4 font-head text-2xl font-bold text-primary-400"></p>
@@ -51,9 +51,9 @@ export default function Login() {
               <Image
                 src="illustrations/login.svg"
                 alt="Login Illustration"
-                width={320}
-                height={320}
-                quality={75}
+                width={300}
+                height={300}
+                quality={50}
                 priority
               />
             </div>

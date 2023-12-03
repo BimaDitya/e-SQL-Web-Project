@@ -21,9 +21,9 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        head: ["var(--font-Ysabeau)"],
-        body: ["var(--font-Assistant)"],
-        code: ["var(--font-SourceCodePro)"],
+        head: [`Ysabeau Infant`],
+        body: [`Assistant`],
+        code: [`Source Code Pro`],
       },
       height: {
         adaptive: "calc(100vh - 4rem)",

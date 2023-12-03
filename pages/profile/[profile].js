@@ -35,37 +35,47 @@ export default function ProfileSetting({ accounts, token }) {
         <title>Profile</title>
         <link rel="icon" href="../icons/favicon.ico"></link>
       </Head>
-      <div className="flex h-adaptive flex-row items-center justify-center bg-white/50">
+      <div className="mx-auto flex h-screen w-full max-w-5xl flex-row items-center justify-center bg-white/50">
         <LazyMotion features={domAnimation}>
           <m.div
             transition={{ duration: 1, type: "spring", stiffness: 75 }}
             initial={{ opacity: 0, y: -75 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex w-3/4 flex-row justify-between rounded-2xl border-2 border-gray-100 bg-transparent px-6 py-2 shadow-xl backdrop-blur-sm"
+            className="flex h-max w-[80%] flex-row items-center justify-center rounded-md border-2 border-gray-300 bg-transparent shadow backdrop-blur-sm"
           >
-            <div className="flex w-3/5 flex-col justify-center p-4">
-              <button
-                onClick={() => router.push("/")}
-                className="w-max rounded-md py-2 font-head text-secondary-400 transition duration-300 ease-in-out hover:text-secondary-200"
-              >
-                &#8592; Kembali
-              </button>
-              <p className="mb-4 font-head text-2xl font-bold text-primary-400">
-                Pengaturan Profile
-              </p>
+            <div className="flex h-full w-full flex-col items-center justify-center px-6 py-3">
+              {/* Judul */}
+              <div className="flex h-full w-full flex-row items-baseline justify-between">
+                <button
+                  onClick={() => router.push("/")}
+                  className="flex w-max flex-row items-center font-head font-semibold text-secondary-400 transition duration-300 ease-in-out hover:text-secondary-200"
+                >
+                  &#8592; Kembali
+                </button>
+                <p className="mb-4 font-head text-xl font-bold text-primary-400">
+                  Pengaturan Profile
+                </p>
+                <button className="flex w-max cursor-default flex-row items-center font-head text-transparent">
+                  &#8592; Kembali
+                </button>
+              </div>
+
               {/* Profile Form*/}
-              <ProfileForm accounts={accounts} token={token} />
-            </div>
-            <div className="flex flex-row items-center justify-center">
-              <Image
-                className="h-80 w-full"
-                src="../illustrations/profile.svg"
-                alt="Profile Illustration"
-                sizes="100vw"
-                width="0"
-                height="0"
-                quality={50}
-              />
+              <div className="flex w-full flex-row items-center">
+                <div className="w-[60%]">
+                  <ProfileForm accounts={accounts} token={token} />
+                </div>
+                <div className="w-[40%]">
+                  <Image
+                    className="h-full w-full"
+                    src="../illustrations/profile.svg"
+                    alt="Profile Illustration"
+                    width={300}
+                    height={300}
+                    quality={50}
+                  />
+                </div>
+              </div>
             </div>
           </m.div>
         </LazyMotion>

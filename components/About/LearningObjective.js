@@ -7,7 +7,7 @@ export default function LearningObjective() {
         <p className="font-head text-xl font-bold text-secondary-400">
           Tujuan Pembelajaran
         </p>
-        <ul className="mx-5 list-disc text-justify font-body text-gray-500">
+        <ul className="mx-5 list-disc text-justify font-body text-gray-400">
           <li>
             Melalui membaca, mendiskusikan, dan mempraktikkan, peserta didik
             dapat Mengidentifikasi kelompok perintah Data Definition Language,

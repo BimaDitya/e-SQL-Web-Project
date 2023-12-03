@@ -1,16 +1,9 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import initSqlJs from "sql.js";
-import "codemirror/mode/sql/sql";
-import { hint } from "codemirror";
 import TableSQL from "./TableOutput";
-import "codemirror/lib/codemirror.css";
+import CodeEditor from "./CodeEditor";
 import { useRouter } from "next/router";
-import "codemirror/theme/material.css";
-import "codemirror/addon/hint/sql-hint";
-import "codemirror/addon/hint/show-hint";
-import "codemirror/addon/hint/show-hint.css";
-import CodeMirror from "@uiw/react-codemirror";
 import React, { useState, useEffect } from "react";
 import withReactContent from "sweetalert2-react-content";
 
@@ -48,7 +41,6 @@ export default function SQLEditor({
         setError(error);
       }
     };
-
     initSql();
   }, []);
 
@@ -57,6 +49,7 @@ export default function SQLEditor({
   async function reset() {
     router.reload();
   }
+
   async function submit() {
     axios
       .post(
@@ -77,7 +70,7 @@ export default function SQLEditor({
           reset();
         }, 3000);
         alertWithSwal.fire({
-          toast: true,
+          toast: false,
           timer: 3000,
           timerProgressBar: true,
           showConfirmButton: false,
@@ -98,7 +91,7 @@ export default function SQLEditor({
       })
       .catch(() => {
         alertWithSwal.fire({
-          toast: true,
+          toast: false,
           timer: 3000,
           timerProgressBar: true,
           showConfirmButton: false,
@@ -137,11 +130,11 @@ export default function SQLEditor({
       .then(({ data }) => {
         setStatus(data.condition);
         alertWithSwal.fire({
-          toast: true,
+          toast: false,
           timer: 2500,
           timerProgressBar: true,
           showConfirmButton: false,
-          position: "top",
+          position: "center",
           title: (
             <p
               className={`text-center font-head text-lg font-semibold tracking-wide ${
@@ -181,33 +174,20 @@ export default function SQLEditor({
   }
   const submitDateTime = new Date(submittedAt).toLocaleString();
   return (
-    <>
+    <div className="flex h-full flex-col space-y-2.5">
       {/* Editor Section */}
-      <div className="h-max w-full">
-        <div className="z-50 w-full">
-          <div className="h-40 w-auto">
-            <CodeMirror
-              value=""
-              height="100%"
-              onChange={(editor) => {
-                setCode(editor.getValue());
-              }}
-              options={{
-                hintOptions: { completeSingle: false, hint: hint.sql },
-                showHint: true,
-                autofocus: true,
-                autocapitalize: true,
-                lineWrapping: true,
-                theme: "material",
-                mode: "text/x-mysql",
-                extraKeys: { "Ctrl-Space": "autocomplete" },
-              }}
-            />
+      <div className="h-full w-full">
+        <div className="z-50 h-full w-full space-y-0.5">
+          <p className="font-head text-lg font-semibold text-secondary-400">
+            Input
+          </p>
+          <div className="h-44 py-1.5">
+            <CodeEditor setCode={setCode} />
           </div>
           {/* Baris Tombol */}
-          {getScore !== null || roles === "ADMIN" ? (
+          {getScore !== null ? (
             <>
-              <p className="mt-2 font-head text-lg text-green-500">
+              <p className="font-head text-lg text-green-500">
                 Anda Telah Selesai Mengerjakan Soal Latihan Ini 👍🏻
               </p>
               <p className="font-head text-sm text-gray-500">
@@ -217,7 +197,7 @@ export default function SQLEditor({
           ) : (
             <div className="flex flex-row justify-between">
               {/* Kiri */}
-              <div className="mt-2 flex flex-row justify-start space-x-4">
+              <div className="flex flex-row justify-start space-x-4">
                 <button
                   onClick={execute}
                   disabled={!code}
@@ -230,6 +210,8 @@ export default function SQLEditor({
                   onClick={submit}
                   disabled={!code || status !== "TRUE"}
                   className={`button-primary ${
+                    roles === "ADMIN" ? "hidden" : "inline"
+                  } ${
                     (!code || status !== "TRUE") &&
                     "disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:cursor-not-allowed"
                   }`}
@@ -250,13 +232,13 @@ export default function SQLEditor({
         </div>
       </div>
       {/* Output Section */}
-      <div className="h-max w-full py-2">
+      <div className="h-full w-full space-y-0.5">
         <p className="font-head text-lg font-semibold text-secondary-400">
           Output
         </p>
-        <div className="w-full">
+        <div className="h-full w-full space-y-0.5">
           <div className="flex flex-row space-x-2">
-            <p className="font-body text-sm text-gray-500">Status: </p>
+            <p className="font-body text-sm text-gray-400">Status: </p>
             <pre
               className={
                 error
@@ -272,6 +254,6 @@ export default function SQLEditor({
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }

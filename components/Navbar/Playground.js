@@ -12,9 +12,9 @@ export default function NavbarPlayground({
     : `Total Skor: ${sumScore?._sum?.Score}`;
   const router = useRouter();
   return (
-    <div className="sticky left-0 right-0 top-0 z-50 h-14">
-      <nav className="bg-white/50 px-16 py-4 shadow-md backdrop-blur-sm">
-        <div className="flex items-center justify-between font-head">
+    <div className="sticky left-0 right-0 top-0 z-50 h-16 bg-transparent shadow backdrop-blur-sm">
+      <nav className="max-w-5xl flex flex-row h-full items-center mx-auto">
+        <div className="flex items-center justify-between w-full font-head">
           <Link
             href={`/material/${material}`}
             passHref

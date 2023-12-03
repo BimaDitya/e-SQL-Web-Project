@@ -12,7 +12,7 @@ const nextConfig = {
       use: "raw-loader",
     });
     if (!isServer) {
-      config.resolve.fallback.fs = false;
+      config.resolve.fallback = { fs: false };
     }
     config.experiments = { ...config.experiments, topLevelAwait: true };
     return config;

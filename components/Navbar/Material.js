@@ -6,9 +6,9 @@ export default function NavbarMaterial({ material, progress }) {
   const totalContent = material?._count?.Content;
   const currentProgress = progress?.viewProgress[0]?._count?.Progress;
   return (
-    <div className="sticky left-0 right-0 top-0 z-50 h-14">
-      <nav className="bg-white/50 px-16 py-4 shadow-md backdrop-blur-sm">
-        <div className="flex items-center justify-between font-head">
+    <div className="sticky left-0 right-0 top-0 z-50 h-16 bg-transparent shadow backdrop-blur-sm">
+      <nav className="mx-auto flex h-full max-w-5xl flex-row items-center justify-between">
+        <div className="flex w-full items-center justify-between font-head">
           <button
             onClick={() => router.push("/material")}
             className="flex flex-row items-center py-2.5 font-head text-xl font-semibold text-secondary-400 transition duration-300 ease-in-out hover:text-secondary-200"
@@ -28,18 +28,18 @@ export default function NavbarMaterial({ material, progress }) {
             </svg>{" "}
             Daftar Materi Utama
           </button>
-          <div className="flex w-2/5 flex-col justify-between px-6">
-            <div className="font-head text-secondary-400">
+          <div className="flex w-4/12 flex-col justify-between space-y-0.5">
+            <div className="font-head font-medium text-secondary-400">
               <p>
-                Progress: {currentProgress ? currentProgress : 0} /{" "}
-                {totalContent} Materi
+                {`Progress: ${
+                  currentProgress ? currentProgress : 0
+                }/${totalContent} Materi`}
               </p>
             </div>
             <ProgressBar
               completed={`${currentProgress}`}
               maxCompleted={totalContent}
               animateOnRender
-              className="py-2"
               bgColor="rgb(255 158 26)"
               labelClassName="progressbar-label"
               barContainerClassName={

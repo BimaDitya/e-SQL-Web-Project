@@ -45,8 +45,8 @@ model Progress {
   Id          Int      @id @default(autoincrement())
   Slug        String   @unique
   Complete    Status   @default(FALSE)
-  Start_Time  DateTime @db.Timestamp()
-  End_Time    DateTime @db.Timestamp()
+  Start_Time  DateTime @db.Timestamp(0)
+  End_Time    DateTime @db.Timestamp(0)
   Account     Account  @relation(fields: [FK_Account], references: [Id], onDelete: Cascade)
   FK_Account  Int // -> FK To Account
   Material    Material @relation(fields: [FK_Material], references: [Id], onDelete: Cascade)

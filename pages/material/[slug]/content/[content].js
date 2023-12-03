@@ -1,15 +1,14 @@
 import axios from "axios";
 import Head from "next/head";
 import Image from "next/image";
+import Markdown from "react-markdown";
 import { useRouter } from "next/router";
-import { compile, run } from "@mdx-js/mdx";
 import rehypePrism from "rehype-prism-plus";
-import * as runtime from "react/jsx-runtime";
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import NavbarContent from "@/components/Navbar/Content";
 import remarkCodeTitles from "remark-flexible-code-titles";
 import { LazyMotion, domAnimation, m } from "framer-motion";
-// Server-Side
+
 export async function getServerSideProps(context) {
   const queryContent = context.query.content;
   const queryMaterial = context.query.slug;
@@ -84,17 +83,11 @@ export async function getServerSideProps(context) {
     })
     .then((response) => response.data?.viewProgress[0]?._count?.Progress);
   const accounts = viewAccount?.data?.data;
-  const compileMarkdown = String(
-    await compile(viewContent?.viewContent[0]?.Content, {
-      outputFormat: "function-body",
-      rehypePlugins: [rehypePrism],
-      remarkPlugins: [remarkCodeTitles],
-      development: false,
-    }),
-  );
+  const source = viewContent?.viewContent[0]?.Content;
   return {
     props: {
       token,
+      source,
       accounts,
       viewStatus,
       viewMaterial,
@@ -104,15 +97,14 @@ export async function getServerSideProps(context) {
       progressDCL,
       progressJoin,
       contents: viewContent,
-      sources: compileMarkdown,
       slugMaterial: queryMaterial,
     },
   };
 }
-// Client-Side
+
 export default function ContentMaterial({
   token,
-  sources,
+  source,
   accounts,
   contents,
   viewStatus,
@@ -128,7 +120,6 @@ export default function ContentMaterial({
   const [mdxModule, setMdxModule] = useState();
   const materialId = viewMaterial?.viewMaterial?.Id;
   const materialSlug = viewMaterial?.viewMaterial?.Slug;
-  const MDXContent = mdxModule ? mdxModule.default : Fragment;
 
   const [elapsed, setElapsed] = useState(0);
   const startTime = Date.now();
@@ -152,6 +143,7 @@ export default function ContentMaterial({
         clearInterval(timer);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const formatTime = (milliseconds) => {
@@ -184,13 +176,7 @@ export default function ContentMaterial({
       )
       .then(() => router.push(`/material/${materialSlug}`));
   }
-  useEffect(() => {
-    (async () => {
-      setMdxModule(await run(sources, runtime));
-    })();
-  }, [sources]);
 
-  // DDL
   const allowedViews = (
     <div className="max-width max-height">
       <Head>
@@ -205,8 +191,8 @@ export default function ContentMaterial({
         materials={viewMaterial?.viewMaterial?.Slug}
       />
       <LazyMotion features={domAnimation}>
-        <div className="flex flex-row px-8">
-          <div className="flex h-full w-full items-start justify-center">
+        <div className="mx-auto flex max-w-5xl flex-row">
+          <div className="flex h-adaptive w-full items-center justify-center">
             <m.div
               transition={{
                 duration: 1,
@@ -215,14 +201,21 @@ export default function ContentMaterial({
               }}
               initial={{ opacity: 0, y: -100 }}
               animate={{ opacity: 1, y: 0 }}
-              className="z-30 m-10 w-full rounded-md border-2 border-gray-200 bg-transparent p-4 backdrop-blur-sm"
+              className="h-[95%] rounded border-2 border-gray-300 bg-transparent p-2.5 shadow backdrop-blur-sm"
             >
-              <div className="flex flex-col text-justify font-body">
-                <p className="px-12 pb-4 text-center font-head text-2xl font-semibold text-secondary-400">
-                  {contents.viewContent[0]?.Title}
-                </p>
-                <div className="prose prose-strong:text-bold max-w-none px-8 text-gray-600">
-                  <MDXContent />
+              <div className="z-30 h-full w-full overflow-y-scroll rounded-md bg-gray-100 px-4 py-2.5">
+                <div className="flex flex-col space-y-2 text-justify font-body">
+                  <p className="text-center font-head text-2xl font-semibold text-secondary-400">
+                    {contents.viewContent[0]?.Title}
+                  </p>
+                  <div className="prose prose-strong:text-bold max-w-none text-gray-600">
+                    <Markdown
+                      rehypePlugins={[rehypePrism]}
+                      remarkPlugins={[remarkCodeTitles]}
+                    >
+                      {source}
+                    </Markdown>
+                  </div>
                 </div>
               </div>
             </m.div>
@@ -239,36 +232,39 @@ export default function ContentMaterial({
         <link rel="icon" href="/icons/favicon.ico"></link>
       </Head>
       <LazyMotion features={domAnimation}>
-        <m.div
-          transition={{
-            duration: 1,
-            type: "spring",
-            stiffness: 50,
-          }}
-          initial={{ opacity: 0, y: -100 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mx-16 mt-8 flex h-adaptive flex-col items-center justify-center rounded border-2 border-gray-200 bg-transparent shadow-lg backdrop-blur-sm"
-        >
-          <div className="flex flex-col items-center justify-center">
-            <Image
-              className="transition duration-300 ease-in-out hover:scale-110"
-              src="/illustrations/notebook.svg"
-              width={360}
-              height={360}
-              quality={50}
-              alt="Page Not Found"
-            />
-            <p className="pb-8 font-head text-2xl font-bold tracking-wider text-secondary-400">
-              Anda Belum Menyelesaikan Materi Sebelumnya
-            </p>
-          </div>
-          <button
-            className="button-primary w-max"
-            onClick={() => router.push("/material")}
+        <div className="max-width mx-auto flex h-screen flex-row items-center justify-center">
+          <m.div
+            transition={{
+              duration: 1,
+              type: "spring",
+              stiffness: 50,
+            }}
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex h-3/4 w-3/4 flex-col items-center justify-center rounded border-2 border-gray-300 bg-transparent shadow backdrop-blur-sm"
           >
-            Halaman Materi
-          </button>
-        </m.div>
+            <div className="flex flex-col items-center justify-center">
+              <Image
+                className="transition duration-300 ease-in-out hover:scale-110"
+                src="/illustrations/notebook.svg"
+                width={300}
+                height={300}
+                quality={50}
+                priority={false}
+                alt="Restricted Content"
+              />
+              <p className="font-head text-2xl font-bold tracking-wider text-secondary-400">
+                Anda Belum Menyelesaikan Materi Sebelumnya
+              </p>
+            </div>
+            <button
+              className="button-primary my-8 w-max"
+              onClick={() => router.push("/material")}
+            >
+              Halaman Materi
+            </button>
+          </m.div>
+        </div>
       </LazyMotion>
     </>
   );

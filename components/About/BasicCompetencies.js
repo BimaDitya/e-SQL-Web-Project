@@ -7,7 +7,7 @@ export default function BasicCompetencies() {
         <p className="font-head text-xl font-bold text-secondary-400">
           Kompetensi Dasar 3.4 & 4.4
         </p>
-        <ul className="mx-5 list-disc text-justify font-body text-gray-500">
+        <ul className="mx-5 list-disc text-justify font-body text-gray-400">
           <li>
             Memahami kelompok perintah yang termasuk dalam Data Definition
             Language, Data Manipulation Language, dan Data Control Language.
@@ -24,7 +24,7 @@ export default function BasicCompetencies() {
         <p className="font-head text-xl font-bold text-secondary-400">
           Kompetensi Dasar 3.9 & 4.9
         </p>
-        <ul className="mx-5 list-disc text-justify font-body text-gray-500">
+        <ul className="mx-5 list-disc text-justify font-body text-gray-400">
           <li>
             Memahami penerapan Fungsi Agregasi di dalam Basis Data dengan
             menggunakan perintah Structured Query Language.
@@ -41,7 +41,7 @@ export default function BasicCompetencies() {
         <p className="font-head text-xl font-bold text-secondary-400">
           Kompetensi Dasar 3.14 & 4.14
         </p>
-        <ul className="mx-5 list-disc text-justify font-body text-gray-500">
+        <ul className="mx-5 list-disc text-justify font-body text-gray-400">
           <li>
             Memahami penerapan Multitable dengan perintah Structured Query
             Language untuk mengakses tabel dari Basis Data.

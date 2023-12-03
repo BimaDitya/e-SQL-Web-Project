@@ -10,20 +10,20 @@ export default function Navbar({ isLoading, cookies, data }) {
   const roles = data?.Role;
   if (isLoading)
     return (
-      <div className="sticky left-0 right-0 top-0 z-50 -mb-6 h-[80px]">
-        <nav className="flex h-full items-center justify-center bg-white/50 shadow-md backdrop-blur">
-          <p className={`text-secondary-200 ${Styles.FontHead}`}>
+      <div className="sticky left-0 right-0 top-0 z-50 h-16">
+        <nav className="flex h-full items-center justify-center bg-white/50 shadow backdrop-blur">
+          <div className={`text-secondary-200 ${Styles.FontHead}`}>
             <Loading />
-          </p>
+          </div>
         </nav>
       </div>
     );
   return (
     <>
-      <div className="sticky left-0 right-0 top-0 z-50 h-14">
-        <nav className="bg-white/50 px-16 py-4 shadow-md backdrop-blur-sm">
+      <div className="sticky left-0 right-0 top-0 z-50 h-16 bg-transparent shadow backdrop-blur-sm">
+        <nav className="mx-auto flex h-full max-w-5xl flex-row items-center">
           <div
-            className={`flex items-center justify-between ${Styles.FontHead}`}
+            className={`flex w-full items-center justify-between ${Styles.FontHead}`}
           >
             <div>
               <Image
@@ -31,9 +31,10 @@ export default function Navbar({ isLoading, cookies, data }) {
                 src="/web-logo.svg"
                 alt="Website Logo"
                 sizes="100vw"
-                width="0"
+                quality={50}
                 height="0"
-                quality={25}
+                width="0"
+                priority
               />
             </div>
             <ul className="flex flex-row justify-center">
@@ -50,18 +51,20 @@ export default function Navbar({ isLoading, cookies, data }) {
                 </Link>
               </li>
               {cookies && (
-                <li className="transition duration-300 ease-in-out">
-                  <Link
-                    href="/material"
-                    className={
-                      router.pathname == "/material"
-                        ? "menu-active-state"
-                        : "menu-default-state"
-                    }
-                  >
-                    Materi
-                  </Link>
-                </li>
+                <>
+                  <li className="transition duration-300 ease-in-out">
+                    <Link
+                      href="/material"
+                      className={
+                        router.pathname == "/material"
+                          ? "menu-active-state"
+                          : "menu-default-state"
+                      }
+                    >
+                      Materi
+                    </Link>
+                  </li>
+                </>
               )}
               {roles === "ADMIN" && (
                 <li className="transition duration-300 ease-in-out">
@@ -71,15 +74,15 @@ export default function Navbar({ isLoading, cookies, data }) {
                       router.pathname == "/admin/exercise"
                         ? "menu-active-state"
                         : "menu-default-state" &&
-                          router.pathname == "/admin/material"
-                        ? "menu-active-state"
-                        : "menu-default-state" &&
-                          router.pathname == "/admin/content"
-                        ? "menu-active-state"
-                        : "menu-default-state" &&
-                          router.pathname == "/admin/user"
-                        ? "menu-active-state"
-                        : "menu-default-state"
+                            router.pathname == "/admin/material"
+                          ? "menu-active-state"
+                          : "menu-default-state" &&
+                              router.pathname == "/admin/content"
+                            ? "menu-active-state"
+                            : "menu-default-state" &&
+                                router.pathname == "/admin/user"
+                              ? "menu-active-state"
+                              : "menu-default-state"
                     }
                   >
                     Admin

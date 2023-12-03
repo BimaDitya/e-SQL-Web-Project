@@ -1,15 +1,14 @@
 import axios from "axios";
 import Head from "next/head";
+import Image from "next/image";
+import { useState } from "react";
 import dynamic from "next/dynamic";
-import { compile, run } from "@mdx-js/mdx";
-import * as runtime from "react/jsx-runtime";
+import Markdown from "react-markdown";
 import rehypePrism from "rehype-prism-plus";
-import { useState, useEffect, Fragment } from "react";
 import remarkCodeTitles from "remark-flexible-code-titles";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 import NavbarPlayground from "@/components/Navbar/Playground";
-import Image from "next/image";
-const CodeEditor = dynamic(import("@/components/EditorInput"), { ssr: false });
+const EditorInput = dynamic(import("@/components/EditorInput"), { ssr: false });
 
 export async function getServerSideProps(context) {
   const getCookies = context.req.headers.cookie;
@@ -94,19 +93,12 @@ export async function getServerSideProps(context) {
       },
     })
     .then((response) => response.data?.viewProgress[0]?._count?.Progress);
-
-  const compileMarkdown = String(
-    await compile(exercise?.Exercise[0]?.Question, {
-      remarkPlugins: [remarkCodeTitles],
-      rehypePlugins: [rehypePrism],
-      outputFormat: "function-body",
-      development: false,
-    }),
-  );
+  const source = exercise?.Exercise[0]?.Question;
   return {
     props: {
       score,
       token,
+      source,
       account,
       exercise,
       sumScore,
@@ -118,7 +110,6 @@ export async function getServerSideProps(context) {
       submittedAt,
       queryExercise,
       queryMaterial,
-      sources: compileMarkdown,
     },
   };
 }
@@ -129,28 +120,19 @@ export default function Playground({
   progressDML,
   progressDCL,
   progressJoin,
-  progressAF,
   sumScore,
   exercise,
-  sources,
   account,
+  source,
   token,
   score,
 }) {
   const answer = exercise?.Exercise[0]?.Answer;
-  const [mdxModule, setMdxModule] = useState();
   const [currentStatus, setCurrentStatus] = useState("");
 
   function checkCurrentStatus(condition) {
     setCurrentStatus(condition);
   }
-
-  const MDXContent = mdxModule ? mdxModule.default : Fragment;
-  useEffect(() => {
-    (async () => {
-      setMdxModule(await run(sources, runtime));
-    })();
-  }, [sources]);
   const accountRole = account?.Role;
   const allowedViews = (
     <div className="max-width max-height">
@@ -165,20 +147,20 @@ export default function Playground({
         material={queryMaterial}
       />
       <LazyMotion features={domAnimation}>
-        <div className="flex h-adaptive flex-row px-10 pt-16">
-          <div className="flex h-[90%] w-full items-start justify-center">
+        <div className="mx-auto flex h-adaptive max-w-5xl flex-row items-center">
+          <div className="flex h-[90%] w-full items-start justify-center space-x-2">
             {/* Kiri/Soal Latihan*/}
-            <div className="h-full w-[45%] rounded-md border-2 border-gray-200 bg-white/10 px-4 py-2.5 backdrop-blur-sm">
-              <m.div
-                transition={{
-                  duration: 1,
-                  type: "spring",
-                  stiffness: 50,
-                }}
-                initial={{ opacity: 0, x: -100 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="h-full overflow-scroll"
-              >
+            <m.div
+              transition={{
+                duration: 1,
+                type: "spring",
+                stiffness: 50,
+              }}
+              initial={{ opacity: 0, x: -100 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="h-full w-[40%] rounded-md border-2 border-gray-300 bg-transparent p-2.5 shadow backdrop-blur-sm"
+            >
+              <div className="h-full overflow-scroll rounded bg-gray-100 px-1.5">
                 <div
                   className={`space-y-2 ${
                     currentStatus === "TRUE" || score !== null
@@ -196,12 +178,17 @@ export default function Playground({
                       <span className="text-secondary-400">{` ${exercise?.Exercise[0]?.Score} `}</span>
                     </p>
                   </div>
-                  <div className="prose prose-code:inline-code prose-ul:unordered-list prose-thead:table-head prose-th:table-head-columns prose-td:table-data prose-tr:table-rows h-max w-full max-w-none overflow-y-scroll text-justify font-body text-gray-500 prose-strong:font-bold prose-table:table">
-                    <MDXContent />
+                  <div className="prose prose-strong:text-bold max-w-none text-justify font-body text-gray-600">
+                    <Markdown
+                      rehypePlugins={[rehypePrism]}
+                      remarkPlugins={[remarkCodeTitles]}
+                    >
+                      {source}
+                    </Markdown>
                   </div>
                 </div>
-              </m.div>
-            </div>
+              </div>
+            </m.div>
             {/* Kanan/Editor */}
             <m.div
               transition={{
@@ -211,10 +198,10 @@ export default function Playground({
               }}
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
-              className="ml-2 h-full w-[55%] rounded-md border-2 border-gray-200 bg-white/10 p-4 backdrop-blur-sm"
+              className="h-full w-[60%] rounded-md border-2 border-gray-300 bg-transparent px-2.5 py-2 shadow backdrop-blur-sm"
             >
               <div className="h-full w-full overflow-scroll">
-                <CodeEditor
+                <EditorInput
                   token={token}
                   answer={answer}
                   getScore={score}
@@ -233,7 +220,7 @@ export default function Playground({
   );
 
   const disallowedViews = (
-    <div className="max-width max-height">
+    <div className="max-width h-adaptive">
       <Head>
         <title>Playground</title>
         <link rel="icon" href="/icons/favicon.ico"></link>
@@ -245,30 +232,33 @@ export default function Playground({
         material={queryMaterial}
       />
       <LazyMotion features={domAnimation}>
-        <m.div
-          transition={{
-            duration: 1,
-            type: "spring",
-            stiffness: 50,
-          }}
-          initial={{ opacity: 0, y: -100 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mx-16 mt-20 flex h-full flex-col items-center justify-center rounded border-2 border-gray-200 bg-transparent shadow-lg backdrop-blur-sm"
-        >
-          <div className="flex flex-col items-center justify-center">
-            <Image
-              className="transition duration-300 ease-in-out hover:scale-110"
-              src="/illustrations/notebook.svg"
-              width={360}
-              height={360}
-              quality={50}
-              alt="Page Not Found"
-            />
-            <p className="pb-10 font-head text-2xl font-bold tracking-wider text-secondary-400">
-              Anda Belum Menyelesaikan Materi Sebelumnya
-            </p>
-          </div>
-        </m.div>
+        <div className="max-width flex h-adaptive flex-col justify-center">
+          <m.div
+            transition={{
+              duration: 1,
+              type: "spring",
+              stiffness: 50,
+            }}
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mx-auto flex h-3/4 w-3/4 flex-col items-center justify-center rounded-md border-2 border-gray-300 bg-transparent shadow backdrop-blur-sm"
+          >
+            <div className="flex flex-col items-center justify-center pb-12">
+              <Image
+                className="transition duration-300 ease-in-out hover:scale-110"
+                src="/illustrations/notebook.svg"
+                width={300}
+                height={300}
+                quality={50}
+                priority={false}
+                alt="Restricted Content"
+              />
+              <p className="font-head text-2xl font-bold tracking-wider text-secondary-400">
+                Anda Belum Menyelesaikan Materi Sebelumnya
+              </p>
+            </div>
+          </m.div>
+        </div>
       </LazyMotion>
     </div>
   );

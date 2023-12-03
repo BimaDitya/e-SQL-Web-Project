@@ -87,9 +87,9 @@ export default function Material({
         <title>Materi</title>
         <link rel="icon" href="icons/favicon.ico"></link>
       </Head>
-      <div className="flex flex-row px-32">
-        <div className="flex h-adaptive w-full items-start justify-center pt-10">
-          <div className="h-[97.5%] w-full rounded-md border-2 border-gray-200 bg-white/10 p-4 backdrop-blur-sm">
+      <div className="mx-auto flex max-w-5xl flex-row">
+        <div className="flex h-adaptive w-full items-center justify-center">
+          <div className="h-[90%] w-full rounded-md border-2 border-gray-300 bg-transparent p-4 shadow backdrop-blur-sm">
             <div className="h-full space-y-2.5 overflow-scroll">
               {!materials && !progress && (
                 <p className="text-center font-head text-2xl font-bold text-secondary-400">
