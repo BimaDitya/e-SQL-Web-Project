@@ -100,156 +100,171 @@ export default function User({ users, token, accounts }) {
             setShowProgress={setShowProgress}
           />
         ) : null}
-        <div className="flex flex-row space-x-4 px-8 py-12">
-          {/* Kolom Kiri */}
-          <m.div
-            transition={{
-              duration: 0.5,
-              type: "spring",
-              stiffness: 50,
-            }}
-            initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="z-30 h-max w-[25%] rounded-md border-2 border-gray-200 bg-transparent backdrop-blur-sm"
-          >
-            <SideMenu accounts={accounts} />
-          </m.div>
-          {/* Kolom Kanan */}
-          <m.div
-            transition={{
-              duration: 0.5,
-              type: "spring",
-              stiffness: 50,
-            }}
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="z-30 h-max w-[75%] space-y-2 rounded-md border-2 border-gray-200 bg-transparent px-4 py-2.5 backdrop-blur-sm"
-          >
-            <div className="h-max w-full">
-              {/* Baris Atas */}
-              <div className="flex w-full flex-row items-center justify-between rounded">
-                <p className="font-head text-xl font-bold text-secondary-400">
-                  Daftar Pengguna
-                </p>
-              </div>
-              {/* Baris Bawah */}
-              <div className="py-2">
-                <div className="overflow-auto">
-                  <table className="w-full table-auto border-2 border-secondary-100">
-                    <thead className="bg-secondary-100 text-left font-head text-sm uppercase text-white">
-                      <tr>
-                        <th scope="col" className="w-max px-4 py-2">
-                          Email
-                        </th>
-                        <th scope="col" className="w-max px-2 py-2 text-center">
-                          Progres
-                        </th>
-                        <th scope="col" className="w-max px-2 py-2 text-center">
-                          Skor Kumulatif
-                        </th>
-                        <th scope="col" className="w-max px-2 py-2 text-center">
-                          Pengerjaan Terbaru
-                        </th>
-                        <th scope="col" className="w-max px-2 py-2">
-                          Role
-                        </th>
-                        <th scope="col" className="w-max px-2 py-2 text-center">
-                          Aksi
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-gray-50 font-body text-sm text-gray-500">
-                      {Object.values(records).map((Rows, index) => {
-                        const totalScore = (Rows?.Score).reduce(
-                          (accumulator, scoreElement) =>
-                            accumulator + scoreElement.Score,
-                          0,
-                        );
-                        return (
-                          <m.tr
-                            key={Rows.Id}
-                            transition={{
-                              duration: 1,
-                              type: "spring",
-                              stiffness: 50,
-                              delay: index * 0.25,
-                            }}
-                            initial={{ opacity: 0, x: 100 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            className="border-b-2 border-secondary-100"
-                          >
-                            <td className="w-max px-4 py-2">
-                              {Rows.Email.toUpperCase()}
-                            </td>
-                            <td className="w-max px-2 py-2 text-center">
-                              <button
-                                disabled={
-                                  Rows.Role === "ADMIN" ||
-                                  Rows._count.Progress === 0
-                                }
-                                className="button-primary w-max disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
-                                onClick={() => {
-                                  setShowProgress(true);
-                                  setProgress(Rows);
-                                }}
-                              >
-                                {`${Rows._count.Progress} Materi`}
-                              </button>
-                            </td>
-                            <td className="w-max px-2 py-2 text-center">
-                              <button
-                                disabled={
-                                  Rows.Role === "ADMIN" || totalScore === 0
-                                }
-                                className="button-primary w-16 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
-                                onClick={() => {
-                                  setShowScore(true);
-                                  setScore(Rows);
-                                }}
-                              >
-                                {totalScore}
-                              </button>
-                            </td>
-                            <td className="w-max px-2 py-2 text-center">
-                              {!Rows?.Score[Rows?.Score.length - 1]?.SubmittedAt
-                                ? `-`
-                                : new Date(
-                                    Rows?.Score[
-                                      Rows.Score.length - 1
-                                    ]?.SubmittedAt,
-                                  ).toLocaleString()}
-                            </td>
-                            <td className="w-max px-2 py-2 text-center">
-                              {Rows.Role}
-                            </td>
-                            <td className="w-max space-x-2 px-2 py-2 text-center">
-                              <button
-                                disabled={Rows.Role === "ADMIN"}
-                                className="button-primary disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
-                                onClick={() => {
-                                  setShowDetail(true);
-                                  setUser(Rows);
-                                }}
-                              >
-                                Detail
-                              </button>
-                            </td>
-                          </m.tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
+        <div className="mx-auto flex h-adaptive max-w-5xl flex-row items-center">
+          <div className="flex w-full flex-row space-x-2">
+            {/* Kolom Kiri */}
+            <m.div
+              transition={{
+                duration: 0.5,
+                type: "spring",
+                stiffness: 50,
+              }}
+              initial={{ opacity: 0, x: -100 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="z-30 h-max w-[25%] rounded-md border-2 border-gray-300 bg-transparent shadow backdrop-blur-sm"
+            >
+              <SideMenu accounts={accounts} />
+            </m.div>
+            {/* Kolom Kanan */}
+            <m.div
+              transition={{
+                duration: 0.5,
+                type: "spring",
+                stiffness: 50,
+              }}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="z-30 h-max w-[75%] space-y-2 rounded-md border-2 border-gray-300 bg-transparent p-2.5 shadow backdrop-blur-sm"
+            >
+              <div className="h-max w-full">
+                {/* Baris Atas */}
+                <div className="flex w-full flex-row items-center justify-between rounded">
+                  <p className="pb-2 font-head text-xl font-bold text-secondary-400">
+                    Daftar Pengguna
+                  </p>
                 </div>
+                {/* Baris Bawah */}
+                <div className="py-0">
+                  <div className="overflow-auto">
+                    <table className="w-full table-auto border-2 border-secondary-100">
+                      <thead className="bg-secondary-100 text-left font-head text-sm uppercase text-white">
+                        <tr>
+                          <th scope="col" className="w-max py-2 pl-2.5">
+                            Email
+                          </th>
+                          <th
+                            scope="col"
+                            className="w-max px-2 py-2 text-center"
+                          >
+                            Progres
+                          </th>
+                          <th
+                            scope="col"
+                            className="w-max px-2 py-2 text-center"
+                          >
+                            Skor
+                          </th>
+                          <th
+                            scope="col"
+                            className="w-max px-2 py-2 text-center"
+                          >
+                            Peng. Terbaru
+                          </th>
+                          <th scope="col" className="w-max px-2 py-2">
+                            Role
+                          </th>
+                          <th
+                            scope="col"
+                            className="w-max px-2 py-2 text-center"
+                          >
+                            Aksi
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-gray-50 font-body text-sm text-gray-500">
+                        {Object.values(records).map((Rows, index) => {
+                          const totalScore = (Rows?.Score).reduce(
+                            (accumulator, scoreElement) =>
+                              accumulator + scoreElement.Score,
+                            0,
+                          );
+                          return (
+                            <m.tr
+                              key={Rows.Id}
+                              transition={{
+                                duration: 1,
+                                type: "spring",
+                                stiffness: 50,
+                                delay: index * 0.25,
+                              }}
+                              initial={{ opacity: 0, x: 100 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              className="border-b-2 border-secondary-100"
+                            >
+                              <td className="w-max py-2 pl-2.5 text-sm">
+                                {Rows.Email.toUpperCase()}
+                              </td>
+                              <td className="w-max px-2 py-2 text-center">
+                                <button
+                                  disabled={
+                                    Rows.Role === "ADMIN" ||
+                                    Rows._count.Progress === 0
+                                  }
+                                  className="button-primary w-max disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
+                                  onClick={() => {
+                                    setShowProgress(true);
+                                    setProgress(Rows);
+                                  }}
+                                >
+                                  {`${Rows._count.Progress} Materi`}
+                                </button>
+                              </td>
+                              <td className="w-max px-2 py-2 text-center">
+                                <button
+                                  disabled={
+                                    Rows.Role === "ADMIN" || totalScore === 0
+                                  }
+                                  className="button-primary w-16 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
+                                  onClick={() => {
+                                    setShowScore(true);
+                                    setScore(Rows);
+                                  }}
+                                >
+                                  {totalScore}
+                                </button>
+                              </td>
+                              <td className="w-max px-2 py-2 text-center">
+                                {!Rows?.Score[Rows?.Score.length - 1]
+                                  ?.SubmittedAt
+                                  ? `-`
+                                  : new Date(
+                                      Rows?.Score[
+                                        Rows.Score.length - 1
+                                      ]?.SubmittedAt,
+                                    ).toLocaleString()}
+                              </td>
+                              <td className="w-max px-2 py-2 text-center">
+                                {Rows.Role}
+                              </td>
+                              <td className="w-max space-x-2 px-2 py-2 text-center">
+                                <button
+                                  disabled={Rows.Role === "ADMIN"}
+                                  className="button-primary disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
+                                  onClick={() => {
+                                    setShowDetail(true);
+                                    setUser(Rows);
+                                  }}
+                                >
+                                  Detail
+                                </button>
+                              </td>
+                            </m.tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  previous={previous}
+                  numbers={numbers}
+                  next={next}
+                />
               </div>
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                previous={previous}
-                numbers={numbers}
-                next={next}
-              />
-            </div>
-          </m.div>
+            </m.div>
+          </div>
         </div>
       </LazyMotion>
     </>

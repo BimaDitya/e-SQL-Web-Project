@@ -4,15 +4,15 @@ import { useRouter } from "next/router";
 export default function SideMenu({ accounts }) {
   const router = useRouter();
   return (
-    <div className="p-2">
-      <div className="px-4 pt-2">
+    <div className="px-3.5 py-2.5">
+      <div className="mb-2.5">
         <p className="font-head text-secondary-400">Selamat Datang Admin,</p>
         <p className="font-head text-lg font-semibold text-primary-400">
           {accounts.Profile?.FirstName} {accounts.Profile?.LastName}
         </p>
       </div>
-      <div className="space-y-4 px-4 py-2">
-        <ul className="flex flex-col space-y-3">
+      <div className="space-y-4">
+        <ul className="flex flex-col space-y-2">
           {/* Pengguna */}
           <li className="flex flex-row items-center justify-between space-x-2 font-head">
             <Link
