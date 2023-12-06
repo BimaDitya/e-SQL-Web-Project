@@ -121,7 +121,7 @@ export default function EditMaterial({ material, setShowEdit }) {
           animate={{ opacity: 1 }}
           className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50 backdrop-blur-sm"
         >
-          <div className="mx-48 h-max w-full rounded-lg bg-white px-8 py-4 shadow">
+          <div className="h-[80%] w-[80%] rounded-lg bg-white px-8 py-4 shadow">
             <form
               noValidate
               className="space-y-4"
@@ -151,7 +151,7 @@ export default function EditMaterial({ material, setShowEdit }) {
                   </svg>
                 </button>
               </div>
-              <div className="flex h-max w-full flex-col space-y-4">
+              <div className="flex h-max w-full flex-col space-y-2">
                 {/* Baris Judul & Slug */}
                 <div className="flex w-full flex-row space-x-16">
                   {/* Judul Materi */}
@@ -217,7 +217,7 @@ export default function EditMaterial({ material, setShowEdit }) {
                   <textarea
                     label="Desc"
                     name="desc"
-                    className="mt-2 h-36 resize-none rounded bg-gray-100 p-2 text-justify font-body text-gray-600 outline-none ring-2 ring-gray-200 transition ease-in-out focus:ring-primary-100"
+                    className="mt-2 h-64 resize-none rounded bg-gray-100 p-2 text-justify font-body text-gray-600 outline-none ring-2 ring-gray-200 transition ease-in-out focus:ring-primary-100"
                     type="text"
                     placeholder="Masukkan Deskripsi..."
                     {...register("desc", {

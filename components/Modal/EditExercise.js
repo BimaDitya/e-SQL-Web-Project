@@ -131,7 +131,7 @@ export default function EditExercise({ setShowEdit, materials, exercise }) {
     exercise?.FK_Material,
   ]);
   return (
-    <div className="flex h-auto w-full items-center justify-center">
+    <div className="flex h-screen w-screen items-center justify-center">
       <div className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50 backdrop-blur-sm">
         <LazyMotion features={domAnimation}>
           <m.div
@@ -142,7 +142,7 @@ export default function EditExercise({ setShowEdit, materials, exercise }) {
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="mx-24 h-max w-full rounded-lg bg-white px-8 py-4 shadow"
+            className="h-[90%] w-[80%] rounded-lg bg-white px-8 py-4 shadow"
           >
             <form
               noValidate
@@ -302,7 +302,7 @@ export default function EditExercise({ setShowEdit, materials, exercise }) {
                             {...fieled}
                             label="Question"
                             name="question"
-                            className="h-48 resize-none rounded bg-gray-100 p-2 text-justify font-body text-gray-600 outline-none ring-2 ring-gray-200 transition ease-in-out focus:ring-primary-100"
+                            className="h-36 resize-none rounded bg-gray-100 p-2 text-justify font-body text-gray-600 outline-none ring-2 ring-gray-200 transition ease-in-out focus:ring-primary-100"
                             type="text"
                             placeholder="Masukkan Konten..."
                             {...register("question", {
@@ -326,7 +326,7 @@ export default function EditExercise({ setShowEdit, materials, exercise }) {
                     <Markdown
                       rehypePlugins={rehypePrism}
                       remarkPlugins={remarkCodeTitles}
-                      className="h-48 resize-none overflow-x-scroll rounded bg-gray-100 p-2 text-justify font-body text-gray-600 outline-none ring-2 ring-gray-200 transition ease-in-out focus:ring-primary-100"
+                      className="h-36 resize-none overflow-x-scroll rounded bg-gray-100 p-2 text-justify font-body text-gray-600 outline-none ring-2 ring-gray-200 transition ease-in-out focus:ring-primary-100"
                     >
                       {questions}
                     </Markdown>
@@ -345,7 +345,7 @@ export default function EditExercise({ setShowEdit, materials, exercise }) {
                   <textarea
                     label="Answer"
                     name="answer"
-                    className="focus:ring-secondary-100-100 h-32 resize-none rounded bg-gray-800 p-2 text-justify font-code text-sm text-gray-100 outline-none ring-2 ring-gray-200 transition ease-in-out"
+                    className="h-[8.5rem] resize-none rounded bg-gray-800 p-2 text-justify font-code text-sm text-gray-100 outline-none ring-2 ring-gray-200 transition ease-in-out focus:ring-secondary-100"
                     type="text"
                     placeholder="Masukkan Jawaban..."
                     {...register("answer", {
@@ -358,7 +358,7 @@ export default function EditExercise({ setShowEdit, materials, exercise }) {
                     </p>
                   )}
                 </div>
-                <div className="flex w-full flex-row pt-2">
+                <div className="flex w-full flex-row">
                   <button
                     disabled={!isValid || !isDirty}
                     type="submit"
