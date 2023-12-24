@@ -19,14 +19,16 @@ enum Status {
 }
 
 model Account {
-  Id        Int        @id @default(autoincrement())
-  Email     String     @unique(map: "Email") @db.VarChar(255)
-  Password  String     @db.Char(255)
-  CreatedAt DateTime   @default(now()) @db.Timestamp(0)
-  Role      Roles      @default(USER)
+  Id        Int         @id @default(autoincrement())
+  Email     String      @unique(map: "Email") @db.VarChar(255)
+  Password  String      @db.Char(255)
+  CreatedAt DateTime    @default(now()) @db.Timestamp(0)
+  Role      Roles       @default(USER)
   Score     Score[]
   Profile   Profile?
   Progress  Progress[]
+  Result    Results[]
+  Durations Durations[]
 }
 
 // Account 1-1 Profile
@@ -101,6 +103,39 @@ model Score {
   Exercise    String   @unique @db.VarChar(255) // <- Judul Soal Latihan
   Account     Account  @relation(fields: [FK_Account], references: [Id], onDelete: Cascade)
   FK_Account  Int // <- FK To Account
+
+  @@index([FK_Account])
+}
+
+model Exams {
+  Id       Int    @id @default(autoincrement())
+  Slug     String @unique @db.VarChar(255) // <- Slug Dari Tes
+  Title    String @db.VarChar(255) // <- Judul Tes
+  Question String @db.Text // <- Soal Tes
+  Answer   String @db.Text // <- Kunci Jawaban Dari Soal
+  Score    Float  @default(0) @db.Float // <- Skor Dari Tes
+}
+
+model Results {
+  Id         Int     @id @default(autoincrement())
+  Test       String  @default("") @db.VarChar(255)
+  Slug       String  @unique
+  Answer     String  @db.Text
+  Complete   Status  @default(FALSE)
+  Account    Account @relation(fields: [FK_Account], references: [Id], onDelete: Cascade)
+  FK_Account Int // <- FK To Account
+
+  @@index([FK_Account])
+}
+
+model Durations {
+  Id         Int      @id @default(autoincrement())
+  Test       String   @default("") @db.VarChar(255)
+  Start_Time DateTime @db.Timestamp(0)
+  End_Time   DateTime @db.Timestamp(0)
+  Duration   String   @default("00:00") @db.VarChar(255) // <- Menyimpan Durasi Pengerjaan Tes
+  Account    Account  @relation(fields: [FK_Account], references: [Id], onDelete: Cascade)
+  FK_Account Int // <- FK To Account
 
   @@index([FK_Account])
 }

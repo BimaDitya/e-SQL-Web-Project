@@ -181,7 +181,7 @@ export default function SQLEditor({
           <p className="font-head text-lg font-semibold text-secondary-400">
             Input
           </p>
-          <div className="h-44 py-1.5">
+          <div className="py-1.5">
             <CodeEditor setCode={setCode} />
           </div>
           {/* Baris Tombol */}

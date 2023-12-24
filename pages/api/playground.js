@@ -32,7 +32,6 @@ export default async function HandlePlayground(req, res) {
   const description = isCorrectAnswer
     ? "Silahkan Submit Jawaban Anda"
     : "Periksa Kembali Jawaban Anda";
-
   try {
     await prisma.score.upsert({
       where: {

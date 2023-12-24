@@ -19,7 +19,7 @@ export default function ExerciseCard({ material, exercise, index }) {
         >
           <div className="flex flex-row items-center justify-between">
             <h6 className="font-head text-lg font-medium text-secondary-400">
-              {index + 1}. {exercise.Title}
+              {exercise.Title}
             </h6>
             <div className="button-primary">
               <Link href={`${material.Slug}` + `/exercise/${exercise.Slug}`}>

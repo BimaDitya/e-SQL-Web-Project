@@ -264,10 +264,10 @@ export default function EditContent({ setShowEdit, materials, content }) {
                   <Controller
                     name="content"
                     control={control}
-                    render={({ ...fieled }) => (
+                    render={({ ...field }) => (
                       <>
                         <textarea
-                          {...fieled}
+                          {...field}
                           label="Content"
                           name="content"
                           className="mt-2 h-36 resize-none rounded bg-gray-100 p-2 text-justify font-body text-gray-600 outline-none ring-2 ring-gray-200 transition ease-in-out focus:ring-primary-100"

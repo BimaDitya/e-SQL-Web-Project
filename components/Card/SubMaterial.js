@@ -2,7 +2,6 @@ import Link from "next/link";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
 export default function SubMaterialCard({ material, content, index }) {
-  const accessTime = new Date();
   return (
     <>
       <LazyMotion features={domAnimation}>
@@ -21,7 +20,7 @@ export default function SubMaterialCard({ material, content, index }) {
           >
             <div className="flex flex-row items-center justify-between">
               <h6 className="font-head text-lg font-medium text-secondary-400">
-                {index + 1}. {content.Title}
+                {content.Title}
               </h6>
               <div className="button-primary">
                 <Link href={`${material.Slug}` + `/content/${content.Slug}`}>

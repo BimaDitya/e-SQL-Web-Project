@@ -296,10 +296,10 @@ export default function EditExercise({ setShowEdit, materials, exercise }) {
                     <Controller
                       name="question"
                       control={control}
-                      render={({ ...fieled }) => (
+                      render={({ ...field }) => (
                         <>
                           <textarea
-                            {...fieled}
+                            {...field}
                             label="Question"
                             name="question"
                             className="h-36 resize-none rounded bg-gray-100 p-2 text-justify font-body text-gray-600 outline-none ring-2 ring-gray-200 transition ease-in-out focus:ring-primary-100"

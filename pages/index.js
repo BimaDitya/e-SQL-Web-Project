@@ -11,7 +11,16 @@ const DetailUserGuide = dynamic(
 );
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
-export default function Home() {
+export async function getServerSideProps(context) {
+  const cookies = context?.req?.headers?.cookie || null;
+  return {
+    props: {
+      cookies,
+    },
+  };
+}
+
+export default function Home({ cookies }) {
   const [showDetail, setShowDetail] = useState(false);
   return (
     <>
@@ -22,18 +31,18 @@ export default function Home() {
       <LazyMotion features={domAnimation}>
         {showDetail ? <DetailUserGuide setShowDetail={setShowDetail} /> : null}
         <div className="bg-white/50">
-          <div className="mx-auto max-w-5xl columns-2">
+          <div className="mx-auto flex max-w-5xl flex-row">
             {/* Left Columns */}
-            <div className="flex h-adaptive items-center justify-center">
+            <div className="flex h-adaptive w-1/2 items-center justify-center">
               <m.div
                 transition={{ duration: 0.5, type: "spring", stiffness: 50 }}
                 initial={{ opacity: 0, x: -100 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="z-30 rounded-md border-2 border-gray-300 bg-transparent px-10 py-6 shadow backdrop-blur-sm"
+                className="z-30 space-y-2.5 rounded-md border-2 border-gray-300 bg-transparent px-4 py-6 shadow backdrop-blur-sm"
               >
-                <div className="w-full py-2 text-left font-head text-xl font-bold">
-                  <p className="text-justify text-secondary-400">
-                    Upgrade Skill & Pengetahuan SQL Kamu,
+                <div className="w-full text-left font-head text-xl font-bold">
+                  <div className="inline-flex w-full text-secondary-400">
+                    <p>Upgrade Skill & Pengetahuan SQL Kamu,&nbsp;</p>
                     <span className="text-xl text-primary-400">
                       <Typewriter
                         options={{
@@ -44,31 +53,13 @@ export default function Home() {
                         }}
                       />
                     </span>
-                  </p>
+                  </div>
                 </div>
-                <p className="pr-2 text-justify font-body text-gray-400">
+                <p className="text-justify font-body text-gray-400">
                   {Public[0].index_desc}
                 </p>
                 <div className="flex flex-row space-x-4">
-                  <div className="button-primary mt-2 flex w-max flex-row space-x-2 py-3 ">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="h-6 w-6"
-                    >
-                      <path
-                        strokeLinecap="square"
-                        strokeLinejoin="round"
-                        d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"
-                      />
-                    </svg>
-
-                    <Link href="/material">Belajar Sekarang</Link>
-                  </div>
-                  <div className="button-secondary mt-2 flex w-max flex-row space-x-2 py-3">
+                  <div className="button-primary flex w-max flex-row space-x-2 py-3">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -91,12 +82,31 @@ export default function Home() {
                       Baca Panduan
                     </button>
                   </div>
+                  {cookies && (
+                    <div className="button-secondary flex w-max flex-row space-x-2 py-3 ">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="h-6 w-6"
+                      >
+                        <path
+                          strokeLinecap="square"
+                          strokeLinejoin="round"
+                          d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
+                        />
+                      </svg>
+                      <Link href="/exam">Kerjakan Tes</Link>
+                    </div>
+                  )}
                 </div>
               </m.div>
             </div>
 
             {/* Right Columns */}
-            <div className="flex h-adaptive items-center justify-end px-10">
+            <div className="flex h-adaptive w-1/2 items-center justify-center">
               <m.div
                 transition={{ duration: 0.5, type: "spring", stiffness: 50 }}
                 initial={{ opacity: 0, x: 100 }}

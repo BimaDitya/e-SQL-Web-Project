@@ -117,7 +117,6 @@ export default function ContentMaterial({
   slugMaterial,
 }) {
   const router = useRouter();
-  const [mdxModule, setMdxModule] = useState();
   const materialId = viewMaterial?.viewMaterial?.Id;
   const materialSlug = viewMaterial?.viewMaterial?.Slug;
 

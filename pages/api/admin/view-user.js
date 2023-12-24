@@ -33,6 +33,24 @@ export default async function ViewUser(req, res) {
           Trial: true,
         },
       },
+      Result: {
+        select: {
+          Complete: true,
+          Answer: true,
+          Slug: true,
+          Test: true,
+          FK_Account: true,
+        },
+      },
+      Durations: {
+        select: {
+          Test: true,
+          Duration: true,
+          Start_Time: true,
+          End_Time: true,
+          FK_Account: true,
+        },
+      },
     },
   });
   res.status(200);

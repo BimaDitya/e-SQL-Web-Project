@@ -66,7 +66,7 @@ export default function Navbar({ isLoading, cookies, data }) {
                   </li>
                 </>
               )}
-              {roles === "ADMIN" && (
+              {cookies && roles === "ADMIN" && (
                 <li className="transition duration-300 ease-in-out">
                   <Link
                     href="/admin/user"

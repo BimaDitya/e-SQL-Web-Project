@@ -8,6 +8,7 @@ import MainLayout from "@/components/Layout/MainLayout";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 import DetailScore from "@/components/Modal/DetailScore";
 import DetailProgress from "@/components/Modal/DetailProgress";
+import DetailExams from "@/components/Modal/DetailExams";
 
 export async function getServerSideProps(context) {
   const getCookies = context.req.headers.cookie;
@@ -48,9 +49,11 @@ export default function User({ users, token, accounts }) {
   const [user, setUser] = useState();
   const [score, setScore] = useState();
   const [progress, setProgress] = useState();
+  const [exams, setExams] = useState();
   const [showScore, setShowScore] = useState(false);
   const [showDetail, setShowDetail] = useState(false);
   const [showProgress, setShowProgress] = useState(false);
+  const [showExams, setShowExams] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const contentPerPage = 5;
 
@@ -98,6 +101,14 @@ export default function User({ users, token, accounts }) {
             token={token}
             progress={progress}
             setShowProgress={setShowProgress}
+          />
+        ) : null}
+        {/* Detail Hasil Tes Modal */}
+        {showExams ? (
+          <DetailExams
+            token={token}
+            exams={exams}
+            setShowExams={setShowExams}
           />
         ) : null}
         <div className="mx-auto flex h-adaptive max-w-5xl flex-row items-center">
@@ -158,7 +169,7 @@ export default function User({ users, token, accounts }) {
                             scope="col"
                             className="w-max px-2 py-2 text-center"
                           >
-                            Peng. Terbaru
+                            Hasil Tes
                           </th>
                           <th scope="col" className="w-max px-2 py-2">
                             Role
@@ -224,14 +235,16 @@ export default function User({ users, token, accounts }) {
                                 </button>
                               </td>
                               <td className="w-max px-2 py-2 text-center">
-                                {!Rows?.Score[Rows?.Score.length - 1]
-                                  ?.SubmittedAt
-                                  ? `-`
-                                  : new Date(
-                                      Rows?.Score[
-                                        Rows.Score.length - 1
-                                      ]?.SubmittedAt,
-                                    ).toLocaleString()}
+                                <button
+                                  disabled={Rows.Role === "ADMIN"}
+                                  className="button-secondary disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
+                                  onClick={() => {
+                                    setShowExams(true);
+                                    setExams(Rows);
+                                  }}
+                                >
+                                  Lihat
+                                </button>
                               </td>
                               <td className="w-max px-2 py-2 text-center">
                                 {Rows.Role}
