@@ -47,7 +47,7 @@ export default function Dropdown({ data, cookies }) {
             >
               Sampai Jumpa,
               <p className="font-semibold text-green-500">
-                {` ${(data?.Email).toUpperCase()} `}
+                {` ${data?.Email?.toUpperCase()}` || `Guest`}
               </p>
             </div>
           ),
@@ -107,7 +107,7 @@ export default function Dropdown({ data, cookies }) {
                     <div className="space-y-2 px-6 py-2.5 text-gray-400">
                       <div className="transition duration-300 ease-in-out hover:cursor-pointer hover:text-secondary-400">
                         <Link
-                          href={`/profile/${data.CreatedAt}`}
+                          href={`/profile/${data?.CreatedAt}`}
                           className="flex w-full flex-row items-center"
                         >
                           <svg

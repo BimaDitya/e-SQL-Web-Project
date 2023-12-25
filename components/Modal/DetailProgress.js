@@ -63,16 +63,27 @@ export default function DetailProgress({ setShowProgress, progress }) {
                 </thead>
                 <tbody className="bg-gray-50 font-body text-gray-500">
                   {Object.values(progressDetail).map((Rows, index) => {
-                    const startStudy = new Date(
-                      Rows?.Start_Time,
-                    ).toLocaleString();
-                    const endStudy = new Date(Rows?.End_Time).toLocaleString();
-
-                    const duration = new Date(endStudy) - new Date(startStudy);
-
+                    const starts = new Date(Rows?.Start_Time).toLocaleString({
+                      timeZone: "Asia/Jakarta",
+                    });
+                    const ends = new Date(Rows?.End_Time).toLocaleString({
+                      timeZone: "Asia/Jakarta",
+                    });
+                    const duration = new Date(ends) - new Date(starts);
                     let seconds = Math.floor(duration / 1000) % 60;
                     let minutes = Math.floor(duration / 1000 / 60) % 60;
 
+                    const startStudy = new Date(
+                      Rows?.Start_Time,
+                    ).toLocaleString("in-IN", {
+                      timeZone: "Asia/Jakarta",
+                    });
+                    const endStudy = new Date(Rows?.End_Time).toLocaleString(
+                      "in-IN",
+                      {
+                        timeZone: "Asia/Jakarta",
+                      },
+                    );
                     return (
                       <m.tr
                         key={index}

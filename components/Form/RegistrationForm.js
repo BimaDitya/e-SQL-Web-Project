@@ -3,8 +3,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import withReactContent from "sweetalert2-react-content";
 import Styles from "../Component.module.css";
+import withReactContent from "sweetalert2-react-content";
 
 export function RegistrationForm() {
   const router = useRouter();
