@@ -73,16 +73,16 @@ export default function Exams({}) {
                       </li>
                       <li>
                         Anda dapat memeriksa jawaban terlebih dahulu dengan
-                        menekan tombol &ldquo;<b>Periksa</b>&ldquo;
+                        menekan tombol &ldquo;<b>Periksa</b>&ldquo;.
                       </li>
                       <li>
                         Anda dapat mengumpulkan jawaban tes dengan menekan
-                        tombol &ldquo;<b>Submit</b>&ldquo;
+                        tombol &ldquo;<b>Submit</b>&ldquo;.
                       </li>
                       <li>
                         Anda dapat berpindah soal tes dengan menekan tombol
                         &ldquo;<b>Soal Sebelumnya</b>&ldquo; dan &ldquo;
-                        <b>Soal Selanjutnya</b>&ldquo;
+                        <b>Soal Selanjutnya</b>&ldquo;.
                       </li>
                       <li>Mulai mengerjakan tes: </li>
                       <div className="flex flex-row space-x-2.5">

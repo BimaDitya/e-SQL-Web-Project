@@ -5,10 +5,11 @@ import initSqlJs from "sql.js";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import rehypePrism from "rehype-prism-plus";
 import withReactContent from "sweetalert2-react-content";
+import remarkCodeTitles from "remark-flexible-code-titles";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 const Markdown = dynamic(() => import("react-markdown"));
-const rehypePrism = dynamic(() => import("rehype-prism-plus"));
 const TableSQL = dynamic(() => import("@/components/TableOutput"));
 const CodeInput = dynamic(import("@/components/CodeEditor"), {
   ssr: false,
