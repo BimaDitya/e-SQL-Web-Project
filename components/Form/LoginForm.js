@@ -4,7 +4,6 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import withReactContent from "sweetalert2-react-content";
-import Styles from "../Component.module.css";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -41,18 +40,18 @@ export default function LoginForm() {
           },
           title: (
             <p
-              className={`text-center ${Styles.FontHead} text-lg font-semibold tracking-wide text-green-600`}
+              className={`text-center font-head text-lg font-semibold tracking-wide text-green-600`}
             >
               Login Berhasil!
             </p>
           ),
           html: (
             <p
-              className={`text-center ${Styles.FontBody} font-medium tracking-wide text-green-400`}
+              className={`text-center font-body font-medium tracking-wide text-green-400`}
             >
               Selamat Datang,
               <span
-                className={`${Styles.FontBody} font-semibold text-green-500`}
+                className={`font-body font-semibold text-green-500`}
               >{` ${response?.data?.email.toUpperCase()} `}</span>
             </p>
           ),
@@ -77,14 +76,14 @@ export default function LoginForm() {
           },
           title: (
             <p
-              className={`${Styles.FontHead} text-center text-lg font-semibold tracking-wide text-red-600`}
+              className={`text-center font-head text-lg font-semibold tracking-wide text-red-600`}
             >
               Login Gagal!
             </p>
           ),
           html: (
             <p
-              className={`${Styles.FontBody} text-center font-medium tracking-wide text-red-400`}
+              className={`text-center font-body font-medium tracking-wide text-red-400`}
             >
               {error.response.data}
             </p>

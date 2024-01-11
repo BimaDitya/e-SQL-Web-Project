@@ -56,7 +56,6 @@ export default function Abouts() {
                     width={225}
                     height={225}
                     quality={50}
-                    priority
                   />
                 </div>
               </div>
@@ -64,16 +63,16 @@ export default function Abouts() {
           </div>
 
           {/* Baris Kedua */}
-          <div className="relative flex h-adaptive w-full items-center">
+          <div className="relative flex h-adaptive w-full items-center px-20">
             {/* Kiri */}
-            <div className="flex h-max flex-row">
+            <div className="flex h-max w-2/5 flex-row">
               <m.div
                 transition={{ duration: 0.5, type: "spring", stiffness: 50 }}
                 initial={{ opacity: 0, x: -100 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                className="z-30 ml-24 h-max w-1/4 rounded-md border-2 border-gray-300 bg-transparent px-4 py-4 shadow backdrop-blur-sm"
+                className="z-30 h-max w-[92.5%] rounded-md border-2 border-gray-300 bg-transparent px-4 py-4 shadow backdrop-blur-sm"
               >
-                <ul className="flex-row flex-wrap space-y-2">
+                <ul className="w-full flex-row space-y-2">
                   <li className="transition duration-300 ease-in-out">
                     <button
                       onClick={() => switchTab(1)}
@@ -106,19 +105,19 @@ export default function Abouts() {
                   </li>
                 </ul>
               </m.div>
-              {/* Kanan */}
-              {/* Tab Kompetensi Dasar */}
-              <m.div
-                transition={{ duration: 0.5, type: "spring", stiffness: 50 }}
-                initial={{ opacity: 0, x: 100 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                className={`${
-                  tabs !== 1 && "hidden"
-                } z-30 ml-2 mr-32 w-3/4 rounded-md border-2 border-gray-300 bg-transparent px-6 py-3.5 shadow backdrop-blur-sm`}
-              >
-                <BasicCompetencies />
-              </m.div>
             </div>
+            {/* Kanan */}
+            {/* Tab Kompetensi Dasar */}
+            <m.div
+              transition={{ duration: 0.5, type: "spring", stiffness: 50 }}
+              initial={{ opacity: 0, x: 100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className={`${
+                tabs !== 1 && "hidden"
+              } z-30 w-full rounded-md border-2 border-gray-300 bg-transparent px-6 py-3.5 shadow backdrop-blur-sm`}
+            >
+              <BasicCompetencies />
+            </m.div>
             {/* Tab Indikator Pencapaian */}
             <m.div
               transition={{ duration: 0.5, type: "spring", stiffness: 50 }}
@@ -126,7 +125,7 @@ export default function Abouts() {
               whileInView={{ opacity: 1, x: 0 }}
               className={`${
                 tabs !== 2 && "hidden"
-              } z-30 ml-2 mr-32 w-3/4 rounded-md border-2 border-gray-300 bg-transparent px-6 py-3.5 shadow backdrop-blur-sm`}
+              } z-30 w-full rounded-md border-2 border-gray-300 bg-transparent px-6 py-3.5 shadow backdrop-blur-sm`}
             >
               <AchievementIndicator />
             </m.div>
@@ -138,7 +137,7 @@ export default function Abouts() {
               whileInView={{ opacity: 1, x: 0 }}
               className={`${
                 tabs !== 3 && "hidden"
-              } z-30 ml-2 mr-32 h-full w-3/4 rounded-md border-2 border-gray-300 bg-transparent px-6 py-3.5 shadow backdrop-blur-sm`}
+              } z-30 w-full rounded-md border-2 border-gray-300 bg-transparent px-6 py-3.5 shadow backdrop-blur-sm`}
             >
               <LearningObjective />
             </m.div>

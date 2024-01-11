@@ -162,7 +162,7 @@ export default function SubMaterial({
   const allowedViews = (
     <div className="max-width h-adaptive">
       <Head>
-        <title>Materi</title>
+        <title>Sub-Materi</title>
         <link rel="icon" href="/icons/favicon.ico"></link>
       </Head>
       <NavbarMaterial material={material} progress={progress} />

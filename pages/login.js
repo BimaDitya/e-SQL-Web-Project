@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
-import LoginForm from "@/components/Form/LoginForm";
-import MainLayout from "@/components/Layout/MainLayout";
+import dynamic from "next/dynamic";
 import { LazyMotion, domAnimation, m } from "framer-motion";
+const LoginForm = dynamic(() => import("@/components/Form/LoginForm"));
+const MainLayout = dynamic(() => import("@/components/Layout/MainLayout"));
 
 export async function getServerSideProps(context) {
   const getCookies = context.req.headers.cookie;
@@ -38,7 +39,7 @@ export default function Login() {
               {/* Login Form */}
               <LoginForm />
               <div className="pt-4 font-body text-sm font-medium text-secondary-400">
-                Belum Memiliki Akun?{" "}
+                Belum Memiliki Akun?&nbsp;
                 <Link
                   href="/registration"
                   className="font-bold text-primary-400 hover:text-primary-200"
@@ -51,10 +52,9 @@ export default function Login() {
               <Image
                 src="illustrations/login.svg"
                 alt="Login Illustration"
-                width={300}
-                height={300}
-                quality={50}
-                priority
+                width={256}
+                height={256}
+                quality={25}
               />
             </div>
           </m.div>

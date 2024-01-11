@@ -1,5 +1,5 @@
-import ProgressBar from "@ramonak/react-progress-bar";
 import { useRouter } from "next/router";
+import ProgressBar from "@ramonak/react-progress-bar";
 
 export default function NavbarMaterial({ material, progress }) {
   const router = useRouter();

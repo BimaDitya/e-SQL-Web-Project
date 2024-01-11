@@ -1,11 +1,12 @@
 import axios from "axios";
 import Head from "next/head";
-import CardAF from "@/components/Card/CardAF";
-import CardDDL from "@/components/Card/CardDDL";
-import CardDML from "@/components/Card/CardDML";
-import CardDCL from "@/components/Card/CardDCL";
-import CardJoin from "@/components/Card/CardJoin";
-import MainLayout from "@/components/Layout/MainLayout";
+import dynamic from "next/dynamic";
+const CardAF = dynamic(() => import("@/components/Card/CardAF"));
+const CardDDL = dynamic(() => import("@/components/Card/CardDDL"));
+const CardDML = dynamic(() => import("@/components/Card/CardDML"));
+const CardDCL = dynamic(() => import("@/components/Card/CardDCL"));
+const CardJoin = dynamic(() => import("@/components/Card/CardJoin"));
+const MainLayout = dynamic(() => import("@/components/Layout/MainLayout"));
 
 export async function getServerSideProps(context) {
   const getCookies = context.req.headers.cookie;

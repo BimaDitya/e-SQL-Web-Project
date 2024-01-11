@@ -6,7 +6,10 @@ import axios from "axios";
 
 export default function Timer({ setTimer, test, start, end, token }) {
   const initialTime = 1800; // <- Dalam Detik
-  const storeTime = localStorage.getItem(test) || initialTime.toString();
+  const storeTime =
+    typeof window !== undefined
+      ? initialTime.toString()
+      : localStorage.getItem(test);
   const [leftTime, setLeftTime] = useState(parseInt(storeTime, 10));
   const [isActive, setIsActive] = useState(true);
   const alertWithSwal = withReactContent(Swal);

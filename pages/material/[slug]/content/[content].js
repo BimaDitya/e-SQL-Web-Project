@@ -1,13 +1,14 @@
 import axios from "axios";
 import Head from "next/head";
 import Image from "next/image";
-import Markdown from "react-markdown";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import rehypePrism from "rehype-prism-plus";
 import { useState, useEffect } from "react";
-import NavbarContent from "@/components/Navbar/Content";
-import remarkCodeTitles from "remark-flexible-code-titles";
 import { LazyMotion, domAnimation, m } from "framer-motion";
+const Markdown = dynamic(() => import("react-markdown"));
+const rehypePrism = dynamic(() => import("rehype-prism-plus"));
+const remarkCodeTitles = dynamic(() => import("remark-flexible-code-titles"));
+const NavbarContent = dynamic(() => import("@/components/Navbar/Content"));
 
 export async function getServerSideProps(context) {
   const queryContent = context.query.content;
@@ -179,7 +180,7 @@ export default function ContentMaterial({
   const allowedViews = (
     <div className="max-width max-height">
       <Head>
-        <title>Materi</title>
+        <title>Konten</title>
         <link rel="icon" href="/icons/favicon.ico"></link>
       </Head>
       <NavbarContent
@@ -227,7 +228,7 @@ export default function ContentMaterial({
   const disallowedViews = (
     <>
       <Head>
-        <title>Materi</title>
+        <title>Konten</title>
         <link rel="icon" href="/icons/favicon.ico"></link>
       </Head>
       <LazyMotion features={domAnimation}>
@@ -246,11 +247,10 @@ export default function ContentMaterial({
               <Image
                 className="transition duration-300 ease-in-out hover:scale-110"
                 src="/illustrations/notebook.svg"
+                alt="Restricted Content"
                 width={300}
                 height={300}
                 quality={50}
-                priority={false}
-                alt="Restricted Content"
               />
               <p className="font-head text-2xl font-bold tracking-wider text-secondary-400">
                 Anda Belum Menyelesaikan Materi Sebelumnya

@@ -3,10 +3,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import Styles from "../Component.module.css";
 import withReactContent from "sweetalert2-react-content";
 
-export function RegistrationForm() {
+export default function RegistrationForm() {
   const router = useRouter();
   const {
     watch,
@@ -42,19 +41,17 @@ export function RegistrationForm() {
           },
           title: (
             <p
-              className={`${Styles.FontHead} text-center text-lg font-semibold tracking-wide text-green-600`}
+              className={`text-center font-head text-lg font-semibold tracking-wide text-green-600`}
             >
               Registrasi Berhasil!
             </p>
           ),
           html: (
             <p
-              className={`${Styles.FontBody} text-center font-medium tracking-wide text-green-400`}
+              className={`text-center font-body font-medium tracking-wide text-green-400`}
             >
               Registrasi Dengan
-              <span
-                className={`${Styles.FontBody} font-semibold text-green-500`}
-              >
+              <span className={`font-body font-semibold text-green-500`}>
                 {` ${data.email.toUpperCase()} `}
               </span>
               Berhasil
@@ -79,17 +76,17 @@ export function RegistrationForm() {
           },
           title: (
             <p
-              className={`${Styles.FontHead} text-center text-lg font-semibold tracking-wide text-red-600`}
+              className={`text-center font-head text-lg font-semibold tracking-wide text-red-600`}
             >
               Registrasi Gagal!
             </p>
           ),
           html: (
             <p
-              className={`${Styles.FontBody} text-center font-medium tracking-wide text-red-400`}
+              className={`text-center font-body font-medium tracking-wide text-red-400`}
             >
               Alamat Email
-              <span className={`${Styles.FontBody} font-semibold text-red-500`}>
+              <span className={`font-body font-semibold text-red-500`}>
                 {` ${data.email.toUpperCase()} `}
               </span>
               Telah Terdaftar

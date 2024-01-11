@@ -5,11 +5,11 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import Public from "@/data/public.json";
 import Typewriter from "typewriter-effect";
+import { LazyMotion, domAnimation, m } from "framer-motion";
 const MainLayout = dynamic(() => import("@/components/Layout/MainLayout"));
 const DetailUserGuide = dynamic(
   () => import("@/components/Modal/DetailUserGuide"),
 );
-import { LazyMotion, domAnimation, m } from "framer-motion";
 
 export async function getServerSideProps(context) {
   const cookies = context?.req?.headers?.cookie || null;
@@ -117,7 +117,7 @@ export default function Home({ cookies }) {
                   <div className="z-10">
                     <Image
                       src="illustrations/studying.svg"
-                      alt="Homepage Illustration"
+                      alt="Studying"
                       width={360}
                       height={360}
                       quality={50}

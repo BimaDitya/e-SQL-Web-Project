@@ -49,6 +49,7 @@ export async function getServerSideProps(context) {
     };
   return { props: { accounts, materials, contents } };
 }
+
 export default function Content({ accounts, materials, contents }) {
   const [content, setContent] = useState();
   const [showAdd, setShowAdd] = useState(false);

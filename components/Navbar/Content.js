@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import Timer from "../Timer";
 
 export default function NavbarContent({
   status,
@@ -40,8 +39,7 @@ export default function NavbarContent({
             <div className="flex flex-row space-x-2 font-head text-secondary-400">
               {!studyEnd ? (
                 <div className="flex flex-row space-x-2 font-head text-secondary-400">
-                  <p>Durasi Belajar: </p>
-                  <Timer studyTime={studyTime} />
+                  <p>Durasi Belajar:&nbsp;{studyTime} </p>
                 </div>
               ) : (
                 <div className="flex flex-row space-x-2 font-head text-secondary-400">

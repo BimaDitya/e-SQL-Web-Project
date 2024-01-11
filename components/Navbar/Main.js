@@ -3,7 +3,6 @@ import Image from "next/image";
 import Loading from "../Loading";
 import Dropdown from "./Dropdown";
 import { useRouter } from "next/router";
-import Styles from "../Component.module.css";
 
 export default function Navbar({ isLoading, cookies, data }) {
   const router = useRouter();
@@ -12,7 +11,7 @@ export default function Navbar({ isLoading, cookies, data }) {
     return (
       <div className="sticky left-0 right-0 top-0 z-50 h-16">
         <nav className="flex h-full items-center justify-center bg-white/50 shadow backdrop-blur">
-          <div className={`text-secondary-200 ${Styles.FontHead}`}>
+          <div className={`font-head text-secondary-200`}>
             <Loading />
           </div>
         </nav>
@@ -22,9 +21,7 @@ export default function Navbar({ isLoading, cookies, data }) {
     <>
       <div className="sticky left-0 right-0 top-0 z-50 h-16 bg-transparent shadow backdrop-blur-sm">
         <nav className="mx-auto flex h-full max-w-5xl flex-row items-center">
-          <div
-            className={`flex w-full items-center justify-between ${Styles.FontHead}`}
-          >
+          <div className={`flex w-full items-center justify-between font-head`}>
             <div>
               <Image
                 className="h-12 w-full"

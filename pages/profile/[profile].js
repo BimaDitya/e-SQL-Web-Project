@@ -1,9 +1,10 @@
 import axios from "axios";
 import Head from "next/head";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import ProfileForm from "@/components/Form/ProfileForm";
 import { LazyMotion, domAnimation, m } from "framer-motion";
+const ProfileForm = dynamic(() => import("@/components/Form/ProfileForm"));
 
 export async function getServerSideProps(context) {
   const getCookies = context.req.headers.cookie;
