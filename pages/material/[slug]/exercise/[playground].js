@@ -3,10 +3,10 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import Markdown from "react-markdown";
+import remarkCodeTitles from "remark-flexible-code-titles";
 import { LazyMotion, domAnimation, m } from "framer-motion";
-const Markdown = dynamic(() => import("react-markdown"));
-const rehypePrism = dynamic(() => import("rehype-prism-plus"));
-const remarkCodeTitles = dynamic(() => import("remark-flexible-code-titles"));
+import rehypePrism from "rehype-prism-plus";
 const NavbarPlayground = dynamic(
   () => import("@/components/Navbar/Playground"),
 );

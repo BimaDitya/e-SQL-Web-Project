@@ -2,12 +2,12 @@ import axios from "axios";
 import Head from "next/head";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import Markdown from "react-markdown";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import rehypePrism from "rehype-prism-plus";
 import remarkCodeTitles from "remark-flexible-code-titles";
 import { LazyMotion, domAnimation, m } from "framer-motion";
-const Markdown = dynamic(() => import("react-markdown"));
 const NavbarContent = dynamic(() => import("@/components/Navbar/Content"));
 
 export async function getServerSideProps(context) {
