@@ -5,6 +5,7 @@ export default async function ViewProgress(req, res) {
   if (req.method !== "GET") return res.status(405).end();
   const auth = await authorization(req, res);
   const queryMaterialId = req.query.viewMaterialId;
+
   const viewProgress = await prisma.account.findMany({
     where: {
       Id: auth.id,
@@ -33,4 +34,5 @@ export default async function ViewProgress(req, res) {
   res.status(200).json({
     viewProgress,
   });
+  await prisma.$disconnect();
 }

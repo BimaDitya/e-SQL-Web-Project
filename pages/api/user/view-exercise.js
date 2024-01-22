@@ -21,10 +21,12 @@ export default async function HandleViewExercise(req, res) {
       message: "Berhasil Menampilkan Latihan Materi",
       viewExercise,
     });
+    await prisma.$disconnect();
   } catch (error) {
     res.status(500).json({
       message: `Gagal Menampilkan Latihan Materi`,
       error,
     });
+    await prisma.$disconnect();
   }
 }

@@ -1,7 +1,7 @@
-import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import cookie from "cookie";
 import jwt from "jsonwebtoken";
+import prisma from "@/lib/prisma";
 
 export default async function HandleLogin(req, res) {
   if (req.method !== "POST") return res.status(405).end();
@@ -44,4 +44,5 @@ export default async function HandleLogin(req, res) {
     message: "Login Berhasil",
     token,
   });
+  await prisma.$disconnect();
 }

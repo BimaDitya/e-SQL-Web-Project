@@ -4,13 +4,16 @@ import NextNProgress from "nextjs-progressbar";
 import { CookiesProvider } from "react-cookie";
 
 const Assistant = localFont({
-  src: "../public/fonts/Assistant.ttf",
+  src: "../public/fonts/Assistant.woff2",
+  display: "swap",
 });
 const YsabeauInfant = localFont({
-  src: "../public/fonts/YsabeauInfant.ttf",
+  src: "../public/fonts/YsabeauInfant.woff2",
+  display: "swap",
 });
 const SourceCodePro = localFont({
-  src: "../public/fonts/SourceCodePro.ttf",
+  src: "../public/fonts/SourceCodePro.woff2",
+  display: "swap",
 });
 
 export default function App({ Component, pageProps }) {

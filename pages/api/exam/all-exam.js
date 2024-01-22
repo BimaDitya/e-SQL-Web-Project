@@ -9,12 +9,12 @@ export default async function HandleViewExams(req, res) {
       message: "Berhasil Memuat Tes",
       viewExams,
     });
+    await prisma.$disconnect();
   } catch (error) {
     res.status(500).json({
       message: "Gagal Memuat Tes",
       error,
     });
-  } finally {
     await prisma.$disconnect();
   }
 }

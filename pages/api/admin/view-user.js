@@ -57,4 +57,5 @@ export default async function ViewUser(req, res) {
   res.json({
     data: viewUser,
   });
+  await prisma.$disconnect();
 }

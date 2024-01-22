@@ -12,4 +12,5 @@ export default async function HandleLogout(req, res) {
   res.json({
     message: "Logout Berhasil",
   });
+  await prisma.$disconnect();
 }

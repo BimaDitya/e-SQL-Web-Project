@@ -11,14 +11,16 @@ export default async function ViewContent(req, res) {
         Slug: params,
       },
     });
-    res.status(201).json({
+    res.json({
       message: "Berhasil Menampilkan Materi",
       viewContent,
     });
+    await prisma.$disconnect();
   } catch (error) {
-    res.status(500).json({
+    res.json({
       message: `Gagal Menampilkan Materi`,
       error,
     });
+    await prisma.$disconnect();
   }
 }

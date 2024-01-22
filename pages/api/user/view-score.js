@@ -34,6 +34,6 @@ export default async function HandleViewScore(req, res) {
       error,
     });
   } finally {
-    prisma.$disconnect();
+    await prisma.$disconnect();
   }
 }

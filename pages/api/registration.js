@@ -19,11 +19,13 @@ export default async function HandleRegistration(req, res) {
       Message: "Registrasi Akun Berhasil",
       registration,
     });
+    await prisma.$disconnect();
   } catch (error) {
     res.status(401);
     res.json({
       Message: `Email ${email.toUpperCase()} Telah Terdaftar`,
       error,
     });
+    await prisma.$disconnect();
   }
 }

@@ -1,20 +1,15 @@
-@media only screen and (max-width: 1024px) {
-  .max-width {
-    display: none;
-  }
-}
+@import "./syntax-highlighting.css";
 
-@media only screen and (max-height: 512px) {
+@media only screen and (max-width: 1024px),
+only screen and (max-height: 512px) {
+
+  .max-width,
   .max-height {
     display: none;
   }
 }
 
 @tailwind base;
-
-:root {
-  background-color: transparent;
-}
 
 *::-webkit-scrollbar {
   display: none;
@@ -41,8 +36,6 @@ pre[class*="language-"] {
 @tailwind components;
 @tailwind utilities;
 
-@import "./syntax-highlighting.css";
-
 @layer base {
   @layer components {
     .unordered-list {
@@ -55,10 +48,6 @@ pre[class*="language-"] {
 
     :not(pre)>code {
       @apply p-[0.075] font-code text-sm font-bold text-secondary-400;
-    }
-
-    input[type="file"] {
-      color: rgba(0, 0, 0, 0);
     }
 
     .table {

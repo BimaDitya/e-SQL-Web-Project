@@ -14,10 +14,12 @@ export default async function HandleViewMaterial(req, res) {
       message: "Berhasil Menampilkan Materi",
       viewMaterial,
     });
+    await prisma.$disconnect();
   } catch (error) {
     res.status(500).json({
       message: `Gagal Menampilkan Materi`,
       error,
     });
+    await prisma.$disconnect();
   }
 }

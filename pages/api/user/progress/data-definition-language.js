@@ -32,4 +32,5 @@ export default async function ViewProgressDDL(req, res) {
   res.status(200).json({
     viewProgress,
   });
+  await prisma.$disconnect();
 }
