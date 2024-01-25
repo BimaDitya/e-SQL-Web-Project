@@ -27,13 +27,18 @@ export default function Registration() {
         <title>Registrasi</title>
         <link rel="icon" href="icons/favicon.ico"></link>
       </Head>
-      <div className="flex h-adaptive flex-row items-center justify-center bg-white/50">
+      <div className="flex h-adaptive flex-row items-center justify-center">
         <LazyMotion features={domAnimation}>
           <m.div
-            transition={{ duration: 1, type: "spring", stiffness: 75 }}
+            transition={{
+              delay: 0.2,
+              duration: 0.8,
+              type: "spring",
+              stiffness: 100,
+            }}
             initial={{ opacity: 0, y: -75 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex w-[62.5%] flex-row justify-between rounded-md border-2 border-gray-300 bg-transparent px-6 py-2 shadow backdrop-blur-sm"
+            className="flex w-[62.5%] flex-row justify-between rounded-md border-2 border-gray-300 bg-white px-6 py-2 shadow backdrop-blur-sm"
           >
             <div className="flex w-3/5 flex-col justify-center p-4">
               {/* Register Form*/}

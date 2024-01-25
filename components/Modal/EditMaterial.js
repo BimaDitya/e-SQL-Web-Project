@@ -113,13 +113,14 @@ export default function EditMaterial({ material, setShowEdit }) {
       <div className="flex h-auto w-full items-center justify-center">
         <m.div
           transition={{
-            duration: 0.5,
+            delay: 0.2,
+            duration: 0.8,
             type: "spring",
-            stiffness: 50,
+            stiffness: 100,
           }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50 backdrop-blur-sm"
+          className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50"
         >
           <div className="h-[80%] w-[80%] rounded-lg bg-white px-8 py-4 shadow">
             <form

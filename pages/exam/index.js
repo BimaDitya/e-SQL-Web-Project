@@ -26,17 +26,17 @@ export default function Exams({}) {
         <link rel="icon" href="../icons/favicon.ico"></link>
       </Head>
       <div className="flex h-screen w-full justify-center">
-        <div className="flex h-full w-full flex-row items-center bg-white/50">
+        <div className="flex h-full w-full flex-row items-center">
           <LazyMotion features={domAnimation}>
             <m.div
               transition={{ duration: 1, type: "spring", stiffness: 75 }}
               initial={{ opacity: 0, y: -75 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mx-auto flex h-max w-[75%] flex-row items-center justify-center rounded-md border-2 border-gray-300 bg-transparent shadow backdrop-blur-sm"
+              className="mx-auto flex h-max w-[75%] flex-row items-center justify-center rounded-md border-2 border-gray-300 bg-white shadow"
             >
               <div className="flex h-full w-full flex-col items-center justify-center space-y-2 px-4 py-2.5">
                 {/* Judul */}
-                <div className="flex h-max w-full flex-row items-center justify-between rounded-sm bg-gray-100 px-4 py-1.5">
+                <div className="flex h-max w-full flex-row items-center justify-between rounded-sm bg-gray-50 px-4 py-1.5">
                   <button
                     onClick={() => router.push("/")}
                     className="flex w-max flex-row items-center font-head font-semibold text-secondary-400 outline-none transition duration-300 ease-in-out hover:text-secondary-200"
@@ -52,7 +52,7 @@ export default function Exams({}) {
                 </div>
                 {/* Konten */}
                 <div className="flex h-full w-full flex-row items-start space-x-2">
-                  <div className="flex h-max w-full flex-row items-center justify-between rounded-sm bg-gray-100 px-4 py-2.5">
+                  <div className="flex h-max w-full flex-row items-center justify-between rounded-sm bg-gray-50 px-4 py-2.5">
                     <ul className="list-inside list-disc space-y-2 px-2 font-body tracking-tight text-gray-600">
                       <li>
                         Tes terdiri dari dari dua jenis, yaitu: <b>Pretest</b>

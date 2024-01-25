@@ -7,13 +7,14 @@ export default function DetailProgress({ setShowProgress, progress }) {
       <div className="flex h-auto w-full items-center justify-center">
         <m.div
           transition={{
-            duration: 0.5,
+            delay: 0.2,
+            duration: 0.8,
             type: "spring",
-            stiffness: 50,
+            stiffness: 100,
           }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50 backdrop-blur-sm"
+          className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50"
         >
           <div className="h-[80%] w-[80%] space-y-2 rounded-lg bg-white px-8 py-4 shadow">
             <div className="flex flex-row items-center justify-between">
@@ -88,10 +89,10 @@ export default function DetailProgress({ setShowProgress, progress }) {
                       <m.tr
                         key={index}
                         transition={{
+                          delay: index * 0.25,
                           duration: 1,
                           type: "spring",
-                          stiffness: 50,
-                          delay: index * 0.25,
+                          stiffness: 100,
                         }}
                         initial={{ opacity: 0, x: 100 }}
                         animate={{ opacity: 1, x: 0 }}

@@ -1,45 +1,21 @@
-import useSWR from "swr";
-import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
+import Loading from "../Loading";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { LazyMotion, domAnimation, m } from "framer-motion";
-import Loading from "../Loading";
 
-// Card Data Definition Language
-export default function CardDDL({ material, cookies }) {
-  const fetcher = async () => {
-    const response = await axios.get(
-      `/api/user/progress/data-definition-language`,
-      {
-        headers: {
-          Authorization: `Bearer ${cookies}`,
-        },
-      },
-    );
-    return response?.data?.viewProgress[0];
-  };
-  const { data, isLoading } = useSWR(
-    `/api/user/progress/data-definition-language`,
-    fetcher,
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: true,
-      revalidateOnReconnect: true,
-    },
-  );
-
-  const currentProgress = data?._count?.Progress;
+export default function Material({ material, index }) {
+  const progress = material?.Progress?.length;
   return (
     <>
       <LazyMotion features={domAnimation}>
         <m.div
-          key={material?.id}
+          key={index}
           transition={{
-            duration: 0.5,
+            duration: 0.8,
             type: "spring",
-            stiffness: 50,
-            delay: material?.id * 0.25,
+            stiffness: 100,
+            delay: index * 0.2,
           }}
           initial={{ opacity: 0, x: -100 }}
           animate={{ opacity: 1, x: 0 }}
@@ -60,30 +36,34 @@ export default function CardDDL({ material, cookies }) {
             </div>
             <div className="flex w-2/5 flex-col justify-between px-6">
               <h6 className="font-head text-xl font-bold text-secondary-400">
-                {material?.Title}
+                {material?.Title || "Judul Materi"}
               </h6>
               <div className="font-head text-secondary-400">
                 <p>
-                  Progress: {!currentProgress ? 0 : currentProgress} /{" "}
+                  Progress: {!progress ? 0 : progress} /&nbsp;
                   {material?.Content?.length} Materi
                 </p>
               </div>
-              {isLoading ? (
+              {!material ? (
                 <Loading />
               ) : (
                 <ProgressBar
-                  completed={`${currentProgress}`}
+                  completed={`${progress}`}
                   maxCompleted={material?.Content.length}
                   animateOnRender
                   className="py-2"
                   bgColor="rgb(255 158 26)"
                   labelClassName="progressbar-label"
-                  barContainerClassName="progressbar-container"
+                  barContainerClassName={
+                    !progress
+                      ? `progressbar-container-empty`
+                      : `progressbar-container`
+                  }
                 />
               )}
-              <div key={material?.Id} className="button-primary w-max">
+              <button key={material?.Id} className="button-primary w-max">
                 <Link href={`material/${material?.Slug}`}>Lihat Materi</Link>
-              </div>
+              </button>
             </div>
           </div>
         </m.div>

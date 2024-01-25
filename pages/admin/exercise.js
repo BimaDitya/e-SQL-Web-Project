@@ -115,7 +115,7 @@ export default function Content({ accounts, materials, exercises }) {
               initial={{ opacity: 0, x: -100 }}
               animate={{ opacity: 1, x: 0 }}
               className="z-30 h-max w-[25%] rounded-md border-2
-						border-gray-300 bg-transparent shadow backdrop-blur-sm"
+						border-gray-300 bg-white shadow backdrop-blur-sm"
             >
               <SideMenu accounts={accounts} />
             </m.div>
@@ -128,7 +128,7 @@ export default function Content({ accounts, materials, exercises }) {
               }}
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
-              className="z-30 h-max w-[75%] space-y-2 rounded-md border-2 border-gray-300 bg-transparent p-2.5 shadow backdrop-blur-sm"
+              className="z-30 h-max w-[75%] space-y-2 rounded-md border-2 border-gray-300 bg-white p-2.5 shadow backdrop-blur-sm"
             >
               {/* Baris Atas */}
               <div className="flex w-full flex-row items-center justify-between rounded">

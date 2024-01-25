@@ -2,11 +2,11 @@ import "animate.css";
 import axios from "axios";
 import Link from "next/link";
 import Swal from "sweetalert2";
-import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Styles from "../Component.module.css";
+import { useState, useEffect, useRef } from "react";
 import withReactContent from "sweetalert2-react-content";
-import { motion, AnimatePresence } from "framer-motion";
+import { LazyMotion, domAnimation, m } from "framer-motion";
 
 export default function Dropdown({ data, cookies }) {
   const alertWithSwal = withReactContent(Swal);
@@ -91,18 +91,18 @@ export default function Dropdown({ data, cookies }) {
                 {profiles.FirstName}
               </div>
             )}
-            <AnimatePresence>
-              {toggle && (
+            {toggle && (
+              <LazyMotion features={domAnimation}>
                 <div className="relative flex flex-row justify-center">
-                  <motion.div
+                  <m.div
                     ref={dropdown}
                     transition={{
                       duration: 0.5,
+                      delay: 0.15,
                     }}
                     initial={{ opacity: 0, y: -25 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -25 }}
-                    className="absolute z-10 my-4 w-max rounded-sm border-2 border-gray-400 border-opacity-25 bg-white shadow focus:outline-none"
+                    className="absolute z-10 my-1.5 w-max rounded-sm border-2 border-gray-300 border-opacity-25 bg-white shadow-md focus:outline-none"
                   >
                     <div className="space-y-2 px-6 py-2.5 text-gray-400">
                       <div className="transition duration-300 ease-in-out hover:cursor-pointer hover:text-secondary-400">
@@ -116,7 +116,7 @@ export default function Dropdown({ data, cookies }) {
                             viewBox="0 0 24 24"
                             strokeWidth={2}
                             stroke="currentColor"
-                            className="mr-2.5 h-5 w-5"
+                            className="mr-2 h-5 w-5"
                           >
                             <path
                               strokeLinecap="square"
@@ -137,7 +137,7 @@ export default function Dropdown({ data, cookies }) {
                           viewBox="0 0 24 24"
                           strokeWidth={2}
                           stroke="currentColor"
-                          className="mr-2.5 h-5 w-5"
+                          className="mr-2 h-5 w-5"
                         >
                           <path
                             strokeLinecap="square"
@@ -148,10 +148,10 @@ export default function Dropdown({ data, cookies }) {
                         Logout
                       </div>
                     </div>
-                  </motion.div>
+                  </m.div>
                 </div>
-              )}
-            </AnimatePresence>
+              </LazyMotion>
+            )}
           </div>
         )}
       </div>

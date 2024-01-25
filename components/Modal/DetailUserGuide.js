@@ -1,6 +1,6 @@
-import { LazyMotion, domAnimation, m } from "framer-motion";
-import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { Worker, Viewer, SpecialZoomLevel } from "@react-pdf-viewer/core";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+import { LazyMotion, domAnimation, m } from "framer-motion";
 // Styles
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
@@ -58,7 +58,7 @@ export default function DetailUserGuide({ setShowDetail }) {
           }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50 backdrop-blur-sm"
+          className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50"
         >
           <div className="mx-40 h-adaptive w-full rounded-lg bg-white px-8 py-4 shadow">
             <div className="flex flex-row items-center justify-between pb-4">
@@ -86,7 +86,7 @@ export default function DetailUserGuide({ setShowDetail }) {
               </button>
             </div>
             <div className="h-adaptive w-full pb-28">
-              <Worker workerUrl="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js">
+              <Worker workerUrl="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js">
                 <Viewer
                   defaultScale={SpecialZoomLevel.ActualSize}
                   plugins={[defaultLayoutPluginInstance]}

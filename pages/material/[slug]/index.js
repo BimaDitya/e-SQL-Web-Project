@@ -1,13 +1,12 @@
 import axios from "axios";
 import Head from "next/head";
 import { useState } from "react";
-import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 import Card from "@/components/Card/SubMaterial";
 import Pagination from "@/components/Pagination";
 import ExerciseCard from "@/components/Card/Exercise";
-import NavbarMaterial from "@/components/Navbar/Material";
 import { LazyMotion, domAnimation, m } from "framer-motion";
-import Image from "next/image";
+const NavbarMaterial = dynamic(() => import("@/components/Navbar/Material"));
 
 export async function getServerSideProps(context) {
   const getCookies = context.req.headers.cookie;
@@ -20,91 +19,48 @@ export async function getServerSideProps(context) {
     context.res.end();
   }
   const viewMaterial = await axios
-    .get(process.env.BASE_URL + "/api/user/view-material", {
+    .get(process.env.BASE_URL + "/api/user/view-specific-material", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       params: {
         queryMaterial: queryMaterial,
       },
     })
     .then((response) => response.data);
-  const viewMaterialId = viewMaterial?.viewMaterial?.Id;
-  const viewProgress = await axios
-    .get(process.env.BASE_URL + "/api/user/view-progress-material", {
+
+  const materialId = viewMaterial?.viewMaterial[0]?.Id;
+
+  const progress = await axios
+    .get(process.env.BASE_URL + "/api/user/view-specific-progress", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
       params: {
-        viewMaterialId: viewMaterialId,
+        materialId: materialId,
       },
     })
     .then((response) => response.data);
-  const viewContent = viewMaterial?.viewMaterial?.Content;
-  const viewExercise = viewMaterial?.viewMaterial?.Exercise;
 
-  // Progres Semua Materi
-  const progressDDL = await axios
-    .get(process.env.BASE_URL + "/api/user/progress/data-definition-language", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
-  const progressDML = await axios
-    .get(
-      process.env.BASE_URL + "/api/user/progress/data-manipulation-language",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    )
-    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
-  const progressDCL = await axios
-    .get(process.env.BASE_URL + "/api/user/progress/data-control-language", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
-  const progressJoin = await axios
-    .get(process.env.BASE_URL + "/api/user/progress/multitable-join", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
-  const progressAF = await axios
-    .get(process.env.BASE_URL + "/api/user/progress/aggregate-function", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
+  const viewProgress = progress?.viewProgress;
+  const viewContent = viewMaterial?.viewMaterial[0]?.Content;
+  const viewExercise = viewMaterial?.viewMaterial[0]?.Exercise;
+
   return {
     props: {
+      contents: viewContent,
+      progress: viewProgress,
       materials: viewMaterial,
       exercises: viewExercise,
-      progress: viewProgress,
-      contents: viewContent,
-      queryMaterial,
-      progressDDL,
-      progressDML,
-      progressDCL,
-      progressJoin,
-      progressAF,
     },
   };
 }
 
 export default function SubMaterial({
-  queryMaterial,
+  contents,
   materials,
   exercises,
   progress,
-  contents,
-  progressDDL,
-  progressDML,
-  progressDCL,
-  progressJoin,
 }) {
   // Tab
   const [tabs, setTabs] = useState(1);
@@ -157,12 +113,10 @@ export default function SubMaterial({
     }
   }
   const material = materials.viewMaterial;
-  const router = useRouter();
-
-  const allowedViews = (
+  return (
     <div className="max-width h-adaptive">
       <Head>
-        <title>Sub-Materi</title>
+        <title>{`Materi - ${material[0]?.Title}`}</title>
         <link rel="icon" href="/icons/favicon.ico"></link>
       </Head>
       <NavbarMaterial material={material} progress={progress} />
@@ -172,13 +126,14 @@ export default function SubMaterial({
             {/* Kolom Kiri */}
             <m.div
               transition={{
-                duration: 1,
+                delay: 0.2,
+                duration: 0.8,
                 type: "spring",
-                stiffness: 50,
+                stiffness: 100,
               }}
               initial={{ opacity: 0, x: -100 }}
               animate={{ opacity: 1, x: 0 }}
-              className="z-30 h-full w-3/5 space-y-1.5 rounded-md border-2 border-gray-300 bg-transparent px-2 py-2.5 shadow backdrop-blur-sm"
+              className="z-30 h-full w-3/5 space-y-1.5 rounded-md border-2 border-gray-300 bg-gray-50 px-2 py-2.5 shadow"
             >
               <div className="flex w-full justify-between rounded border border-gray-200 bg-white px-2.5 py-0.5 text-center font-head text-gray-400">
                 <ul className="flex w-full flex-row items-center">
@@ -209,12 +164,12 @@ export default function SubMaterial({
               <div
                 className={`space-y-1.5 ${
                   tabs !== 1 && "hidden"
-                } flex h-max flex-col justify-between transition duration-300 ease-in-out`}
+                } flex h-fit flex-col justify-between transition duration-300 ease-in-out`}
               >
                 {Object.values(records).map((record, index) => (
                   <Card
-                    index={index}
                     key={index}
+                    index={index}
                     content={record}
                     material={material}
                   />
@@ -232,13 +187,13 @@ export default function SubMaterial({
               <div
                 className={`space-y-1.5 ${
                   tabs !== 2 && "hidden"
-                } flex h-max flex-col justify-between transition duration-300 ease-in-out`}
+                } flex h-fit flex-col justify-between transition duration-300 ease-in-out`}
               >
                 {Object.values(exercise).map((exercise, index) => (
                   <>
                     <ExerciseCard
-                      index={index}
                       key={index}
+                      index={index}
                       exercise={exercise}
                       material={material}
                     />
@@ -257,19 +212,20 @@ export default function SubMaterial({
             <div className="z-30 w-2/5 space-y-2">
               <m.div
                 transition={{
-                  duration: 0.5,
+                  delay: 0.2,
+                  duration: 0.8,
                   type: "spring",
-                  stiffness: 50,
+                  stiffness: 100,
                 }}
                 initial={{ opacity: 0, x: 100 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="h-max space-y-2 rounded-md border-2 border-gray-300 bg-transparent px-4 py-4 shadow backdrop-blur-sm"
+                className="h-max space-y-2 rounded-md border-2 border-gray-300 bg-gray-50 px-4 py-4 shadow"
               >
                 <p className="font-head text-xl font-semibold text-secondary-400">
                   Tentang Materi
                 </p>
                 <p className="text-clip text-justify font-body text-gray-400">
-                  {material.Desc}
+                  {material[0].Desc}
                 </p>
                 <div className="flex flex-row space-x-2 rounded bg-gray-200 px-4 py-2">
                   <svg
@@ -287,7 +243,7 @@ export default function SubMaterial({
                     />
                   </svg>
                   <p className="font-head font-medium text-secondary-400">
-                    Total Materi: {material._count.Content}
+                    Total Materi: {material[0]?._count?.Content}
                   </p>
                 </div>
               </m.div>
@@ -297,74 +253,4 @@ export default function SubMaterial({
       </LazyMotion>
     </div>
   );
-  const disallowedViews = (
-    <>
-      <Head>
-        <title>Materi</title>
-        <link rel="icon" href="/icons/favicon.ico"></link>
-      </Head>
-      <NavbarMaterial material={material} progress={progress} />
-      <LazyMotion features={domAnimation}>
-        <div className="max-width flex h-adaptive flex-col justify-center">
-          <m.div
-            transition={{
-              duration: 1,
-              type: "spring",
-              stiffness: 50,
-            }}
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mx-auto flex h-3/4 w-3/4 flex-col items-center justify-center rounded-md border-2 border-gray-300 bg-transparent shadow backdrop-blur-sm"
-          >
-            <div className="flex flex-col items-center justify-center pb-12">
-              <Image
-                className="transition duration-300 ease-in-out hover:scale-110"
-                src="/illustrations/notebook.svg"
-                width={300}
-                height={300}
-                quality={50}
-                priority={false}
-                alt="Restricted Content"
-              />
-              <p className="font-head text-2xl font-bold tracking-wider text-secondary-400">
-                Anda Belum Menyelesaikan Materi Sebelumnya
-              </p>
-            </div>
-          </m.div>
-        </div>
-      </LazyMotion>
-    </>
-  );
-
-  if (queryMaterial === "data-definition-language") {
-    return allowedViews;
-  } else if (queryMaterial === "data-manipulation-language") {
-    const isComplete = progressDDL === 10;
-    if (isComplete) {
-      return allowedViews;
-    } else {
-      return disallowedViews;
-    }
-  } else if (queryMaterial === "data-control-language") {
-    const isComplete = progressDML === 7;
-    if (isComplete) {
-      return allowedViews;
-    } else {
-      return disallowedViews;
-    }
-  } else if (queryMaterial === "multitable") {
-    const isComplete = progressDCL === 2;
-    if (isComplete) {
-      return allowedViews;
-    } else {
-      return disallowedViews;
-    }
-  } else if (queryMaterial === "aggregate-function") {
-    const isComplete = progressJoin === 3;
-    if (isComplete) {
-      return allowedViews;
-    } else {
-      return disallowedViews;
-    }
-  }
 }

@@ -1,6 +1,5 @@
 import axios from "axios";
 import Head from "next/head";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import Markdown from "react-markdown";
 import { useRouter } from "next/router";
@@ -37,6 +36,9 @@ export async function getServerSideProps(context) {
     .then((response) => response.data);
   const viewMaterial = await axios
     .get(process.env.BASE_URL + "/api/user/view-material", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       params: {
         queryMaterial: queryMaterial,
       },
@@ -52,37 +54,6 @@ export async function getServerSideProps(context) {
       },
     })
     .then((response) => response.data);
-  const progressDDL = await axios
-    .get(process.env.BASE_URL + "/api/user/progress/data-definition-language", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
-  const progressDML = await axios
-    .get(
-      process.env.BASE_URL + "/api/user/progress/data-manipulation-language",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    )
-    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
-  const progressDCL = await axios
-    .get(process.env.BASE_URL + "/api/user/progress/data-control-language", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
-  const progressJoin = await axios
-    .get(process.env.BASE_URL + "/api/user/progress/multitable-join", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
   const accounts = viewAccount?.data?.data;
   const source = viewContent?.viewContent[0]?.Content;
   return {
@@ -93,12 +64,7 @@ export async function getServerSideProps(context) {
       viewStatus,
       viewMaterial,
       queryContent,
-      progressDDL,
-      progressDML,
-      progressDCL,
-      progressJoin,
       contents: viewContent,
-      slugMaterial: queryMaterial,
     },
   };
 }
@@ -109,17 +75,12 @@ export default function ContentMaterial({
   accounts,
   contents,
   viewStatus,
-  progressDDL,
-  progressDML,
-  progressDCL,
-  progressJoin,
   queryContent,
   viewMaterial,
-  slugMaterial,
 }) {
   const router = useRouter();
-  const materialId = viewMaterial?.viewMaterial?.Id;
-  const materialSlug = viewMaterial?.viewMaterial?.Slug;
+  const materialId = viewMaterial?.viewMaterial[0]?.Id;
+  const materialSlug = viewMaterial?.viewMaterial[0]?.Slug;
 
   const [elapsed, setElapsed] = useState(0);
   const startTime = Date.now();
@@ -176,37 +137,37 @@ export default function ContentMaterial({
       )
       .then(() => router.push(`/material/${materialSlug}`));
   }
-
-  const allowedViews = (
+  return (
     <div className="max-width max-height">
       <Head>
-        <title>Konten</title>
+        <title>{`Konten - ${contents?.viewContent[0]?.Title}`}</title>
         <link rel="icon" href="/icons/favicon.ico"></link>
       </Head>
       <NavbarContent
         accounts={accounts}
         status={viewStatus}
         studyTime={studyTime}
+        materials={materialSlug}
         UpdateStatus={UpdateStatus}
-        materials={viewMaterial?.viewMaterial?.Slug}
       />
       <LazyMotion features={domAnimation}>
         <div className="mx-auto flex max-w-5xl flex-row">
           <div className="flex h-adaptive w-full items-center justify-center">
             <m.div
               transition={{
-                duration: 1,
+                delay: 0.2,
+                duration: 0.8,
                 type: "spring",
-                stiffness: 50,
+                stiffness: 100,
               }}
               initial={{ opacity: 0, y: -100 }}
               animate={{ opacity: 1, y: 0 }}
-              className="h-[95%] rounded border-2 border-gray-300 bg-transparent p-2.5 shadow backdrop-blur-sm"
+              className="h-[95%] rounded border-2 border-gray-300 bg-white p-2.5 shadow"
             >
-              <div className="z-30 h-full w-full overflow-y-scroll rounded-md bg-gray-100 px-4 py-2.5">
+              <div className="z-30 h-full w-full overflow-y-scroll rounded-md bg-gray-50 px-4 py-2.5">
                 <div className="flex flex-col space-y-2 text-justify font-body">
                   <p className="text-center font-head text-2xl font-semibold text-secondary-400">
-                    {contents.viewContent[0]?.Title}
+                    {contents?.viewContent[0]?.Title}
                   </p>
                   <div className="prose prose-strong:text-bold max-w-none text-gray-600">
                     <Markdown
@@ -224,83 +185,4 @@ export default function ContentMaterial({
       </LazyMotion>
     </div>
   );
-
-  const disallowedViews = (
-    <>
-      <Head>
-        <title>Konten</title>
-        <link rel="icon" href="/icons/favicon.ico"></link>
-      </Head>
-      <LazyMotion features={domAnimation}>
-        <div className="max-width mx-auto flex h-screen flex-row items-center justify-center">
-          <m.div
-            transition={{
-              duration: 1,
-              type: "spring",
-              stiffness: 50,
-            }}
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex h-3/4 w-3/4 flex-col items-center justify-center rounded border-2 border-gray-300 bg-transparent shadow backdrop-blur-sm"
-          >
-            <div className="flex flex-col items-center justify-center">
-              <Image
-                className="transition duration-300 ease-in-out hover:scale-110"
-                src="/illustrations/notebook.svg"
-                alt="Restricted Content"
-                width={300}
-                height={300}
-                quality={50}
-              />
-              <p className="font-head text-2xl font-bold tracking-wider text-secondary-400">
-                Anda Belum Menyelesaikan Materi Sebelumnya
-              </p>
-            </div>
-            <button
-              className="button-primary my-8 w-max"
-              onClick={() => router.push("/material")}
-            >
-              Halaman Materi
-            </button>
-          </m.div>
-        </div>
-      </LazyMotion>
-    </>
-  );
-
-  if (slugMaterial === "data-definition-language") {
-    return allowedViews;
-  } else if (slugMaterial === "data-manipulation-language") {
-    const isComplete = progressDDL === 10;
-
-    if (isComplete) {
-      return allowedViews;
-    } else {
-      return disallowedViews;
-    }
-  } else if (slugMaterial === "data-control-language") {
-    const isComplete = progressDML === 7;
-
-    if (isComplete) {
-      return allowedViews;
-    } else {
-      return disallowedViews;
-    }
-  } else if (slugMaterial === "multitable") {
-    const isComplete = progressDCL === 2;
-
-    if (isComplete) {
-      return allowedViews;
-    } else {
-      return disallowedViews;
-    }
-  } else if (slugMaterial === "aggregate-function") {
-    const isComplete = progressJoin === 3;
-
-    if (isComplete) {
-      return allowedViews;
-    } else {
-      return disallowedViews;
-    }
-  }
 }

@@ -119,13 +119,14 @@ export default function User({ users, token, accounts }) {
             {/* Kolom Kiri */}
             <m.div
               transition={{
-                duration: 0.5,
+                delay: 0.2,
+                duration: 0.8,
                 type: "spring",
-                stiffness: 50,
+                stiffness: 100,
               }}
               initial={{ opacity: 0, x: -100 }}
               animate={{ opacity: 1, x: 0 }}
-              className="z-30 h-max w-[25%] rounded-md border-2 border-gray-300 bg-transparent shadow backdrop-blur-sm"
+              className="z-30 h-max w-[25%] rounded-md border-2 border-gray-300 bg-white shadow backdrop-blur-sm"
             >
               <SideMenu accounts={accounts} />
             </m.div>
@@ -138,7 +139,7 @@ export default function User({ users, token, accounts }) {
               }}
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
-              className="z-30 h-max w-[75%] space-y-2 rounded-md border-2 border-gray-300 bg-transparent p-2.5 shadow backdrop-blur-sm"
+              className="z-30 h-max w-[75%] space-y-2 rounded-md border-2 border-gray-300 bg-white p-2.5 shadow backdrop-blur-sm"
             >
               <div className="h-max w-full">
                 {/* Baris Atas */}

@@ -1,12 +1,11 @@
 import axios from "axios";
 import Head from "next/head";
-import Image from "next/image";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import Markdown from "react-markdown";
+import rehypePrism from "rehype-prism-plus";
 import remarkCodeTitles from "remark-flexible-code-titles";
 import { LazyMotion, domAnimation, m } from "framer-motion";
-import rehypePrism from "rehype-prism-plus";
 const NavbarPlayground = dynamic(
   () => import("@/components/Navbar/Playground"),
 );
@@ -58,45 +57,6 @@ export async function getServerSideProps(context) {
   const account = viewAccount.data?.data;
   const submittedAt = viewScore?.data;
   const score = viewScore?.data?.submitScore[0]?.Score || null;
-
-  const progressDDL = await axios
-    .get(process.env.BASE_URL + "/api/user/progress/data-definition-language", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
-  const progressDML = await axios
-    .get(
-      process.env.BASE_URL + "/api/user/progress/data-manipulation-language",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    )
-    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
-  const progressDCL = await axios
-    .get(process.env.BASE_URL + "/api/user/progress/data-control-language", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
-  const progressJoin = await axios
-    .get(process.env.BASE_URL + "/api/user/progress/multitable-join", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
-  const progressAF = await axios
-    .get(process.env.BASE_URL + "/api/user/progress/aggregate-function", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => response.data?.viewProgress[0]?._count?.Progress);
   const source = exercise?.Exercise[0]?.Question;
   return {
     props: {
@@ -106,11 +66,6 @@ export async function getServerSideProps(context) {
       account,
       exercise,
       sumScore,
-      progressDDL,
-      progressDML,
-      progressDCL,
-      progressJoin,
-      progressAF,
       submittedAt,
       queryExercise,
       queryMaterial,
@@ -120,10 +75,6 @@ export async function getServerSideProps(context) {
 export default function Playground({
   queryMaterial,
   submittedAt,
-  progressDDL,
-  progressDML,
-  progressDCL,
-  progressJoin,
   sumScore,
   exercise,
   account,
@@ -138,10 +89,10 @@ export default function Playground({
     setCurrentStatus(condition);
   }
   const accountRole = account?.Role;
-  const allowedViews = (
+  return (
     <div className="max-width max-height">
       <Head>
-        <title>Playground</title>
+        <title>{`Latihan - ${exercise?.Exercise[0]?.Title}`}</title>
         <link rel="icon" href="/icons/favicon.ico"></link>
       </Head>
       <NavbarPlayground
@@ -156,15 +107,16 @@ export default function Playground({
             {/* Kiri/Soal Latihan*/}
             <m.div
               transition={{
-                duration: 1,
+                delay: 0.2,
+                duration: 0.8,
                 type: "spring",
-                stiffness: 50,
+                stiffness: 100,
               }}
               initial={{ opacity: 0, x: -100 }}
               animate={{ opacity: 1, x: 0 }}
-              className="h-full w-[40%] rounded-md border-2 border-gray-300 bg-transparent p-2.5 shadow backdrop-blur-sm"
+              className="h-full w-[45%] rounded-md border-2 border-gray-300 bg-white p-2.5 shadow"
             >
-              <div className="h-full overflow-scroll rounded bg-gray-100 px-1.5">
+              <div className="h-full overflow-scroll rounded bg-gray-50 px-1.5">
                 <div
                   className={`space-y-2 ${
                     currentStatus === "TRUE" || score !== null
@@ -196,13 +148,14 @@ export default function Playground({
             {/* Kanan/Editor */}
             <m.div
               transition={{
-                duration: 1,
+                delay: 0.2,
+                duration: 0.8,
                 type: "spring",
-                stiffness: 50,
+                stiffness: 100,
               }}
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
-              className="h-full w-[60%] rounded-md border-2 border-gray-300 bg-transparent px-2.5 py-2 shadow backdrop-blur-sm"
+              className="h-full w-[55%] rounded-md border-2 border-gray-300 bg-white px-2.5 py-2 shadow"
             >
               <div className="h-full w-full overflow-scroll">
                 <EditorInput
@@ -222,80 +175,4 @@ export default function Playground({
       </LazyMotion>
     </div>
   );
-
-  const disallowedViews = (
-    <div className="max-width h-adaptive">
-      <Head>
-        <title>Playground</title>
-        <link rel="icon" href="/icons/favicon.ico"></link>
-      </Head>
-      <NavbarPlayground
-        roles={accountRole}
-        exercise={exercise}
-        sumScore={sumScore}
-        material={queryMaterial}
-      />
-      <LazyMotion features={domAnimation}>
-        <div className="max-width flex h-adaptive flex-col justify-center">
-          <m.div
-            transition={{
-              duration: 1,
-              type: "spring",
-              stiffness: 50,
-            }}
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mx-auto flex h-3/4 w-3/4 flex-col items-center justify-center rounded-md border-2 border-gray-300 bg-transparent shadow backdrop-blur-sm"
-          >
-            <div className="flex flex-col items-center justify-center pb-12">
-              <Image
-                className="transition duration-300 ease-in-out hover:scale-110"
-                src="/illustrations/notebook.svg"
-                width={300}
-                height={300}
-                quality={50}
-                priority={false}
-                alt="Restricted Content"
-              />
-              <p className="font-head text-2xl font-bold tracking-wider text-secondary-400">
-                Anda Belum Menyelesaikan Materi Sebelumnya
-              </p>
-            </div>
-          </m.div>
-        </div>
-      </LazyMotion>
-    </div>
-  );
-
-  if (queryMaterial === "data-definition-language") {
-    return allowedViews;
-  } else if (queryMaterial === "data-manipulation-language") {
-    const isComplete = progressDDL === 10;
-    if (isComplete) {
-      return allowedViews;
-    } else {
-      return disallowedViews;
-    }
-  } else if (queryMaterial === "data-control-language") {
-    const isComplete = progressDML === 7;
-    if (isComplete) {
-      return allowedViews;
-    } else {
-      return disallowedViews;
-    }
-  } else if (queryMaterial === "multitable") {
-    const isComplete = progressDCL === 2;
-    if (isComplete) {
-      return allowedViews;
-    } else {
-      return disallowedViews;
-    }
-  } else if (queryMaterial === "aggregate-function") {
-    const isComplete = progressJoin === 3;
-    if (isComplete) {
-      return allowedViews;
-    } else {
-      return disallowedViews;
-    }
-  }
 }

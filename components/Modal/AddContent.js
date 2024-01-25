@@ -112,13 +112,14 @@ export default function AddContent({ setShowAdd, materials }) {
   }
   return (
     <div className="flex h-auto w-full items-center justify-center">
-      <div className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50 backdrop-blur-sm">
+      <div className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50">
         <LazyMotion features={domAnimation}>
           <m.div
             transition={{
-              duration: 0.5,
+              delay: 0.2,
+              duration: 0.8,
               type: "spring",
-              stiffness: 50,
+              stiffness: 100,
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

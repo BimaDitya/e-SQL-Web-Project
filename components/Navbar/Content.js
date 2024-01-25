@@ -13,7 +13,7 @@ export default function NavbarContent({
   const studyEnd = status?.viewStatus?.Progress[0]?.End_Time;
 
   return (
-    <div className="sticky left-0 right-0 top-0 z-50 h-16 bg-transparent shadow backdrop-blur-sm">
+    <div className="sticky left-0 right-0 top-0 z-50 h-16 bg-white shadow">
       <nav className="mx-auto flex h-full max-w-5xl flex-row items-center">
         <div className="flex w-full items-center justify-between font-head">
           <button

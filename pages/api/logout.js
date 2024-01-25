@@ -1,4 +1,5 @@
 import cookie from "cookie";
+
 export default async function HandleLogout(req, res) {
   if (req.method !== "POST") return res.status(405).end();
   res.setHeader(
@@ -12,5 +13,4 @@ export default async function HandleLogout(req, res) {
   res.json({
     message: "Logout Berhasil",
   });
-  await prisma.$disconnect();
 }

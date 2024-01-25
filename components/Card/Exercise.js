@@ -22,7 +22,7 @@ export default function ExerciseCard({ material, exercise, index }) {
               {exercise.Title}
             </h6>
             <div className="button-primary">
-              <Link href={`${material.Slug}` + `/exercise/${exercise.Slug}`}>
+              <Link href={`${material[0].Slug}` + `/exercise/${exercise.Slug}`}>
                 Buka
               </Link>
             </div>

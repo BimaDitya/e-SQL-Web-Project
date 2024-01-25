@@ -1,12 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useState } from "react";
 import Public from "@/data/public.json";
 import MainLayout from "@/components/Layout/MainLayout";
 import { LazyMotion, domAnimation, m } from "framer-motion";
-import { useState } from "react";
 import BasicCompetencies from "@/components/About/BasicCompetencies";
-import AchievementIndicator from "@/components/About/AchievementIndicator";
 import LearningObjective from "@/components/About/LearningObjective";
+import AchievementIndicator from "@/components/About/AchievementIndicator";
 
 export default function Abouts() {
   // Tab
@@ -21,18 +21,23 @@ export default function Abouts() {
         <link rel="icon" href="icons/favicon.ico"></link>
       </Head>
       <LazyMotion features={domAnimation}>
-        <div className="flex-row bg-white/50">
+        <div className="flex-row">
           {/* Baris Pertama */}
           <div className="flex h-adaptive items-center">
             {/* Kiri */}
             <m.div
-              transition={{ duration: 0.5, type: "spring", stiffness: 50 }}
+              transition={{
+                delay: 0.2,
+                duration: 0.8,
+                type: "spring",
+                stiffness: 100,
+              }}
               initial={{ opacity: 0, x: -100 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className="z-30 ml-24 w-[65%] justify-start rounded-md border-2 border-gray-300 bg-transparent px-10 py-6 shadow backdrop-blur-sm"
+              className="z-30 ml-24 w-[65%] justify-start rounded-md border-2 border-gray-300 bg-white px-10 py-6 shadow backdrop-blur-sm"
             >
               <p className="pb-2 font-head text-2xl font-bold text-secondary-400">
-                Halo 👋🏻, Dengan{" "}
+                Halo 👋🏻, Dengan
                 <span className="text-primary-400">{` Bima `}</span>
                 Disini!
               </p>
@@ -42,7 +47,12 @@ export default function Abouts() {
             </m.div>
             {/* Kanan */}
             <m.div
-              transition={{ duration: 0.5, type: "spring", stiffness: 50 }}
+              transition={{
+                delay: 0.2,
+                duration: 0.8,
+                type: "spring",
+                stiffness: 100,
+              }}
               initial={{ opacity: 0, x: 100 }}
               whileInView={{ opacity: 1, x: 0 }}
               className="mr-40 flex w-[35%] justify-end"
@@ -67,10 +77,15 @@ export default function Abouts() {
             {/* Kiri */}
             <div className="flex h-max w-2/5 flex-row">
               <m.div
-                transition={{ duration: 0.5, type: "spring", stiffness: 50 }}
+                transition={{
+                  delay: 0.2,
+                  duration: 0.8,
+                  type: "spring",
+                  stiffness: 100,
+                }}
                 initial={{ opacity: 0, x: -100 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                className="z-30 h-max w-[92.5%] rounded-md border-2 border-gray-300 bg-transparent px-4 py-4 shadow backdrop-blur-sm"
+                className="z-30 h-max w-[92.5%] rounded-md border-2 border-gray-300 bg-white px-4 py-4 shadow backdrop-blur-sm"
               >
                 <ul className="w-full flex-row space-y-2">
                   <li className="transition duration-300 ease-in-out">
@@ -109,35 +124,50 @@ export default function Abouts() {
             {/* Kanan */}
             {/* Tab Kompetensi Dasar */}
             <m.div
-              transition={{ duration: 0.5, type: "spring", stiffness: 50 }}
+              transition={{
+                delay: 0.2,
+                duration: 0.8,
+                type: "spring",
+                stiffness: 100,
+              }}
               initial={{ opacity: 0, x: 100 }}
               whileInView={{ opacity: 1, x: 0 }}
               className={`${
                 tabs !== 1 && "hidden"
-              } z-30 w-full rounded-md border-2 border-gray-300 bg-transparent px-6 py-3.5 shadow backdrop-blur-sm`}
+              } z-30 w-full rounded-md border-2 border-gray-300 bg-white px-6 py-3.5 shadow backdrop-blur-sm`}
             >
               <BasicCompetencies />
             </m.div>
             {/* Tab Indikator Pencapaian */}
             <m.div
-              transition={{ duration: 0.5, type: "spring", stiffness: 50 }}
+              transition={{
+                delay: 0.2,
+                duration: 0.8,
+                type: "spring",
+                stiffness: 100,
+              }}
               initial={{ opacity: 0, x: 100 }}
               whileInView={{ opacity: 1, x: 0 }}
               className={`${
                 tabs !== 2 && "hidden"
-              } z-30 w-full rounded-md border-2 border-gray-300 bg-transparent px-6 py-3.5 shadow backdrop-blur-sm`}
+              } z-30 w-full rounded-md border-2 border-gray-300 bg-white px-6 py-3.5 shadow backdrop-blur-sm`}
             >
               <AchievementIndicator />
             </m.div>
 
             {/* Tab Tujuan Pembelajaran */}
             <m.div
-              transition={{ duration: 0.5, type: "spring", stiffness: 50 }}
+              transition={{
+                delay: 0.2,
+                duration: 0.8,
+                type: "spring",
+                stiffness: 100,
+              }}
               initial={{ opacity: 0, x: 100 }}
               whileInView={{ opacity: 1, x: 0 }}
               className={`${
                 tabs !== 3 && "hidden"
-              } z-30 w-full rounded-md border-2 border-gray-300 bg-transparent px-6 py-3.5 shadow backdrop-blur-sm`}
+              } z-30 w-full rounded-md border-2 border-gray-300 bg-white px-6 py-3.5 shadow backdrop-blur-sm`}
             >
               <LearningObjective />
             </m.div>

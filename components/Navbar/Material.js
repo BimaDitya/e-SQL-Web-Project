@@ -3,10 +3,10 @@ import ProgressBar from "@ramonak/react-progress-bar";
 
 export default function NavbarMaterial({ material, progress }) {
   const router = useRouter();
-  const totalContent = material?._count?.Content;
-  const currentProgress = progress?.viewProgress[0]?._count?.Progress;
+  const totalContent = material[0]?._count?.Content;
+  const currentProgress = progress[0]?._count?.Progress;
   return (
-    <div className="sticky left-0 right-0 top-0 z-50 h-16 bg-transparent shadow backdrop-blur-sm">
+    <div className="sticky left-0 right-0 top-0 z-50 h-16 bg-white shadow">
       <nav className="mx-auto flex h-full max-w-5xl flex-row items-center justify-between">
         <div className="flex w-full items-center justify-between font-head">
           <button
