@@ -1,0 +1,10 @@
+/* src/components/Component.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Assistant&family=Ysabeau&display=swap');
+
+.FontHead {
+  font-family: "Ysabeau";
+}
+
+.FontBody {
+  font-family: "Assistant";
+}

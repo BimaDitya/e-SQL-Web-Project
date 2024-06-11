@@ -1,0 +1,142 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+  // relationMode = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Roles {
+  ADMIN
+  USER
+}
+
+enum Status {
+  TRUE
+  FALSE
+}
+
+model Account {
+  Id        Int         @id @default(autoincrement())
+  Email     String      @unique(map: "Email") @db.VarChar(255)
+  Password  String      @db.Text
+  CreatedAt DateTime    @default(now()) @db.Timestamp(0)
+  Role      Roles       @default(USER)
+  Score     Score[]
+  Profile   Profile?
+  Progress  Progress[]
+  Result    Results[]
+  Durations Durations[]
+}
+
+// Account 1-1 Profile
+model Profile {
+  Id         Int     @id @default(autoincrement())
+  FirstName  String  @db.VarChar(255)
+  LastName   String  @db.VarChar(255)
+  School     String  @db.VarChar(255)
+  Account    Account @relation(fields: [FK_Account], references: [Id], onDelete: Cascade)
+  FK_Account Int     @unique // -> FK To Account
+}
+
+// Account 1-Many Progress
+// Material 1-Many Progress
+model Progress {
+  Id          Int      @id @default(autoincrement())
+  Slug        String   @unique
+  Complete    Status   @default(FALSE)
+  Start_Time  DateTime @db.Timestamp(0)
+  End_Time    DateTime @db.Timestamp(0)
+  Account     Account  @relation(fields: [FK_Account], references: [Id], onDelete: Cascade)
+  FK_Account  Int // -> FK To Account
+  Material    Material @relation(fields: [FK_Material], references: [Id], onDelete: Cascade)
+  FK_Material Int // -> FK To Material
+
+  @@index([FK_Account])
+  @@index([FK_Material])
+}
+
+model Material {
+  Id       Int        @id @default(autoincrement())
+  Title    String     @db.VarChar(255)
+  Desc     String     @db.Text
+  Slug     String     @unique
+  Content  Content[]
+  Progress Progress[]
+  Exercise Exercise[]
+}
+
+// Material 1-Many Content
+model Content {
+  Id          Int      @id @default(autoincrement())
+  Title       String   @db.VarChar(255)
+  Slug        String   @unique
+  Content     String   @db.Text
+  Material    Material @relation(fields: [FK_Material], references: [Id], onDelete: Cascade)
+  FK_Material Int // -> FK To Material
+
+  @@index([FK_Material])
+}
+
+// Material 1-Many Exercise
+model Exercise {
+  Id          Int      @id @default(autoincrement())
+  Slug        String   @unique @db.VarChar(255)
+  Title       String   @db.VarChar(255)
+  Question    String   @db.Text
+  Answer      String   @db.Text
+  Score       Float    @db.Real
+  Material    Material @relation(fields: [FK_Material], references: [Id], onDelete: Cascade)
+  FK_Material Int // <- FK To Material
+
+  @@index([FK_Material])
+}
+
+// Account 1-Many Score
+model Score {
+  Id          Int      @id @default(autoincrement())
+  SubmittedAt DateTime @default(now()) @db.Timestamp(0) // <- Waktu & Tanggal Pengumpulan
+  Score       Float    @default(0) @db.Real // <- Skor Dari Score Latihan
+  Trial       Float    @default(0) @db.Real // <- Jumlah Percobaan Menjawab Latihan
+  Exercise    String   @unique @db.VarChar(255) // <- Judul Soal Latihan
+  Account     Account  @relation(fields: [FK_Account], references: [Id], onDelete: Cascade)
+  FK_Account  Int // <- FK To Account
+
+  @@index([FK_Account])
+}
+
+model Exams {
+  Id       Int    @id @default(autoincrement())
+  Slug     String @unique @db.VarChar(255) // <- Slug Dari Tes
+  Title    String @db.VarChar(255) // <- Judul Tes
+  Question String @db.Text // <- Soal Tes
+  Answer   String @db.Text // <- Kunci Jawaban Dari Soal
+  Score    Float  @default(0) @db.Real // <- Skor Dari Tes
+}
+
+model Results {
+  Id         Int     @id @default(autoincrement())
+  Test       String  @default("") @db.VarChar(255)
+  Slug       String  @unique
+  Answer     String  @db.Text
+  Complete   Status  @default(FALSE)
+  Account    Account @relation(fields: [FK_Account], references: [Id], onDelete: Cascade)
+  FK_Account Int // <- FK To Account
+
+  @@index([FK_Account])
+}
+
+model Durations {
+  Id         Int      @id @default(autoincrement())
+  Test       String   @default("") @db.VarChar(255)
+  Start_Time DateTime @db.Timestamp(0)
+  End_Time   DateTime @db.Timestamp(0)
+  Duration   String   @default("00:00") @db.VarChar(255) // <- Menyimpan Durasi Pengerjaan Tes
+  Account    Account  @relation(fields: [FK_Account], references: [Id], onDelete: Cascade)
+  FK_Account Int // <- FK To Account
+
+  @@index([FK_Account])
+}

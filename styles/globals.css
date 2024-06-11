@@ -1,0 +1,149 @@
+@import "./syntax-highlighting.css";
+
+@media only screen and (max-width: 1024px),
+only screen and (max-height: 512px) {
+
+  .max-width,
+  .max-height {
+    display: none;
+  }
+}
+
+@tailwind base;
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+.content-none {
+  display: none;
+}
+
+pre[class*="language-"] {
+  @apply font-code;
+  padding: 1em;
+  margin: 0;
+  overflow: auto;
+  border-radius: 0 0 0.25em 0.25em;
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color),
+    0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @layer components {
+    .unordered-list {
+      @apply ml-5 list-disc;
+    }
+
+    .ordered-list {
+      @apply ml-5 list-decimal;
+    }
+
+    :not(pre)>code {
+      @apply p-[0.075] font-code text-sm font-bold text-secondary-400;
+    }
+
+    .table {
+      @apply w-full table-auto border-2 border-secondary-100 text-sm;
+    }
+
+    .table-head {
+      @apply bg-secondary-100 text-left font-head text-xs uppercase text-white;
+    }
+
+    .table-head-columns {
+      @apply w-max px-2 py-0.5;
+    }
+
+    .table-rows {
+      @apply border-b-2 border-secondary-100;
+    }
+
+    .table-data {
+      @apply max-w-xs px-2 py-0.5 text-justify;
+    }
+
+    .login-default-state {
+      @apply rounded bg-primary-50/50 px-6 py-2.5 text-primary-400 transition duration-300 ease-in-out hover:bg-primary-400 hover:text-white hover:shadow-lg;
+    }
+
+    .login-active-state {
+      @apply rounded bg-primary-400 px-6 py-2.5 text-white transition duration-300 ease-in-out hover:bg-primary-100 hover:shadow-lg;
+    }
+
+    .menu-default-state {
+      @apply px-5 py-3 text-gray-400 transition duration-500 ease-in-out hover:text-secondary-400;
+    }
+
+    .menu-active-state {
+      @apply border-b-2 border-primary-400 px-5 py-2 font-semibold text-primary-400 transition duration-500 ease-in-out hover:border-secondary-200 hover:text-secondary-200;
+    }
+
+    .dropdown-default {
+      @apply rounded bg-secondary-50/50 px-6 py-2.5 text-secondary-400 transition duration-300 ease-in-out hover:cursor-pointer hover:bg-secondary-200 hover:text-white hover:shadow-lg;
+    }
+
+    .dropdown-actives {
+      @apply rounded bg-secondary-400 px-6 py-2.5 text-white transition duration-300 ease-in-out hover:cursor-pointer hover:bg-secondary-200 hover:shadow-lg;
+    }
+
+    .dropdown-default-null {
+      @apply rounded bg-red-100 px-6 py-2.5 text-red-600 transition duration-300 ease-in-out hover:cursor-pointer hover:bg-red-400 hover:text-white hover:shadow-lg;
+    }
+
+    .dropdown-active-null {
+      @apply rounded bg-red-600/75 px-6 py-2.5 text-white transition duration-300 ease-in-out hover:cursor-pointer hover:bg-red-400 hover:shadow-lg;
+    }
+
+    .sidemenu-default-state {
+      @apply h-full w-full rounded bg-gray-100 px-2 py-2 text-gray-400 duration-300 ease-in-out hover:cursor-pointer hover:bg-secondary-200 hover:text-white;
+    }
+
+    .sidemenu-active-state {
+      @apply h-full w-full rounded bg-primary-400 px-2 py-2 text-white duration-300 ease-in-out hover:cursor-pointer hover:bg-primary-200 hover:text-white;
+    }
+
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+    }
+
+    .progressbar-container {
+      @apply rounded-sm border-2 border-primary-50 bg-gray-200;
+    }
+
+    .progressbar-container-empty {
+      @apply rounded-sm border-2 border-gray-300 bg-gray-200;
+    }
+
+    .progressbar-label {
+      @apply px-2 font-head text-sm font-semibold text-white;
+    }
+
+    .button-primary {
+      @apply rounded bg-primary-400 px-4 py-2 font-head text-white duration-300 ease-in-out hover:cursor-pointer hover:bg-primary-200 hover:shadow-md;
+    }
+
+    .button-secondary {
+      @apply rounded bg-secondary-400 px-4 py-2 font-head text-white duration-300 ease-in-out hover:cursor-pointer hover:bg-secondary-200 hover:text-white hover:shadow-md;
+    }
+
+    .button-default {
+      @apply rounded bg-gray-200 px-4 py-2 font-head text-gray-400 duration-300 ease-in-out hover:cursor-pointer hover:bg-secondary-200 hover:text-white hover:shadow-md;
+    }
+
+    .button-danger {
+      @apply rounded bg-red-400 px-4 py-2 font-head text-white duration-300 ease-in-out hover:cursor-pointer hover:bg-red-300 hover:text-white hover:shadow-md;
+    }
+
+    .button-success {
+      @apply rounded bg-green-400 px-4 py-2 font-head text-white transition duration-300 ease-in-out hover:bg-emerald-200 hover:shadow-md;
+    }
+  }
+}
