@@ -93,6 +93,9 @@ export default function LoginForm() {
   }
   return (
     <form noValidate className="space-y-4" onSubmit={handleSubmit(LoginHandle)}>
+      <p className="font-head text-xl font-bold text-primary-400">
+        Masuk Akun
+      </p>
       {/* Alamat Email */}
       <div className="flex flex-col">
         <label className="font-head text-secondary-400">Alamat Email</label>

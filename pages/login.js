@@ -40,7 +40,6 @@ export default function Login() {
             className="flex w-3/5 flex-row justify-between rounded-md border-2 border-gray-300 bg-white px-6 py-2 shadow backdrop-blur-sm"
           >
             <div className="flex w-3/5 flex-col justify-center p-4">
-              <p className="mb-4 font-head text-2xl font-bold text-primary-400"></p>
               {/* Login Form */}
               <LoginForm />
               <div className="pt-4 font-body text-sm font-medium text-secondary-400">

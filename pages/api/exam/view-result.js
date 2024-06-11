@@ -8,11 +8,11 @@ export default async function ViewResult(req, res) {
 
   const { test, slug } = req.query;
 
-  function proper(text) {
-    if (text && text.length > 0) {
-      return text.charAt(0).toUpperCase() + text.slice(1);
+  function proper(textViewResult) {
+    if (textViewResult && textViewResult.length > 0) {
+      return textViewResult.charAt(0).toUpperCase() + textViewResult.slice(1);
     } else {
-      return text;
+      return textViewResult;
     }
   }
 

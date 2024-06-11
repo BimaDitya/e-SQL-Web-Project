@@ -14,7 +14,7 @@ export default async function HandleLogin(req, res) {
     },
   });
   if (!accounts)
-    return res.status(401).end(`Email ${email.toUpperCase()} Tidak Terdaftar`);
+    return res.status(401).end(`Email Yang Anda Masukkan Tidak Terdaftar`);
 
   // Verify Password
   const verify = await bcrypt.compare(password, accounts.Password);

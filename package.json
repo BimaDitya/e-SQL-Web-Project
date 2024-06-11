@@ -50,11 +50,8 @@
     "typewriter-effect": "^2.21.0"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^14.0.4",
-    "cross-env": "^7.0.3",
     "prettier": "^3.2.4",
     "prettier-plugin-tailwindcss": "^0.5.11",
-    "prisma": "^5.15.0",
-    "supabase": "^1.167.4"
+    "prisma": "^5.15.0"
   }
 }

@@ -101,6 +101,9 @@ export default function RegistrationForm() {
       className="space-y-4"
       onSubmit={handleSubmit(SubmitRegisteration)}
     >
+      <p className="font-head text-xl font-bold text-primary-400">
+        Registrasi Akun
+      </p>
       {/* Alamat Email */}
       <div className="flex flex-col">
         <label className="font-head text-secondary-400">Alamat Email</label>
@@ -123,67 +126,63 @@ export default function RegistrationForm() {
           <p className="font-head text-sm text-red-400">Email Tidak Valid</p>
         )}
       </div>
-      <div className="flex flex-row justify-between space-x-4">
-        {/* Kata Sandi */}
-        <div className="flex w-full flex-col">
-          <label className="font-head text-secondary-400">Kata Sandi</label>
-          <input
-            name="password"
-            className="h-8 border-b-2 border-gray-200 bg-transparent font-body text-primary-400 outline-none transition ease-in-out hover:border-primary-400 focus:border-b-2 focus:border-primary-400"
-            type="password"
-            placeholder="Kata Sandi"
-            {...register("password", {
-              required: true,
-              minLength: 8,
-              pattern: {
-                value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
-              },
-            })}
-          />
-          {errors.password && errors.password.type === "required" && (
+      {/* Kata Sandi */}
+      <div className="flex w-full flex-col">
+        <label className="font-head text-secondary-400">Kata Sandi</label>
+        <input
+          name="password"
+          className="h-8 border-b-2 border-gray-200 bg-transparent font-body text-primary-400 outline-none transition ease-in-out hover:border-primary-400 focus:border-b-2 focus:border-primary-400"
+          type="password"
+          placeholder="Kata Sandi"
+          {...register("password", {
+            required: true,
+            minLength: 8,
+            pattern: {
+              value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
+            },
+          })}
+        />
+        {errors.password && errors.password.type === "required" && (
+          <p className="font-head text-sm text-red-400">Masukkan Kata Sandi</p>
+        )}
+        {errors.password && errors.password.type === "minLength" && (
+          <p className="font-head text-sm text-red-400">
+            Kata Sandi Minimal Harus Terdiri Dari 8 karakter
+          </p>
+        )}
+        {errors.password && errors.password.type === "pattern" && (
+          <p className="font-head text-sm text-red-400">
+            Kata Sandi Harus Mengandung Huruf Kapital, Huruf Kecil, Dan Angka
+          </p>
+        )}
+      </div>
+      {/* Konfirmasi Kata Sandi */}
+      <div className="flex w-full flex-col">
+        <label className="font-head text-secondary-400">
+          Konfirmasi Kata Sandi
+        </label>
+        <input
+          name="passwordConfirmation"
+          className="h-8 border-b-2 border-gray-200 bg-transparent font-body text-primary-400 outline-none transition ease-in-out hover:border-primary-400 focus:border-b-2 focus:border-primary-400"
+          type="password"
+          placeholder="Konfirmasi Kata Sandi"
+          {...register("passwordConfirmation", {
+            required: true,
+            validate: (value) => value === watch("password"),
+          })}
+        />
+        {errors.passwordConfirmation &&
+          errors.passwordConfirmation.type === "required" && (
             <p className="font-head text-sm text-red-400">
-              Masukkan Kata Sandi
+              Masukkan Ulang Kata Sandi
             </p>
           )}
-          {errors.password && errors.password.type === "minLength" && (
+        {errors.passwordConfirmation &&
+          errors.passwordConfirmation.type === "validate" && (
             <p className="font-head text-sm text-red-400">
-              Kata Sandi Minimal Harus Terdiri Dari 8 karakter
+              Kata Sandi Tidak Cocok!
             </p>
           )}
-          {errors.password && errors.password.type === "pattern" && (
-            <p className="font-head text-sm text-red-400">
-              Kata Sandi Harus Mengandung Huruf Kapital, Huruf Kecil, Dan Angka
-            </p>
-          )}
-        </div>
-        {/* Konfirmasi Kata Sandi */}
-        <div className="flex w-full flex-col">
-          <label className="font-head text-secondary-400">
-            Konfirmasi Kata Sandi
-          </label>
-          <input
-            name="passwordConfirmation"
-            className="h-8 border-b-2 border-gray-200 bg-transparent font-body text-primary-400 outline-none transition ease-in-out hover:border-primary-400 focus:border-b-2 focus:border-primary-400"
-            type="password"
-            placeholder="Konfirmasi Kata Sandi"
-            {...register("passwordConfirmation", {
-              required: true,
-              validate: (value) => value === watch("password"),
-            })}
-          />
-          {errors.passwordConfirmation &&
-            errors.passwordConfirmation.type === "required" && (
-              <p className="font-head text-sm text-red-400">
-                Masukkan Ulang Kata Sandi
-              </p>
-            )}
-          {errors.passwordConfirmation &&
-            errors.passwordConfirmation.type === "validate" && (
-              <p className="font-head text-sm text-red-400">
-                Kata Sandi Tidak Cocok!
-              </p>
-            )}
-        </div>
       </div>
       <div className="pt-2">
         <button
