@@ -2,7 +2,7 @@
 export default function LearningObjective() {
   return (
     <>
-      <div className="h-full overflow-y-scroll">
+      <div className="h-[75vh] overflow-y-scroll">
         {/* KD 3.4 & 4.4 */}
         <p className="font-head text-xl font-bold text-secondary-400">
           Tujuan Pembelajaran

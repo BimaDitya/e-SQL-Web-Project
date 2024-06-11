@@ -63,9 +63,10 @@ export default function Abouts() {
                     className="rounded-full"
                     src="/photos.png"
                     alt="My Photos"
-                    width={225}
-                    height={225}
-                    quality={50}
+                    priority
+                    width={200}
+                    height={200}
+                    quality={100}
                   />
                 </div>
               </div>
