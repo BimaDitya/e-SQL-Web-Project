@@ -36,13 +36,13 @@ export default function ProfileSetting({ accounts, token }) {
         <title>Profile</title>
         <link rel="icon" href="../icons/favicon.ico"></link>
       </Head>
-      <div className="mx-auto flex h-screen w-full max-w-5xl flex-row items-center justify-center bg-white/50">
+      <div className="mx-auto flex h-screen w-full max-w-5xl flex-row items-center justify-center">
         <LazyMotion features={domAnimation}>
           <m.div
             transition={{ duration: 1, type: "spring", stiffness: 75 }}
             initial={{ opacity: 0, y: -75 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex h-max w-[80%] flex-row items-center justify-center rounded-md border-2 border-gray-300 bg-transparent shadow backdrop-blur-sm"
+            className="flex h-max w-[80%] flex-row items-center justify-center rounded-md border-2 border-gray-300 bg-white shadow backdrop-blur-sm"
           >
             <div className="flex h-full w-full flex-col items-center justify-center px-6 py-3">
               {/* Judul */}
