@@ -57,7 +57,7 @@ export default function Home({ cookies }) {
                   </span>
                 </div>
               </div>
-              <p className="text-justify font-body text-gray-400 dark:text-white">
+              <p className="text-justify font-body text-gray-400">
                 {Public[0].index_desc}
               </p>
               <div className="flex flex-row space-x-4">

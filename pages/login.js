@@ -28,7 +28,7 @@ export default function Login() {
         <title>Login</title>
         <link rel="icon" href="icons/favicon.ico"></link>
       </Head>
-      <div className="flex flex-row items-center justify-center h-adaptive ">
+      <div className="flex h-adaptive flex-row items-center justify-center ">
         <LazyMotion features={domAnimation}>
           <m.div
             transition={{
@@ -39,12 +39,12 @@ export default function Login() {
             }}
             initial={{ opacity: 0, y: -75 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-row justify-between w-3/5 px-6 py-2 bg-white border-2 border-gray-300 rounded-md shadow backdrop-blur-sm"
+            className="flex w-3/5 flex-row justify-between rounded-md border-2 border-gray-200 bg-white px-6 py-2 shadow transition-colors duration-300 ease-in-out dark:border-gray-400 dark:bg-gray-600"
           >
-            <div className="flex flex-col justify-center w-3/5 p-4">
+            <div className="flex w-3/5 flex-col justify-center p-4">
               {/* Login Form */}
               <LoginForm />
-              <div className="pt-4 text-sm font-medium font-body text-secondary-400">
+              <div className="pt-4 font-body text-sm font-medium text-secondary-400 dark:text-sky-200">
                 Belum Memiliki Akun?&nbsp;
                 <Link
                   href="/registration"

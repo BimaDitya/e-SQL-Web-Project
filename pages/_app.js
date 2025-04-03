@@ -61,16 +61,16 @@ export default function App({ Component, pageProps }) {
           <Component {...pageProps} />
           <button
             onClick={darkMode}
-            className="absolute bottom-2 right-2 rounded-md border border-primary-400 bg-primary-50/50 p-2 text-primary-400 transition duration-300 ease-in-out hover:bg-primary-400 hover:text-white hover:shadow-lg dark:border-gray-200 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-200 dark:hover:text-gray-800"
+            className="fixed bottom-2 right-2 rounded-md border border-primary-400 bg-primary-50/50 p-2 text-primary-400 transition duration-300 ease-in-out hover:bg-primary-400 hover:text-white hover:shadow-lg dark:border-gray-200 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-200 dark:hover:text-gray-800 group"
           >
             {!isDark ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth={2}
+                strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-6"
+                className="size-6 group-hover:fill-white"
               >
                 <path
                   strokeLinecap="round"
@@ -83,9 +83,9 @@ export default function App({ Component, pageProps }) {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth={2}
+                strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-6"
+                className="size-6 group-hover:fill-gray-800"
               >
                 <path
                   strokeLinecap="round"

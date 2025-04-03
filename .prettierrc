@@ -6,8 +6,11 @@
   "plugins": ["prettier-plugin-tailwindcss"],
   "overrides": [
     {
-      "files": "*.js"
+      "files": "*.js",
+      "options": {
+        "parser": "typescript"
+      }
     },
-    { "files": "*.css" }
+    { "files": "*.css", "options": { "parser": "css" } }
   ]
 }

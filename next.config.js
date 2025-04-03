@@ -4,7 +4,16 @@ const nextConfig = {
   transpilePackages: ["@uiw/react-codemirror"],
   images: {
     formats: ["image/webp", "image/avif"],
-    domains: ["127.0.0.1"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "127.0.0.1",
+      },
+      {
+        protocol: "http",
+        hostname: "127.0.0.1",
+      },
+    ],
   },
   webpack(config, { isServer }) {
     config.module.rules.push({

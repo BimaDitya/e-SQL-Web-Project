@@ -134,7 +134,7 @@ pre[class*="language-"] {
     }
 
     .button-default {
-      @apply rounded bg-gray-200 px-4 py-2 font-head text-gray-400 duration-300 ease-in-out hover:cursor-pointer hover:bg-secondary-200 hover:text-white hover:shadow-md;
+      @apply rounded bg-gray-200 px-4 py-2 font-head text-gray-400 duration-300 ease-in-out hover:cursor-pointer hover:bg-secondary-400 hover:text-white hover:shadow-md;
     }
 
     .button-danger {

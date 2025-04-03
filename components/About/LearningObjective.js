@@ -4,7 +4,7 @@ export default function LearningObjective() {
     <>
       <div className="h-[75vh] overflow-y-scroll">
         {/* KD 3.4 & 4.4 */}
-        <p className="font-head text-xl font-bold text-secondary-400">
+        <p className="font-head text-xl font-bold text-secondary-400 dark:text-sky-200">
           Tujuan Pembelajaran
         </p>
         <ul className="mx-5 list-disc text-justify font-body text-gray-400">

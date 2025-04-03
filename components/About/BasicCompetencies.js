@@ -4,7 +4,7 @@ export default function BasicCompetencies() {
     <>
       {/* KD 3.4 & 4.4 */}
       <div className="pb-2">
-        <p className="font-head text-xl font-bold text-secondary-400">
+        <p className="font-head text-xl font-bold text-secondary-400 dark:text-sky-200">
           Kompetensi Dasar 3.4 & 4.4
         </p>
         <ul className="mx-5 list-disc text-justify font-body text-gray-400">
@@ -21,7 +21,7 @@ export default function BasicCompetencies() {
 
       {/* KD 3.9 & 4.9 */}
       <div className="pb-2">
-        <p className="font-head text-xl font-bold text-secondary-400">
+        <p className="font-head text-xl font-bold text-secondary-400 dark:text-sky-200">
           Kompetensi Dasar 3.9 & 4.9
         </p>
         <ul className="mx-5 list-disc text-justify font-body text-gray-400">
@@ -38,7 +38,7 @@ export default function BasicCompetencies() {
 
       {/* KD 3.14 & 4.14 */}
       <div className="pb-2">
-        <p className="font-head text-xl font-bold text-secondary-400">
+        <p className="font-head text-xl font-bold text-secondary-400 dark:text-sky-200">
           Kompetensi Dasar 3.14 & 4.14
         </p>
         <ul className="mx-5 list-disc text-justify font-body text-gray-400">

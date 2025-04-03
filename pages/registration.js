@@ -4,7 +4,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 const RegistrationForm = dynamic(
-  () => import("@/components/Form/RegistrationForm"),
+  () => import("@/components/Form/RegistrationForm")
 );
 const MainLayout = dynamic(() => import("@/components/Layout/MainLayout"));
 
@@ -38,12 +38,12 @@ export default function Registration() {
             }}
             initial={{ opacity: 0, y: -75 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex w-[62.5%] flex-row justify-between rounded-md border-2 border-gray-300 bg-white px-6 py-2 shadow backdrop-blur-sm"
+            className="flex w-[62.5%] flex-row justify-between rounded-md border-2 border-gray-200 bg-white px-6 py-2 shadow transition-colors duration-300 ease-in-out dark:border-gray-400 dark:bg-gray-600"
           >
             <div className="flex w-3/5 flex-col justify-center p-4">
               {/* Register Form*/}
               <RegistrationForm />
-              <div className="pt-4 font-body text-sm font-medium text-secondary-400">
+              <div className="pt-4 font-body text-sm font-medium text-secondary-400 dark:text-sky-200">
                 Sudah Memiliki Akun?&nbsp;
                 <Link
                   href="/login"

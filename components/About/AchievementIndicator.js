@@ -4,7 +4,7 @@ export default function AchievementIndicator() {
     <div className="h-full overflow-y-scroll">
       {/* KD 3.4 & 4.4 */}
       <div className="pb-2">
-        <p className="font-head text-xl font-bold text-secondary-400">
+        <p className="font-head text-xl font-bold text-secondary-400 dark:text-sky-200">
           Indikator Pencapaian 3.4.1 - 3.4.11 & 4.4.1
         </p>
         <ul className="mx-5 list-disc text-justify font-body text-gray-400">
@@ -25,7 +25,7 @@ export default function AchievementIndicator() {
 
       {/* KD 3.9 & 4.9 */}
       <div className="pb-2">
-        <p className="font-head text-xl font-bold text-secondary-400">
+        <p className="font-head text-xl font-bold text-secondary-400 dark:text-sky-200">
           Indikator Pencapaian 3.9.1 - 3.9.6 & 4.9.1 - 4.9.5
         </p>
         <ul className="mx-5 list-disc text-justify font-body text-gray-400">
@@ -47,7 +47,7 @@ export default function AchievementIndicator() {
 
       {/* KD 3.14 & 4.14 */}
       <div className="pb-2">
-        <p className="font-head text-xl font-bold text-secondary-400">
+        <p className="font-head text-xl font-bold text-secondary-400 dark:text-sky-200">
           Indikator Pencapaian 3.14.1 - 3.4.3 & 4.14.1 - 4.14.3
         </p>
         <ul className="mx-5 list-disc text-justify font-body text-gray-400">
