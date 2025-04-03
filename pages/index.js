@@ -40,10 +40,10 @@ export default function Home({ cookies }) {
               }}
               initial={{ opacity: 0, x: -100 }}
               animate={{ opacity: 1, x: 0 }}
-              className="z-30 space-y-2.5 rounded-md border-2 border-gray-300 bg-white px-4 py-6 shadow backdrop-blur-sm"
+              className="z-30 space-y-2.5 rounded-md border-2 border-gray-300 bg-white px-4 py-3.5 shadow dark:border-gray-400 dark:bg-gray-600"
             >
               <div className="w-full text-left font-head text-xl font-bold">
-                <div className="inline-flex w-full text-secondary-400">
+                <div className="inline-flex w-full text-secondary-400 dark:text-sky-200">
                   <p>Upgrade Skill & Pengetahuan SQL Kamu,&nbsp;</p>
                   <span className="text-xl text-primary-400">
                     <Typewriter
@@ -57,7 +57,7 @@ export default function Home({ cookies }) {
                   </span>
                 </div>
               </div>
-              <p className="text-justify font-body text-gray-400">
+              <p className="text-justify font-body text-gray-400 dark:text-white">
                 {Public[0].index_desc}
               </p>
               <div className="flex flex-row space-x-4">

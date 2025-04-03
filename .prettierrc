@@ -1,1 +1,13 @@
-{ "plugins": ["prettier-plugin-tailwindcss"], "pluginSearchDirs": false }
+{
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "jsxSingleQuote": false,
+  "pluginSearchDirs": false,
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "overrides": [
+    {
+      "files": "*.js"
+    },
+    { "files": "*.css" }
+  ]
+}

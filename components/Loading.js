@@ -21,7 +21,7 @@ export default function Loading() {
             fill="currentFill"
           />
         </svg>
-        <p className="font-head text-lg font-semibold text-secondary-400">
+        <p className="font-head text-lg font-semibold text-secondary-400 dark:text-sky-200">
           Loading...
         </p>
       </div>

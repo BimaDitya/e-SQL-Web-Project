@@ -60,14 +60,14 @@ export default function DetailUserGuide({ setShowDetail }) {
           animate={{ opacity: 1 }}
           className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50"
         >
-          <div className="mx-40 h-adaptive w-full rounded-lg bg-white px-8 py-4 shadow">
+          <div className="mx-40 h-adaptive w-full rounded-lg bg-white px-8 py-4 shadow dark:bg-gray-600">
             <div className="flex flex-row items-center justify-between pb-4">
-              <p className="font-head text-xl font-semibold text-secondary-400">
+              <p className="font-head text-xl font-bold text-secondary-400 dark:text-sky-200">
                 Panduan Pengguna
               </p>
               <button
                 onClick={() => setShowDetail(false)}
-                className="rounded-lg bg-gray-200 p-2 font-head text-gray-400 duration-300 ease-in-out hover:cursor-pointer hover:bg-red-400 hover:text-white hover:shadow-md"
+                className="rounded-lg bg-gray-200 p-2 font-head text-gray-400 duration-300 ease-in-out hover:cursor-pointer hover:bg-red-400 hover:text-white hover:shadow-md dark:bg-gray-800 dark:hover:bg-red-600"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
