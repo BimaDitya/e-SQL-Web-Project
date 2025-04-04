@@ -11,6 +11,7 @@
         "parser": "typescript"
       }
     },
-    { "files": "*.css", "options": { "parser": "css" } }
+    { "files": "*.css", "options": { "parser": "css" } },
+    { "files": "*.json", "options": { "parser": "json" } }
   ]
 }

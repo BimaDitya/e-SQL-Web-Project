@@ -32,14 +32,14 @@ export default function Exams({}) {
               transition={{ duration: 1, type: "spring", stiffness: 75 }}
               initial={{ opacity: 0, y: -75 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mx-auto flex h-max w-[75%] flex-row items-center justify-center rounded-md border-2 border-gray-300 bg-white shadow"
+              className="mx-auto flex h-max w-[75%] flex-row items-center justify-center rounded-md border-2 border-gray-200 bg-white shadow dark:border-gray-400 dark:bg-gray-600"
             >
               <div className="flex h-full w-full flex-col items-center justify-center space-y-2 px-4 py-2.5">
                 {/* Judul */}
-                <div className="flex h-max w-full flex-row items-center justify-between rounded-sm bg-gray-50 px-4 py-1.5">
+                <div className="flex h-max w-full flex-row items-center justify-between px-4 py-1.5">
                   <button
                     onClick={() => router.push("/")}
-                    className="flex w-max flex-row items-center font-head font-semibold text-secondary-400 outline-none transition duration-300 ease-in-out hover:text-secondary-200"
+                    className="flex w-max flex-row items-center font-head font-semibold text-secondary-400 outline-none transition duration-300 ease-in-out hover:text-secondary-200 dark:text-sky-200 dark:hover:text-white"
                   >
                     &#8592; Kembali
                   </button>
@@ -52,8 +52,8 @@ export default function Exams({}) {
                 </div>
                 {/* Konten */}
                 <div className="flex h-full w-full flex-row items-start space-x-2">
-                  <div className="flex h-max w-full flex-row items-center justify-between rounded-sm bg-gray-50 px-4 py-2.5">
-                    <ul className="list-inside list-disc space-y-2 px-2 font-body tracking-tight text-gray-600">
+                  <div className="flex h-max w-full flex-row items-center justify-between px-4 py-2.5">
+                    <ul className="list-inside list-disc space-y-2 px-2 font-body tracking-tight text-gray-600 dark:text-gray-200">
                       <li>
                         Tes terdiri dari dari dua jenis, yaitu: <b>Pretest</b>
                         &nbsp;dan&nbsp;<b>Posttest</b>.

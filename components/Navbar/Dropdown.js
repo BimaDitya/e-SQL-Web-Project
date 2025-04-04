@@ -102,10 +102,10 @@ export default function Dropdown({ data, cookies }) {
                     }}
                     initial={{ opacity: 0, y: -25 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="absolute z-10 my-1.5 w-max rounded-sm border-2 border-gray-300 border-opacity-25 bg-white shadow-md focus:outline-none"
+                    className="absolute z-10 my-1.5 w-max rounded-md border-2 border-gray-200 bg-white shadow-md focus:outline-none dark:border-gray-400 dark:bg-slate-600"
                   >
-                    <div className="space-y-2 px-6 py-2.5 text-gray-400">
-                      <div className="transition duration-300 ease-in-out hover:cursor-pointer hover:text-secondary-400">
+                    <div className="space-y-2 px-6 py-2.5 text-gray-400 dark:text-gray-200">
+                      <div className="transition duration-300 ease-in-out hover:cursor-pointer hover:text-secondary-400 dark:hover:text-sky-400">
                         <Link
                           href={`/profile/${data?.CreatedAt}`}
                           className="flex w-full flex-row items-center"
@@ -129,7 +129,7 @@ export default function Dropdown({ data, cookies }) {
                       </div>
                       <div
                         onClick={Logout}
-                        className="flex flex-row items-center transition duration-300 ease-in-out hover:cursor-pointer hover:text-red-600"
+                        className="flex flex-row items-center transition duration-300 ease-in-out hover:cursor-pointer hover:text-red-600 dark:hover:text-red-400"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

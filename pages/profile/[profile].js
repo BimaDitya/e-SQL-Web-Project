@@ -15,7 +15,7 @@ export async function getServerSideProps(context) {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    },
+    }
   );
   const accounts = account.data.data;
   if (!getCookies)
@@ -42,14 +42,14 @@ export default function ProfileSetting({ accounts, token }) {
             transition={{ duration: 1, type: "spring", stiffness: 75 }}
             initial={{ opacity: 0, y: -75 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex h-max w-[80%] flex-row items-center justify-center rounded-md border-2 border-gray-300 bg-white shadow backdrop-blur-sm"
+            className="flex h-max w-[80%] flex-row items-center justify-center rounded-md border-2 border-gray-200 bg-white shadow dark:border-gray-400 dark:bg-gray-600"
           >
             <div className="flex h-full w-full flex-col items-center justify-center px-6 py-3">
               {/* Judul */}
               <div className="flex h-full w-full flex-row items-baseline justify-between">
                 <button
                   onClick={() => router.push("/")}
-                  className="flex w-max flex-row items-center font-head font-semibold text-secondary-400 transition duration-300 ease-in-out hover:text-secondary-200"
+                  className="flex w-max flex-row items-center font-head font-semibold text-secondary-400 transition duration-300 ease-in-out hover:text-secondary-200 dark:text-sky-200 dark:hover:text-white"
                 >
                   &#8592; Kembali
                 </button>

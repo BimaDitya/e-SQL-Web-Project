@@ -245,10 +245,10 @@ export default function RegistrationForm() {
           {isConfirmPasswordTyping && (
             <button
               type="button"
-              onClick={passwordVisibility}
+              onClick={confirmPasswordVisibility}
               className="p-2 text-gray-600 transition duration-300 hover:text-primary-400 dark:text-sky-200 dark:hover:text-white"
             >
-              {showPassword ? (
+              {showConfirmPassword ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

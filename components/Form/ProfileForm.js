@@ -92,7 +92,7 @@ export default function ProfileForm({ accounts, token }) {
         <label className="font-head text-gray-400">Alamat Email (Aktif)</label>
         <input
           name="email"
-          className="h-8 border-b-2 border-gray-200 bg-transparent font-body text-gray-300 outline-none transition ease-in-out"
+          className="h-8 border-b-2 border-gray-200 bg-transparent font-body text-gray-400 outline-none transition ease-in-out"
           type="email"
           placeholder="Email"
           {...register("email", {
@@ -105,7 +105,9 @@ export default function ProfileForm({ accounts, token }) {
       <div className="flex flex-row justify-between space-x-4">
         {/* Nama Depan */}
         <div className="flex w-full flex-col">
-          <label className="font-head text-secondary-400">Nama Depan</label>
+          <label className="font-head text-secondary-400 dark:text-sky-200">
+            Nama Depan
+          </label>
           <input
             name="firstName"
             className="h-8 border-b-2 border-gray-200 bg-transparent font-body text-primary-400 outline-none transition ease-in-out hover:border-primary-400 focus:border-b-2 focus:border-primary-400"
@@ -137,7 +139,9 @@ export default function ProfileForm({ accounts, token }) {
         </div>
         {/* Nama Belakang */}
         <div className="flex w-full flex-col">
-          <label className="font-head text-secondary-400">Nama Belakang</label>
+          <label className="font-head text-secondary-400 dark:text-sky-200">
+            Nama Belakang
+          </label>
           <input
             name="lastName"
             className="h-8 border-b-2 border-gray-200 bg-transparent font-body text-primary-400 outline-none transition ease-in-out hover:border-primary-400 focus:border-b-2 focus:border-primary-400"
@@ -165,7 +169,9 @@ export default function ProfileForm({ accounts, token }) {
       </div>
       {/* Asal Sekolah */}
       <div className="flex w-full flex-col">
-        <label className="font-head text-secondary-400">Asal Sekolah</label>
+        <label className="font-head text-secondary-400 dark:text-sky-200">
+          Asal Sekolah
+        </label>
         <input
           name="school"
           className="h-8 border-b-2 border-gray-200 bg-transparent font-body text-primary-400 outline-none transition ease-in-out hover:border-primary-400 focus:border-b-2 focus:border-primary-400"
