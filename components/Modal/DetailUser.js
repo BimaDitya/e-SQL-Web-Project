@@ -32,12 +32,12 @@ export default function DetailUser({ user, setShowDetail }) {
           }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50"
+          className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/75"
         >
-          <div className="h-max w-[80%] rounded-lg bg-white px-8 py-4 shadow">
+          <div className="h-max w-[80%] rounded-lg bg-white px-8 py-4 shadow dark:bg-gray-600">
             <form noValidate className="space-y-4">
               <div className="flex flex-row justify-between">
-                <p className="font-head text-xl font-semibold text-secondary-400">
+                <p className="font-head text-xl font-semibold text-secondary-400 dark:text-sky-200 dark:text-sky-200">
                   Detail Pengguna
                 </p>
                 <button
@@ -65,7 +65,7 @@ export default function DetailUser({ user, setShowDetail }) {
                 <div className="flex w-full flex-row space-x-4">
                   {/* Email Pengguna */}
                   <div className="flex w-full flex-col">
-                    <label className="font-head text-secondary-400">
+                    <label className="font-head text-secondary-400 dark:text-sky-200">
                       Email
                     </label>
                     <input
@@ -80,7 +80,9 @@ export default function DetailUser({ user, setShowDetail }) {
                   </div>
                   {/* Role Pengguna */}
                   <div className="flex w-full flex-col">
-                    <label className="font-head text-secondary-400">Role</label>
+                    <label className="font-head text-secondary-400 dark:text-sky-200">
+                      Role
+                    </label>
                     <input
                       label="Role"
                       name="role"
@@ -96,7 +98,7 @@ export default function DetailUser({ user, setShowDetail }) {
                 <div className="flex w-full flex-row space-x-4">
                   {/* Nama Depan */}
                   <div className="flex w-full flex-col">
-                    <label className="font-head text-secondary-400">
+                    <label className="font-head text-secondary-400 dark:text-sky-200">
                       Nama Depan
                     </label>
                     <input
@@ -111,7 +113,7 @@ export default function DetailUser({ user, setShowDetail }) {
                   </div>
                   {/* Nama Belakang */}
                   <div className="flex w-full flex-col">
-                    <label className="font-head text-secondary-400">
+                    <label className="font-head text-secondary-400 dark:text-sky-200">
                       Nama Belakang
                     </label>
                     <input
@@ -129,7 +131,7 @@ export default function DetailUser({ user, setShowDetail }) {
                 <div className="flex w-full flex-row space-x-4 pb-6">
                   {/* Asal Sekolah */}
                   <div className="flex w-full flex-col">
-                    <label className="font-head text-secondary-400">
+                    <label className="font-head text-secondary-400 dark:text-sky-200">
                       Asal Sekolah
                     </label>
                     <input

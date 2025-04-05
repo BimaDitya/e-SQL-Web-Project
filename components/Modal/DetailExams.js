@@ -13,10 +13,10 @@ export default function DetailExams({ setShowExams, exams }) {
     setTabs(index);
   }
   const pretestDuration = exams?.Durations.filter(
-    (item) => item.Test === "Pretest",
+    (item) => item.Test === "Pretest"
   );
   const posttestDuration = exams?.Durations.filter(
-    (item) => item.Test === "Posttest",
+    (item) => item.Test === "Posttest"
   );
 
   const pretestExams = exams?.Result.filter((item) => item.Test === "Pretest");
@@ -33,7 +33,7 @@ export default function DetailExams({ setShowExams, exams }) {
 
   const nextPretest = () => {
     setCurrentPage((prev) =>
-      Math.min(Math.ceil(pretestExams.length / 1), prev + 1),
+      Math.min(Math.ceil(pretestExams.length / 1), prev + 1)
     );
   };
 
@@ -43,7 +43,7 @@ export default function DetailExams({ setShowExams, exams }) {
 
   const nextPosttest = () => {
     setCurrentPage((prev) =>
-      Math.min(Math.ceil(postestExams.length / 1), prev + 1),
+      Math.min(Math.ceil(postestExams.length / 1), prev + 1)
     );
   };
 
@@ -54,7 +54,7 @@ export default function DetailExams({ setShowExams, exams }) {
       .replace(/\d/g, "");
 
     const capitalizedString = formattedString.replace(/\b\w/g, (match) =>
-      match.toUpperCase(),
+      match.toUpperCase()
     );
     return capitalizedString;
   }
@@ -65,7 +65,7 @@ export default function DetailExams({ setShowExams, exams }) {
       .replace(/\d/g, "");
 
     const capitalizedString = formattedString.replace(/\b\w/g, (match) =>
-      match.toUpperCase(),
+      match.toUpperCase()
     );
     return capitalizedString;
   }
@@ -94,14 +94,14 @@ export default function DetailExams({ setShowExams, exams }) {
           animate={{ opacity: 1 }}
           className="fixed left-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-500/50"
         >
-          <div className="h-[80%] w-[80%] space-y-2 rounded-lg bg-white px-8 py-4 shadow">
+          <div className="h-[80%] w-[80%] space-y-2 rounded-lg bg-white px-8 py-4 shadow dark:bg-gray-600">
             <div className="flex flex-row items-center justify-between">
-              <p className="font-head text-xl font-semibold text-secondary-400">
+              <p className="font-head text-xl font-semibold text-secondary-400 dark:text-sky-200">
                 Detail Hasil Tes
               </p>
               <button
                 onClick={() => setShowExams(false)}
-                className="rounded-lg bg-gray-200 p-2 font-head text-gray-400 duration-300 ease-in-out hover:cursor-pointer hover:bg-red-400 hover:text-white hover:shadow-md"
+                className="dark:bg-dark-800 rounded-lg bg-gray-200 p-2 font-head text-gray-400 duration-300 ease-in-out hover:cursor-pointer hover:bg-red-400 hover:text-white hover:shadow-md dark:bg-red-600"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +120,7 @@ export default function DetailExams({ setShowExams, exams }) {
               </button>
             </div>
             <div className="h-[90%] space-y-1.5 overflow-scroll">
-              <div className="flex w-full justify-between rounded border border-gray-200 bg-gray-100 px-2.5 text-center font-head text-gray-400">
+              <div className="flex w-full justify-between rounded bg-gray-200 px-2.5 text-center font-head text-gray-400 dark:bg-gray-400">
                 <ul className="flex w-full flex-row items-center">
                   <li className="w-full transition duration-300 ease-in-out">
                     <button
@@ -151,15 +151,15 @@ export default function DetailExams({ setShowExams, exams }) {
                   tabs !== 1 && "hidden"
                 } flex h-max flex-col justify-between transition duration-300 ease-in-out`}
               >
-                <div className="flex w-full flex-col justify-between rounded border border-gray-200 bg-gray-100 px-2.5 py-1.5 font-head">
-                  <div className="flex flex-col items-start font-head text-secondary-400">
+                <div className="flex w-full flex-col justify-between rounded bg-gray-200 px-2.5 py-1.5 font-head dark:bg-gray-400">
+                  <div className="flex flex-col items-start font-head text-secondary-400 dark:text-sky-400">
                     <div className="flex w-full flex-row space-x-8">
-                      <div className="flex w-max flex-row text-gray-600">
+                      <div className="flex w-max flex-row text-gray-600 dark:text-gray-400">
                         <span>Selesai:&nbsp;</span>
-                        <span className="text-secondary-400">
+                        <span className="text-secondary-400 dark:text-sky-200">
                           {pretestDuration[0]
                             ? new Date(
-                                pretestDuration[0]?.End_Time,
+                                pretestDuration[0]?.End_Time
                               ).toLocaleString("in-IN", {
                                 timeZone: "Asia/Jakarta",
                               })
@@ -186,9 +186,9 @@ export default function DetailExams({ setShowExams, exams }) {
                 {Object.values(pretestPagination).map((item, index) => (
                   <div
                     key={index}
-                    className="flex w-full flex-col justify-between rounded border border-gray-200 bg-gray-100 px-2.5 py-2 font-head"
+                    className="flex w-full flex-col justify-between rounded bg-gray-200 px-2.5 py-2 font-head dark:bg-gray-400"
                   >
-                    <div className="flex w-full flex-row items-center justify-between text-secondary-400">
+                    <div className="flex w-full flex-row items-center justify-between text-secondary-400 dark:text-sky-200">
                       <span className="text-lg font-bold text-primary-400">
                         {pretestFormat(item?.Slug).toUpperCase()}
                       </span>
@@ -231,7 +231,7 @@ export default function DetailExams({ setShowExams, exams }) {
                         <span className="text-secondary-400">
                           {posttestDuration[0]
                             ? new Date(
-                                posttestDuration[0]?.End_Time,
+                                posttestDuration[0]?.End_Time
                               ).toLocaleString("in-IN", {
                                 timeZone: "Asia/Jakarta",
                               })

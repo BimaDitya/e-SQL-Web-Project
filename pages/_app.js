@@ -23,10 +23,16 @@ export default function App({ Component, pageProps }) {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    const theme = localStorage.getItem("dark");
+    const theme = localStorage.getItem("theme");
+
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
       setIsDark(true);
+    } else {
+      document.documentElement.classList.add("light");
+      document.documentElement.classList.remove("dark");
+      setIsDark(false);
     }
   }, []);
 
@@ -34,11 +40,12 @@ export default function App({ Component, pageProps }) {
     if (isDark) {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
+      setIsDark(false);
     } else {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
+      setIsDark(true);
     }
-    setIsDark(!isDark);
   };
   // Layout Umum
   return getLayout(
@@ -61,16 +68,16 @@ export default function App({ Component, pageProps }) {
           <Component {...pageProps} />
           <button
             onClick={darkMode}
-            className="fixed bottom-2 right-2 rounded-md border border-primary-400 bg-primary-50/50 p-2 text-primary-400 transition duration-300 ease-in-out hover:bg-primary-400 hover:text-white hover:shadow-lg dark:border-gray-200 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-200 dark:hover:text-gray-800 group"
+            className="border-primary-600 text-primary-600 hover:bg-primary-600 dark:border-secondary-dark-600 dark:bg-secondary-dark-200 dark:text-secondary-dark-600 dark:hover:bg-secondary-dark-600 group fixed bottom-2 left-2 rounded-md border bg-primary-200 p-2 transition duration-300 ease-in-out hover:text-white hover:shadow-lg dark:hover:text-white"
           >
             {!isDark ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth={1.5}
+                strokeWidth={1}
                 stroke="currentColor"
-                className="size-6 group-hover:fill-white"
+                className="fill-primary-600 size-6 group-hover:fill-white"
               >
                 <path
                   strokeLinecap="round"
@@ -83,9 +90,9 @@ export default function App({ Component, pageProps }) {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth={1.5}
+                strokeWidth={1}
                 stroke="currentColor"
-                className="size-6 group-hover:fill-gray-800"
+                className="fill-secondary-dark-600 size-6 group-hover:fill-white"
               >
                 <path
                   strokeLinecap="round"

@@ -40,12 +40,12 @@ export default function Home({ cookies }) {
               }}
               initial={{ opacity: 0, x: -100 }}
               animate={{ opacity: 1, x: 0 }}
-              className="z-30 space-y-2.5 rounded-md border-2 border-gray-300 bg-white px-4 py-3.5 shadow dark:border-gray-400 dark:bg-gray-600"
+              className="bg-background-light-subtle border border-background-light-overlay dark:border-background-dark-overlay dark:bg-background-dark-subtle z-30 space-y-2.5 rounded-md px-4 py-3.5 shadow transition-colors duration-300 ease-in-out"
             >
               <div className="w-full text-left font-head text-xl font-bold">
-                <div className="inline-flex w-full text-secondary-400 dark:text-sky-200">
+                <div className="text-secondary-600 dark:text-secondary-dark-800 inline-flex w-full">
                   <p>Upgrade Skill & Pengetahuan SQL Kamu,&nbsp;</p>
-                  <span className="text-xl text-primary-400">
+                  <span className="text-primary-600 dark:text-primary-dark-800 text-xl">
                     <Typewriter
                       options={{
                         strings: ["Dimanapun!", "Kapanpun!"],
@@ -57,7 +57,7 @@ export default function Home({ cookies }) {
                   </span>
                 </div>
               </div>
-              <p className="text-justify font-body text-gray-400">
+              <p className="text-text-light-base dark:text-text-dark-base text-justify font-body">
                 {Public[0].index_desc}
               </p>
               <div className="flex flex-row space-x-4">

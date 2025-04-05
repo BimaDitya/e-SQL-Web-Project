@@ -78,15 +78,15 @@ pre[class*="language-"] {
     }
 
     .menu-default-state {
-      @apply px-5 py-3 text-gray-400 transition duration-500 ease-in-out hover:text-secondary-400 dark:text-sky-200 dark:hover:text-white;
+      @apply text-text-light-muted dark:text-text-dark-muted hover:text-secondary-600 dark:hover:text-secondary-dark-600 px-5 py-3 font-semibold transition duration-500 ease-in-out;
     }
 
     .menu-active-state {
-      @apply border-b-2 border-primary-400 px-5 py-2 font-semibold text-primary-400 transition duration-500 ease-in-out hover:border-secondary-200 hover:text-secondary-200 dark:hover:border-white dark:hover:text-white;
+      @apply border-primary-600 text-primary-600 dark:text-primary-dark-800 dark:border-primary-dark-800 border-b-2 px-5 py-2 font-semibold transition duration-500 ease-in-out hover:border-primary-400 hover:text-primary-400 dark:hover:border-primary-400 dark:hover:text-primary-400;
     }
 
     .dropdown-default {
-      @apply rounded bg-secondary-200 px-6 py-2.5 text-white transition duration-300 ease-in-out hover:cursor-pointer hover:bg-secondary-200 hover:text-white hover:shadow-lg dark:bg-sky-200 dark:text-secondary-400 dark:hover:bg-secondary-200 dark:hover:text-white;
+      @apply rounded bg-secondary-600 px-6 py-2.5 text-white transition duration-300 ease-in-out hover:cursor-pointer hover:bg-secondary-400 hover:text-white hover:shadow-lg dark:bg-secondary-dark-600 dark:text-white dark:hover:bg-secondary-dark-800 dark:hover:text-white;
     }
 
     .dropdown-actives {
@@ -102,7 +102,7 @@ pre[class*="language-"] {
     }
 
     .sidemenu-default-state {
-      @apply h-full w-full rounded bg-gray-100 px-2 py-2 text-gray-400 duration-300 ease-in-out hover:cursor-pointer hover:bg-secondary-200 hover:text-white;
+      @apply h-full w-full rounded bg-gray-100 px-2 py-2 text-gray-400 duration-300 ease-in-out hover:cursor-pointer hover:bg-secondary-200 hover:text-white dark:bg-gray-400 dark:text-gray-200 dark:hover:bg-sky-200 dark:hover:text-secondary-200;
     }
 
     .sidemenu-active-state {
@@ -126,11 +126,11 @@ pre[class*="language-"] {
     }
 
     .button-primary {
-      @apply rounded bg-primary-400 px-4 py-2 font-head text-white duration-300 ease-in-out hover:cursor-pointer hover:bg-primary-200 hover:shadow-md;
+      @apply bg-primary-600 dark:bg-primary-dark-600 dark:hover:bg-primary-dark-800 rounded px-4 py-2 font-head text-white duration-300 ease-in-out hover:cursor-pointer hover:bg-primary-400 hover:shadow-md;
     }
 
     .button-secondary {
-      @apply rounded bg-secondary-400 px-4 py-2 font-head text-white duration-300 ease-in-out hover:cursor-pointer hover:bg-secondary-200 hover:text-white hover:shadow-md;
+      @apply bg-secondary-600 dark:bg-secondary-dark-600 dark:hover:bg-secondary-dark-800 rounded px-4 py-2 font-head text-white duration-300 ease-in-out hover:cursor-pointer hover:bg-secondary-400 hover:text-white hover:shadow-md;
     }
 
     .button-default {

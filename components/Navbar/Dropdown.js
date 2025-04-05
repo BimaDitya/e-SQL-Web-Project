@@ -11,8 +11,9 @@ import { LazyMotion, domAnimation, m } from "framer-motion";
 export default function Dropdown({ data, cookies }) {
   const alertWithSwal = withReactContent(Swal);
   const [toggle, setToggle] = useState(false);
-  const router = useRouter();
   const dropdown = useRef(null);
+  const router = useRouter();
+  const email = data?.Email?.toUpperCase();
   async function Logout() {
     await axios
       .post("/api/logout", {
@@ -47,7 +48,7 @@ export default function Dropdown({ data, cookies }) {
             >
               Sampai Jumpa,
               <p className="font-semibold text-green-500">
-                {` ${data?.Email?.toUpperCase()}` || `Guest`}
+                {email ? email : "Guest User"}
               </p>
             </div>
           ),
@@ -102,10 +103,10 @@ export default function Dropdown({ data, cookies }) {
                     }}
                     initial={{ opacity: 0, y: -25 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="absolute z-10 my-1.5 w-max rounded-md border-2 border-gray-200 bg-white shadow-md focus:outline-none dark:border-gray-400 dark:bg-slate-600"
+                    className="border-background-light-overlay bg-background-light-elevated dark:border-background-dark-overlay dark:bg-background-dark-elevated absolute z-10 my-1.5 w-max rounded-md border shadow-md focus:outline-none"
                   >
-                    <div className="space-y-2 px-6 py-2.5 text-gray-400 dark:text-gray-200">
-                      <div className="transition duration-300 ease-in-out hover:cursor-pointer hover:text-secondary-400 dark:hover:text-sky-400">
+                    <div className="space-y-2 px-6 py-2.5 text-text-light-muted dark:text-text-dark-muted">
+                      <div className="transition duration-300 ease-in-out hover:cursor-pointer hover:text-secondary-400 dark:hover:text-secondary-dark-800">
                         <Link
                           href={`/profile/${data?.CreatedAt}`}
                           className="flex w-full flex-row items-center"

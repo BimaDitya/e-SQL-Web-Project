@@ -9,7 +9,7 @@ const DetailUser = dynamic(() => import("@/components/Modal/DetailUser"));
 const MainLayout = dynamic(() => import("@/components/Layout/MainLayout"));
 const DetailScore = dynamic(() => import("@/components/Modal/DetailScore"));
 const DetailProgress = dynamic(
-  () => import("@/components/Modal/DetailProgress"),
+  () => import("@/components/Modal/DetailProgress")
 );
 const DetailExams = dynamic(() => import("@/components/Modal/DetailExams"));
 
@@ -30,7 +30,7 @@ export async function getServerSideProps(context) {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    },
+    }
   );
   const user = await axios.get(process.env.BASE_URL + "/api/admin/view-user", {
     headers: {
@@ -126,7 +126,7 @@ export default function User({ users, token, accounts }) {
               }}
               initial={{ opacity: 0, x: -100 }}
               animate={{ opacity: 1, x: 0 }}
-              className="z-30 h-max w-[25%] rounded-md border-2 border-gray-300 bg-white shadow backdrop-blur-sm"
+              className="z-30 h-max w-[25%] rounded-md border-2 border-gray-200 bg-white shadow transition-colors duration-300 ease-in-out dark:border-gray-400 dark:bg-gray-600"
             >
               <SideMenu accounts={accounts} />
             </m.div>
@@ -139,12 +139,12 @@ export default function User({ users, token, accounts }) {
               }}
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
-              className="z-30 h-max w-[75%] space-y-2 rounded-md border-2 border-gray-300 bg-white p-2.5 shadow backdrop-blur-sm"
+              className="z-30 h-max w-[75%] space-y-2 rounded-md border-2 border-gray-200 bg-white p-2.5 shadow transition-colors duration-300 ease-in-out dark:border-gray-400 dark:bg-gray-600"
             >
               <div className="h-max w-full">
                 {/* Baris Atas */}
                 <div className="flex w-full flex-row items-center justify-between rounded">
-                  <p className="pb-2 font-head text-xl font-bold text-secondary-400">
+                  <p className="pb-2 font-head text-xl font-bold text-secondary-400 dark:text-sky-200">
                     Daftar Pengguna
                   </p>
                 </div>
@@ -186,12 +186,12 @@ export default function User({ users, token, accounts }) {
                           </th>
                         </tr>
                       </thead>
-                      <tbody className="bg-gray-50 font-body text-sm text-gray-500">
+                      <tbody className="bg-gray-100 font-body text-sm text-gray-500 dark:bg-gray-700 dark:text-gray-100">
                         {Object.values(records).map((Rows, index) => {
                           const totalScore = (Rows?.Score).reduce(
                             (accumulator, scoreElement) =>
                               accumulator + scoreElement.Score,
-                            0,
+                            0
                           );
                           return (
                             <m.tr

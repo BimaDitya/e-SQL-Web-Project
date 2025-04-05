@@ -5,11 +5,10 @@ export default function SideMenu({ accounts }) {
   const router = useRouter();
   return (
     <div className="px-3.5 py-2.5">
-      <div className="mb-2.5">
-        <p className="font-head text-secondary-400">Selamat Datang Admin,</p>
-        <p className="font-head text-lg font-semibold text-primary-400">
-          {accounts.Profile?.FirstName} {accounts.Profile?.LastName}
-        </p>
+      <div className="mb-2.5 font-head font-medium">
+        <personalbar className="flex items-center text-secondary-400 dark:text-sky-200">
+          Selamat Datang {`${accounts.Profile?.FirstName}`}
+        </personalbar>
       </div>
       <div className="space-y-4">
         <ul className="flex flex-col space-y-2">

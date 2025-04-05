@@ -10,8 +10,8 @@ export default function Navbar({ isLoading, cookies, data }) {
   if (isLoading)
     return (
       <div className="sticky left-0 right-0 top-0 z-50 h-16">
-        <nav className="flex h-full items-center justify-center bg-white shadow transition-colors duration-300 ease-in-out dark:bg-gray-600">
-          <div className="font-head text-secondary-200 dark:text-sky-200">
+        <nav className="flex h-full items-center justify-center bg-background-light-subtle shadow transition-colors duration-300 ease-in-out dark:bg-background-dark-subtle">
+          <div className="font-head text-text-light-base dark:text-text-dark-base">
             <Loading />
           </div>
         </nav>
@@ -19,7 +19,7 @@ export default function Navbar({ isLoading, cookies, data }) {
     );
   return (
     <>
-      <div className="sticky left-0 right-0 top-0 z-50 h-16 bg-white shadow duration-300 ease-in-out dark:bg-gray-600">
+      <div className="sticky left-0 right-0 top-0 z-50 h-16 bg-background-light-subtle shadow duration-300 ease-in-out dark:bg-background-dark-subtle">
         <nav className="mx-auto flex h-full max-w-5xl flex-row items-center">
           <div className={`flex w-full items-center justify-between font-head`}>
             <div>
