@@ -8,25 +8,36 @@ export default async function HandleRegistration(req, res) {
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
   try {
-    const registration = await prisma.account.create({
-      data: {
-        Email: email.toLowerCase(),
-        Password: hash,
-      },
+    const account = await prisma.account.findFirst({
+      where: email.toLowerCase(),
     });
-    res.status(201);
-    res.json({
-      Message: "Registrasi Akun Berhasil",
-      registration,
-    });
+
+    if (!account) {
+      const registration = await prisma.account.create({
+        data: {
+          Email: email.toLowerCase(),
+          Password: hash,
+        },
+      });
+      res.status(201);
+      res.json({
+        Message: "Registrasi Akun Berhasil",
+        registration,
+      });
+    } else {
+      res.status(401);
+      res.json({
+        Message: `Email ${email.toUpperCase()} Telah Terdaftar`,
+        error,
+      });
+    }
     await prisma.$disconnect();
   } catch (error) {
     res.status(401);
     res.json({
-      Message: `Email ${email.toUpperCase()} Telah Terdaftar`,
-      error
+      Message: "Terjadi Kesalahan Pada Server!",
+      error,
     });
-    console.log(error)
     await prisma.$disconnect();
   }
 }

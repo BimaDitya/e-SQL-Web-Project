@@ -10,7 +10,7 @@ export default async function HandleLogin(req, res) {
   // Check Account
   const accounts = await prisma.account.findUnique({
     where: {
-      Email: email,
+      Email: email.toLowerCase(),
     },
   });
   if (!accounts)
