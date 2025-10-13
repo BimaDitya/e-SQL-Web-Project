@@ -7,17 +7,14 @@ export default async function HandleLogin(req, res) {
     if (req.method !== 'POST') return res.status(405).end()
     const { email, password } = req.body
 
-    try {
-        // Check Account
-        const accounts = await prisma.account.findUnique({
-            where: {
-                Email: email.toLowerCase(),
-            },
-        })
-        if (!accounts)
-            return res
-                .status(401)
-                .end(`Email Yang Anda Masukkan Tidak Terdaftar`)
+  // Check Account
+  const accounts = await prisma.account.findUnique({
+    where: {
+      Email: email,
+    },
+  });
+  if (!accounts)
+    return res.status(401).end(`Email Yang Anda Masukkan Tidak Terdaftar`);
 
         // Verify Password
         const verify = await bcrypt.compare(password, accounts.Password)
